@@ -17,7 +17,7 @@ function stocks({ data }) {
               ? data.map((product, index) => (
                   <Link
                     key={index}
-                    href={`/product?name=${product.fields.productName}&id=${product.sys.id}&category=${product.fields.productType}`}
+                    href={`/product/${product.sys.id}`}
                     className="group"
                   >
                     <div className=" w-full overflow-hidden rounded-lg bg-gray-200 p-6 ">
@@ -61,7 +61,7 @@ function stocks({ data }) {
   );
 }
 
-export const getServerSideProps = async (ctx) => {
+export const getStaticProps = async (ctx) => {
   const response = await client.getEntries();
   const entries = response.items;
   // const fields = entries.map((item) => item.fields);

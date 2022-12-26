@@ -13,7 +13,7 @@ const index = ({ data }) => {
         <nav aria-label="Breadcrumb">
           <ol
             role="list"
-            className="mx-auto flex flex-wrap max-w-2xl items-start gap-x-2 gap-y-4 px-4 sm:px-6 lg:max-w-7xl lg:px-8"
+            className="font-poppins mx-auto flex flex-wrap max-w-2xl items-start gap-x-2 gap-y-4 px-4 sm:px-6 lg:max-w-7xl lg:px-8"
           >
             <li>
               <div className="flex items-center">
@@ -59,7 +59,7 @@ const index = ({ data }) => {
             </li>
             <li className="text-sm">
               <Link
-                href={`/product?name=${product.fields.productName}&id=${product.sys.id}&category=${product.fields.productType}`}
+                href={`/products/${product.sys.id}`}
                 aria-current="page"
                 className="font-medium text-gray-500 hover:text-gray-600"
               >
@@ -71,7 +71,7 @@ const index = ({ data }) => {
 
         {/* Image gallery */}
         <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
-          <div className="aspect-w-3 aspect-h-4 hidden overflow-hidden rounded-lg lg:block">
+          <div className="aspect-w-4 aspect-h-5 sm:overflow-hidden sm:rounded-lg lg:aspect-w-3 lg:aspect-h-4">
             <img
               src={product.fields.productAssets[0].fields.file.url}
               alt={product.fields.productAssets[0].fields.title}
@@ -94,7 +94,7 @@ const index = ({ data }) => {
               />
             </div>
           </div>
-          <div className="aspect-w-4 aspect-h-5 sm:overflow-hidden sm:rounded-lg lg:aspect-w-3 lg:aspect-h-4">
+          <div className="aspect-w-3 aspect-h-4 hidden overflow-hidden rounded-lg lg:block">
             <img
               src={product.fields.productAssets[3].fields.file.url}
               alt={product.fields.productAssets[3].fields.title}
@@ -106,17 +106,24 @@ const index = ({ data }) => {
         {/* Product info */}
         <div className="mx-auto max-w-2xl px-4 pt-10 pb-16 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pt-16 lg:pb-24">
           <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
-            <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+            <h1 className="font-poppins text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
               {product.fields.productName}
             </h1>
           </div>
 
           {/* Options */}
-          <div className="mt-4 lg:row-span-3 lg:mt-0">
+          <div className="mt-10 lg:row-span-3 lg:mt-0">
             <h2 className="sr-only">Product information</h2>
-            <p className="font-rubik font-semibold text-3xl tracking-tight text-gray-900">
-              Rs. {product.fields.productPrice}
-            </p>
+            <div className="flex flex-row flex-wrap items-center justify-between gap-3">
+              <p className="font-poppins font-bold text-3xl tracking-tight text-gray-900">
+                Rs. {product.fields.productPrice}
+              </p>
+              {product.fields.skuId ? (
+                <p className="font-poppins font-semibold px-6 border py-3 bg-slate-100 rounded-lg text-black cursor-pointer active:bg-slate-200 duration-200 select-none">
+                  SKU ID - {product.fields.skuId}
+                </p>
+              ) : null}
+            </div>
 
             {/* Reviews */}
             {/* <div className="mt-6">
@@ -139,50 +146,49 @@ const index = ({ data }) => {
             </div>
           </div> */}
 
-            <form className="mt-10">
+            <form className="mt-10 font-poppins">
               {/* Colors */}
               <div>
                 <h3 className="text-sm font-medium text-gray-900">Color</h3>
-                <p className="capitalize mt-3 font-semibold p-3 bg-slate-100 rounded-lg text-center cursor-pointer select-none active:bg-slate-200 duration-200">
+                <p className="capitalize mt-3 font-semibold p-3 bg-slate-100 text-black rounded-lg text-center cursor-pointer select-none active:bg-slate-200 duration-200">
                   {product.fields.productColor}
                 </p>
               </div>
 
               {/* Sizes */}
               <div className="mt-10">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-medium text-gray-900">Size</h3>
-                </div>
-                <div className="font-rubik flex justify-center items-center p-3 mt-3 rounded-lg bg-slate-100 gap-4">
+                <h3 className="text-sm font-medium text-gray-900">Size</h3>
+                <div className="font-poppins flex flex-row flex-wrap justify-center items-center p-3 mt-3 rounded-lg bg-slate-100 gap-y-0 gap-x-1">
                   <div className="p-2 rounded-md flex items-center justify-between text-sm font-medium text-slate-800 cursor-pointer active:bg-slate-200 duration-200 select-none">
                     Length:{" "}
-                    <span className="font-semibold text-slate-800">
+                    <span className="font-semibold text-black">
                       {product.fields.productLength} cm
                     </span>
                   </div>
                   <div className="p-2 rounded-md flex items-center justify-between text-sm font-medium text-slate-600 cursor-pointer bg-slate-100 active:bg-slate-200 duration-200 select-none">
                     Breadth:{" "}
-                    <span className="font-semibold text-slate-800">
+                    <span className="font-semibold text-black">
                       {product.fields.productBreadth} cm
                     </span>
                   </div>
                   <div className="p-2 rounded-md flex items-center justify-between text-sm font-medium text-slate-600 cursor-pointer bg-slate-100 active:bg-slate-200 duration-200 select-none">
                     Height:{" "}
-                    <span className="font-semibold text-slate-800">
+                    <span className="font-semibold text-black">
                       {product.fields.productHeight} cm
                     </span>
                   </div>
                 </div>
 
-                <div className="mt-10 text-center">
+                <div className="mt-10">
+                  <h3 className="text-sm font-medium text-gray-900">Stock</h3>
                   {product.fields.productInStock ? (
-                    <p className="capitalize mt-3 font-semibold p-3 bg-slate-100 rounded-lg cursor-pointer active:bg-slate-200 duration-200 select-none">
+                    <p className="capitalize text-center mt-3 font-semibold p-3 bg-slate-100 rounded-lg cursor-pointer active:bg-slate-200 duration-200 select-none">
                       {" "}
                       <span className="text-green-500">In Stock</span> and ready
                       to ship
                     </p>
                   ) : (
-                    <p className="capitalize mt-3 font-semibold p-3 bg-slate-100 rounded-lg text-rose-500 cursor-pointer active:bg-slate-200 duration-200 select-none">
+                    <p className="capitalize text-center mt-3 font-semibold p-3 bg-slate-100 rounded-lg text-rose-500 cursor-pointer active:bg-slate-200 duration-200 select-none">
                       Out of Stock
                     </p>
                   )}
@@ -207,7 +213,10 @@ const index = ({ data }) => {
               <h3 className="text-sm font-medium text-gray-900">Highlights</h3>
 
               <div className="mt-4">
-                <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
+                <ul
+                  role="list"
+                  className="list-disc space-y-2 pl-4 text-sm leading-loose"
+                >
                   {product.fields.productHighlight
                     ? product.fields.productHighlight
                         .split("--")
@@ -227,7 +236,7 @@ const index = ({ data }) => {
               <h2 className="text-sm font-medium text-gray-900">Details</h2>
 
               <div className="mt-4 space-y-6">
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-600 leading-loose">
                   {product.fields.productDetails}
                 </p>
               </div>

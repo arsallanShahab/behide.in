@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import logo from "../public/behide-logo-new.png";
+import menu from "../public/menu.svg";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
@@ -32,9 +33,14 @@ const Header = () => {
 
   return (
     <>
-      <div className="relative bg-white text-black group/header font-poppins header flex flex-row justify-between flex-wrap items-center py-3 px-8 border-b w-full z-[501]">
+      <div className="relative bg-white text-black group/header font-poppins header flex flex-row justify-between flex-wrap items-center py-3 px-3 sm:px-8 border-b w-full z-[501]">
         <div className="p-4 max-w-[100px] rounded-lg">
-          <Image src={logo} alt="behide logo" className="w-full" />
+          <Image
+            src={logo}
+            alt="behide logo"
+            // placeholder="blur"
+            className="w-full"
+          />
         </div>
         <div className="pl-3 flex items-center justify-end">
           <ul
@@ -132,16 +138,17 @@ const Header = () => {
           </ul>
           <div
             onClick={toggleMenu}
-            className="max-w-[50px] p-3 group/menu cursor-pointer block sm:hidden"
+            className="max-w-[50px] h-auto pr-3 group/menu cursor-pointer block sm:hidden"
           >
-            <svg
+            {/* <svg
               className="fill-slate-600 group-hover/menu:fill-green-600 duration-200"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 512 512"
               width={"100%"}
             >
               <path d="M61.1 224C45 224 32 211 32 194.9c0-1.9 .2-3.7 .6-5.6C37.9 168.3 78.8 32 256 32s218.1 136.3 223.4 157.3c.5 1.9 .6 3.7 .6 5.6c0 16.1-13 29.1-29.1 29.1H61.1zM144 128c0-8.8-7.2-16-16-16s-16 7.2-16 16s7.2 16 16 16s16-7.2 16-16zm240 16c8.8 0 16-7.2 16-16s-7.2-16-16-16s-16 7.2-16 16s7.2 16 16 16zM272 96c0-8.8-7.2-16-16-16s-16 7.2-16 16s7.2 16 16 16s16-7.2 16-16zM16 304c0-26.5 21.5-48 48-48H448c26.5 0 48 21.5 48 48s-21.5 48-48 48H64c-26.5 0-48-21.5-48-48zm16 96c0-8.8 7.2-16 16-16H464c8.8 0 16 7.2 16 16v16c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V400z" />
-            </svg>
+            </svg> */}
+            <Image src={menu} width={30} />
           </div>
         </div>
       </div>

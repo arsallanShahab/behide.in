@@ -1,5 +1,15 @@
+import { useRouter } from "next/router";
+import PageHead from "../components/PageHead";
+
 const index = () => {
-  return <div>Bulk & Corporate</div>;
+  const router = useRouter();
+  const path = router.pathname.replace("/", "");
+  return (
+    <>
+      <PageHead pageTitle={path} />
+      <div>bulk/corporate</div>
+    </>
+  );
 };
 
 export default index;

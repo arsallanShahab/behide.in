@@ -1,16 +1,19 @@
 import Head from "next/head";
 
-const PageHead = ({ pageTitle }) => {
+const PageHead = ({ pageTitle = "" }) => {
   return (
-    <Head>
-      <title>Behide {pageTitle ? ` - ${pageTitle}` : ""}</title>
-      <meta
-        name="description"
-        content={`Behide - A leather product company ${
-          pageTitle ? `| ${pageTitle}` : ""
-        } `}
-      />
-    </Head>
+    <div>
+      <Head>
+        <title>{`Behide - ${pageTitle}`}</title>
+        <meta
+          name="description"
+          content={`Behide - A leather product company ${
+            pageTitle ? "| ${pageTitle}" : ""
+          } `}
+        />
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
+    </div>
   );
 };
 

@@ -32,7 +32,7 @@ const Header = () => {
 
   return (
     <>
-      <div className="relative group/header font-poppins header flex flex-row justify-between flex-wrap items-center py-3 px-8 border-b w-full z-[501]">
+      <div className="relative bg-white group/header font-poppins header flex flex-row justify-between flex-wrap items-center py-3 px-8 border-b w-full z-[501]">
         <div className="p-4 max-w-[100px] rounded-lg">
           <Image src={logo} alt="behide logo" className="w-full" />
         </div>

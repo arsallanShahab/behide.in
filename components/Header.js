@@ -11,6 +11,7 @@ const Header = () => {
     "Backpack",
     "Briefcase",
     "Laptop Bag",
+    "Messenger Bag",
     "Luggage Bag",
     "Ladies Bag",
     "Belt",
@@ -31,7 +32,7 @@ const Header = () => {
 
   return (
     <>
-      <div className="relative group/header font-poppins header flex flex-row justify-between sm:justify-start flex-wrap items-center py-3 px-8 border-b w-full z-[501]">
+      <div className="relative group/header font-poppins header flex flex-row justify-between flex-wrap items-center py-3 px-8 border-b w-full z-[501]">
         <div className="p-4 max-w-[100px] rounded-lg">
           <Image src={logo} alt="behide logo" className="w-full" />
         </div>
@@ -58,7 +59,7 @@ const Header = () => {
 
                 <div className="flex justify-start sm:justify-center">
                   <div className="relative inline-block">
-                    <span className="inline-block mx-1">PRODUCTS</span>
+                    <span className="inline-block mx-1">CATEGORY</span>
                     <svg
                       className="w-5 h-5 mx-1 inline-block"
                       viewBox="0 0 24 24"
@@ -84,7 +85,7 @@ const Header = () => {
                         return (
                           <Link
                             key={index}
-                            href={`/products/${item.toLowerCase()}`}
+                            href={`/products/category/${item.toLowerCase()}`}
                             className="block px-4 py-3 text-[0.8rem] capitalize duration-200 transform rounded-md text-black font-normal  hover:bg-gray-100 hover:text-green-600"
                           >
                             {item}
@@ -95,6 +96,14 @@ const Header = () => {
                   </div>
                 </div>
               </div>
+            </li>
+            <li className="w-full sm:w-auto py-1 sm:py-0 px-6 sm:px-0">
+              <Link
+                className="inline-block px-3 py-3 rounded-lg w-full sm:w-auto hover:bg-green-100 hover:text-green-800 duration-200"
+                href="/products"
+              >
+                PRODUCTS
+              </Link>
             </li>
             <li className="w-full sm:w-auto py-1 sm:py-0 px-6 sm:px-0">
               <Link
@@ -110,14 +119,6 @@ const Header = () => {
                 href="/hot-products"
               >
                 HOT PRODUCTS
-              </Link>
-            </li>
-            <li className="w-full sm:w-auto py-1 sm:py-0 px-6 sm:px-0">
-              <Link
-                className="inline-block px-3 py-3 rounded-lg w-full sm:w-auto hover:bg-green-100 hover:text-green-800 duration-200"
-                href="/stocks"
-              >
-                STOCK
               </Link>
             </li>
             <li className="w-full sm:w-auto py-1 sm:py-0 px-6 sm:px-0">

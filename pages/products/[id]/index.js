@@ -1,5 +1,6 @@
 import Link from "next/link";
 import safeJsonStringify from "safe-json-stringify";
+import PageHead from "../../../components/PageHead";
 import { client } from "../../../lib/contentful";
 
 const index = ({ data }) => {
@@ -7,14 +8,13 @@ const index = ({ data }) => {
   const { id, product } = data;
   return (
     <div className="bg-white">
+      <PageHead pageTitle={product.fields.productName} />
       <div className="pt-6">
         <nav aria-label="Breadcrumb">
           <ol
             role="list"
             className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8"
           >
-            {/* {product.breadcrumbs.map((breadcrumb) => (
-          ))} */}
             <li>
               <div className="flex items-center">
                 <Link
@@ -39,7 +39,7 @@ const index = ({ data }) => {
             <li>
               <div className="flex items-center">
                 <Link
-                  href={`/products/${product.fields.productType}`}
+                  href={`/products/category/${product.fields.productType}`}
                   className="mr-2 text-sm font-semibold text-gray-900"
                 >
                   {product.fields.productType}
@@ -114,7 +114,7 @@ const index = ({ data }) => {
           {/* Options */}
           <div className="mt-4 lg:row-span-3 lg:mt-0">
             <h2 className="sr-only">Product information</h2>
-            <p className="text-3xl tracking-tight text-gray-900">
+            <p className="font-rubik font-semibold text-3xl tracking-tight text-gray-900">
               Rs. {product.fields.productPrice}
             </p>
 
@@ -146,40 +146,12 @@ const index = ({ data }) => {
                 <p className="capitalize mt-3 font-semibold p-3 bg-slate-100 rounded-lg text-center cursor-pointer select-none active:bg-slate-200 duration-200">
                   {product.fields.productColor}
                 </p>
-
-                {/* <RadioGroup value={selectedColor} onChange={setSelectedColor} className="mt-4">
-                <RadioGroup.Label className="sr-only"> Choose a color </RadioGroup.Label>
-                <div className="flex items-center space-x-3">
-                  {product.colors.map((color) => (
-                  <RadioGroup.Option key={color.name} value={color} className={({ active, checked })=>
-                    classNames(
-                    color.selectedClass,
-                    active && checked ? 'ring ring-offset-1' : '',
-                    !active && checked ? 'ring-2' : '',
-                    '-m-0.5 relative p-0.5 rounded-full flex items-center justify-center cursor-pointer
-                    focus:outline-none'
-                    )
-                    }
-                    >
-                    <RadioGroup.Label as="span" className="sr-only">
-                      {' '}
-                      {color.name}{' '}
-                    </RadioGroup.Label>
-                    <span aria-hidden="true" className={classNames(
-                      color.class, 'h-8 w-8 border border-black border-opacity-10 rounded-full' )} />
-                  </RadioGroup.Option>
-                  ))}
-                </div>
-              </RadioGroup> */}
               </div>
 
               {/* Sizes */}
               <div className="mt-10">
                 <div className="flex items-center justify-between">
                   <h3 className="text-sm font-medium text-gray-900">Size</h3>
-                  {/* <a href="#" className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                  Size guide
-                </a> */}
                 </div>
                 <div className="font-rubik flex justify-center items-center p-3 mt-3 rounded-lg bg-slate-100 gap-4">
                   <div className="p-2 rounded-md flex items-center justify-between text-sm font-medium text-slate-800 cursor-pointer active:bg-slate-200 duration-200 select-none">
@@ -203,7 +175,6 @@ const index = ({ data }) => {
                 </div>
 
                 <div className="mt-10 text-center">
-                  {/* <h3 className='text-sm font-medium text-gray-900'>Stock</h3> */}
                   {product.fields.productInStock ? (
                     <p className="capitalize mt-3 font-semibold p-3 bg-slate-100 rounded-lg cursor-pointer active:bg-slate-200 duration-200 select-none">
                       {" "}
@@ -216,55 +187,12 @@ const index = ({ data }) => {
                     </p>
                   )}
                 </div>
-
-                {/* <RadioGroup value={selectedSize} onChange={setSelectedSize} className="mt-4">
-                <RadioGroup.Label className="sr-only"> Choose a size </RadioGroup.Label>
-                <div className="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
-                  {product.sizes.map((size) => (
-                  <RadioGroup.Option key={size.name} value={size} disabled={!size.inStock} className={({ active })=>
-                    classNames(
-                    size.inStock
-                    ? 'bg-white shadow-sm text-gray-900 cursor-pointer'
-                    : 'bg-gray-50 text-gray-200 cursor-not-allowed',
-                    active ? 'ring-2 ring-indigo-500' : '',
-                    'group relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium
-                    uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6'
-                    )
-                    }
-                    >
-                    {({ active, checked }) => (
-                    <>
-                      <RadioGroup.Label as="span">{size.name}</RadioGroup.Label>
-                      {size.inStock ? (
-                      <span className={classNames( active ? 'border' : 'border-2' , checked ? 'border-indigo-500'
-                        : 'border-transparent' , 'pointer-events-none absolute -inset-px rounded-md' )}
-                        aria-hidden="true" />
-                      ) : (
-                      <span aria-hidden="true"
-                        className="pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200">
-                        <svg className="absolute inset-0 h-full w-full stroke-2 text-gray-200" viewBox="0 0 100 100"
-                          preserveAspectRatio="none" stroke="currentColor">
-                          <line x1={0} y1={100} x2={100} y2={0} vectorEffect="non-scaling-stroke" />
-                        </svg>
-                      </span>
-                      )}
-                    </>
-                    )}
-                  </RadioGroup.Option>
-                  ))}
-                </div>
-              </RadioGroup> */}
               </div>
-
-              {/* <button type="submit"
-              className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-              Buy now
-            </button> */}
             </form>
           </div>
 
+          {/* Description and details */}
           <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pt-6 lg:pb-16 lg:pr-8">
-            {/* Description and details */}
             <div>
               <h3 className="sr-only">Description</h3>
 
@@ -281,14 +209,16 @@ const index = ({ data }) => {
               <div className="mt-4">
                 <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
                   {product.fields.productHighlight
-                    .split("--")
-                    .map((highlight, index) =>
-                      highlight.length < 5 ? null : (
-                        <li key={index} className="text-gray-400">
-                          <span className="text-gray-600">{highlight}</span>
-                        </li>
-                      )
-                    )}
+                    ? product.fields.productHighlight
+                        .split("--")
+                        .map((highlight, index) =>
+                          highlight.length < 5 ? null : (
+                            <li key={index} className="text-gray-400">
+                              <span className="text-gray-600">{highlight}</span>
+                            </li>
+                          )
+                        )
+                    : null}
                 </ul>
               </div>
             </div>
@@ -315,7 +245,6 @@ export const getStaticProps = async (ctx) => {
   const response = await client.getEntry(`${id}`);
   const fields = safeJsonStringify(response);
   const data = JSON.parse(fields);
-  console.log(response);
   return {
     props: {
       data: { id, product: data },

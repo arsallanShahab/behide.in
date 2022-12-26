@@ -1,23 +1,25 @@
 import Link from "next/link";
-import { useState } from "react";
-import safeJsonStringify from "safe-json-stringify";
-import { client } from "../lib/contentful";
+import { useRouter } from "next/router";
+import PageHead from "../../../components/PageHead";
+import { client } from "../../../lib/contentful";
 
-function stocks({ data }) {
-  console.log(data);
-
+const index = ({ data }) => {
+  // console.log(data);
+  const router = useRouter();
+  const { category } = router.query;
   return (
     <>
+      <PageHead pageTitle={category} />
       <div className="bg-white">
-        <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
-          <h2 className="text-4xl font-bold pt-2 pb-8">Products</h2>
+        <div className="mx-auto max-w-2xl py-16 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+          <h2 className="text-4xl font-bold pb-10 capitalize">{category}</h2>
 
           <div className="grid grid-cols-1 gap-y-10 gap-x-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
             {data
-              ? data.map((product, index) => (
+              ? data.products.items.map((product, index) => (
                   <Link
                     key={index}
-                    href={`/product/${product.sys.id}`}
+                    href={`/products/${product.sys.id}`}
                     className="group"
                   >
                     <div className=" w-full overflow-hidden rounded-lg bg-gray-200 p-6 ">
@@ -59,21 +61,37 @@ function stocks({ data }) {
       </div>
     </>
   );
-}
+};
 
 export const getStaticProps = async (ctx) => {
-  const response = await client.getEntries();
-  const entries = response.items;
-  // const fields = entries.map((item) => item.fields);
-  // const fields = safeJsonStringify(entries.map((item) => item.fields));
-  const fields = safeJsonStringify(entries);
-  const data = JSON.parse(fields);
+  //   const { name, category, id } = ctx.query;
+  const { category } = ctx.params;
+  const response = await client.getEntries({
+    content_type: "blog",
+    "fields.productType": category,
+  });
+  console.log(response);
 
   return {
     props: {
-      data: data,
+      data: { products: !!response ? response : [""] },
     },
   };
 };
 
-export default stocks;
+export const getStaticPaths = async () => {
+  const response = await client.getEntries();
+  const entries = response.items;
+  const categories = entries.map((item, index) => item.fields.productType);
+  const paths = categories.map((item) => ({
+    params: {
+      category: item.toString(),
+    },
+  }));
+  return {
+    paths,
+    fallback: false,
+  };
+};
+
+export default index;

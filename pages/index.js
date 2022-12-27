@@ -7,7 +7,7 @@ import Header from "../components/PageHead";
 import { client } from "../lib/contentful";
 
 export default function Home({ data }) {
-  // console.log(data);
+  console.log(data);
   const { bannerImages } = data;
   return (
     <>

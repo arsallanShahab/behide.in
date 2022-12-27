@@ -4,7 +4,7 @@ import PageHead from "../../../components/PageHead";
 import { client } from "../../../lib/contentful";
 
 const index = ({ data }) => {
-  // console.log(data);
+  console.log(data);
   const router = useRouter();
   const { category } = router.query;
   return (

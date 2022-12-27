@@ -242,7 +242,7 @@ export const getStaticProps = async (ctx) => {
 };
 
 export const getStaticPaths = async () => {
-  const response = await client.getEntries();
+  const response = await client.getEntries({ content_type: "blog" });
   const entries = response.items;
   const ids = entries.map((item, index) => item.sys.id);
   const paths = ids.map((item) => ({

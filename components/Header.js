@@ -1,12 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 import logo from "../public/behide-logo-new.png";
 import menu from "../public/menu.svg";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
   const [dropdown, setDropdown] = useState(false);
+  const router = useRouter();
 
   const productCategory = [
     "Backpack",
@@ -31,22 +33,27 @@ const Header = () => {
     setDropdown((prev) => !prev);
   };
 
+  useEffect(() => {
+    setDropdown(false);
+    setOpen(false);
+  }, [router.asPath]);
+
   return (
     <>
       <div className="relative bg-white text-black group/header font-poppins header flex flex-row justify-between flex-wrap items-center py-3 px-3 sm:px-8 border-b w-full z-[501]">
         <div className="p-4 max-w-[100px] rounded-lg">
           <Image
+            priority={true}
             src={logo}
             alt="behide logo"
-            // placeholder="blur"
             className="w-full"
           />
         </div>
-        <div className="pl-3 flex items-center justify-end">
-          <ul
-            style={{ top: open ? "100%" : "-500%" }}
-            className="text-xs font-[600] m-0 right-0 top-full sm:top-auto flex items-center absolute sm:relative border sm:border-none p-4 sm:p-0 w-full  sm:right-auto bg-white flex-col sm:flex-row gap-1 duration-500 z-500 sm:z-auto"
-          >
+        <div
+          style={{ top: open ? "100%" : "-600%" }}
+          className="flex items-center justify-end absolute sm:relative left-0 w-full sm:w-auto top-full sm:top-auto"
+        >
+          <ul className="text-xs font-[600] m-0 flex items-center border w-full sm:w-auto sm:border-none py-8 sm:p-0 sm:right-auto bg-white flex-col sm:flex-row gap-1  z-500 sm:z-auto">
             <li className="w-full sm:w-auto py-1 sm:py-0 px-6 sm:px-0">
               <Link
                 className="inline-block px-3 py-3 rounded-lg w-full sm:w-auto hover:bg-green-100 hover:text-green-800 duration-200"
@@ -136,11 +143,12 @@ const Header = () => {
               </Link>
             </li>
           </ul>
-          <div
-            onClick={toggleMenu}
-            className="max-w-[50px] h-auto pr-3 group/menu cursor-pointer block sm:hidden"
-          >
-            {/* <svg
+        </div>
+        <div
+          onClick={toggleMenu}
+          className="max-w-[50px] h-auto pr-3 group/menu cursor-pointer block sm:hidden"
+        >
+          {/* <svg
               className="fill-slate-600 group-hover/menu:fill-green-600 duration-200"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 512 512"
@@ -148,8 +156,7 @@ const Header = () => {
             >
               <path d="M61.1 224C45 224 32 211 32 194.9c0-1.9 .2-3.7 .6-5.6C37.9 168.3 78.8 32 256 32s218.1 136.3 223.4 157.3c.5 1.9 .6 3.7 .6 5.6c0 16.1-13 29.1-29.1 29.1H61.1zM144 128c0-8.8-7.2-16-16-16s-16 7.2-16 16s7.2 16 16 16s16-7.2 16-16zm240 16c8.8 0 16-7.2 16-16s-7.2-16-16-16s-16 7.2-16 16s7.2 16 16 16zM272 96c0-8.8-7.2-16-16-16s-16 7.2-16 16s7.2 16 16 16s16-7.2 16-16zM16 304c0-26.5 21.5-48 48-48H448c26.5 0 48 21.5 48 48s-21.5 48-48 48H64c-26.5 0-48-21.5-48-48zm16 96c0-8.8 7.2-16 16-16H464c8.8 0 16 7.2 16 16v16c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V400z" />
             </svg> */}
-            <Image src={menu} width={30} />
-          </div>
+          <Image src={menu} width={30} />
         </div>
       </div>
     </>

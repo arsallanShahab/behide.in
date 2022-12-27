@@ -6,14 +6,37 @@
 @tailwind components;
 @tailwind utilities;
 
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
-
 * {
   box-sizing: border-box;
+}
+
+.slideshow .swiper-button-prev,
+.slideshow .swiper-button-next {
+  height: 70px;
+  width: 70px;
+  background: #fff;
+  color: #141e27;
+  border-radius: 50%;
+  transition: 150ms ease;
+}
+.slideshow .swiper-button-prev::after,
+.slideshow .swiper-button-next::after {
+  /* font-size: 1em; */
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
+  margin-top: 0.05em;
+}
+.slideshow .swiper-button-prev:hover,
+.slideshow .swiper-button-next:hover {
+  box-shadow: 0 0 20px -5px rgba(#141e27, 1);
+}
+
+.slideshow .swiper-button-next::after {
+  content: ">";
+  margin-left: 5px;
+}
+
+.slideshow .swiper-button-prev::after {
+  content: "<";
+  margin-left: -5px;
 }

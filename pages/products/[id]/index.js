@@ -6,6 +6,7 @@ import { client } from "../../../lib/contentful";
 const index = ({ data }) => {
   console.log(data);
   const { id, product } = data;
+
   return (
     <div className="bg-white">
       <PageHead pageTitle={product.fields.productName} />
@@ -70,12 +71,12 @@ const index = ({ data }) => {
         </nav>
 
         {/* Image gallery */}
-        <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
+        <div className="mx-auto mt-6 max-w-2xl items-center self-center justify-center sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
           <div className="aspect-w-4 aspect-h-5 sm:overflow-hidden sm:rounded-lg lg:aspect-w-3 lg:aspect-h-4">
             <img
               src={product.fields.productAssets[0].fields.file.url}
               alt={product.fields.productAssets[0].fields.title}
-              className="h-full w-full object-cover object-center"
+              className="h-[60vh] sm:h-full w-full object-cover object-center"
             />
           </div>
           <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
@@ -98,7 +99,7 @@ const index = ({ data }) => {
             <img
               src={product.fields.productAssets[3].fields.file.url}
               alt={product.fields.productAssets[3].fields.title}
-              className="h-full w-full object-cover object-center"
+              className="w-full object-cover object-center"
             />
           </div>
         </div>
@@ -125,27 +126,6 @@ const index = ({ data }) => {
               ) : null}
             </div>
 
-            {/* Reviews */}
-            {/* <div className="mt-6">
-            <h3 className="sr-only">Reviews</h3>
-            <div className="flex items-center">
-              <div className="flex items-center">
-                {[0, 1, 2, 3, 4].map((rating) => (
-                <StarIcon key={rating} className={classNames( reviews.average> rating ? 'text-gray-900' :
-                  'text-gray-200',
-                  'h-5 w-5 flex-shrink-0'
-                  )}
-                  aria-hidden="true"
-                  />
-                  ))}
-              </div>
-              <p className="sr-only">{reviews.average} out of 5 stars</p>
-              <a href={reviews.href} className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                {reviews.totalCount} reviews
-              </a>
-            </div>
-          </div> */}
-
             <form className="mt-10 font-poppins">
               {/* Colors */}
               <div>
@@ -160,21 +140,21 @@ const index = ({ data }) => {
                 <h3 className="text-sm font-medium text-gray-900">Size</h3>
                 <div className="font-poppins flex flex-row flex-wrap justify-center items-center p-3 mt-3 rounded-lg bg-slate-100 gap-y-0 gap-x-1">
                   <div className="p-2 rounded-md flex items-center justify-between text-sm font-medium text-slate-800 cursor-pointer active:bg-slate-200 duration-200 select-none">
-                    Length:{" "}
+                    Length:
                     <span className="font-semibold text-black">
-                      {product.fields.productLength} cm
+                      {`  ${product.fields.productLength}cm`}
                     </span>
                   </div>
                   <div className="p-2 rounded-md flex items-center justify-between text-sm font-medium text-slate-600 cursor-pointer bg-slate-100 active:bg-slate-200 duration-200 select-none">
                     Breadth:{" "}
                     <span className="font-semibold text-black">
-                      {product.fields.productBreadth} cm
+                      {`  ${product.fields.productBreadth}cm`}
                     </span>
                   </div>
                   <div className="p-2 rounded-md flex items-center justify-between text-sm font-medium text-slate-600 cursor-pointer bg-slate-100 active:bg-slate-200 duration-200 select-none">
                     Height:{" "}
                     <span className="font-semibold text-black">
-                      {product.fields.productHeight} cm
+                      {`  ${product.fields.productHeight}cm`}
                     </span>
                   </div>
                 </div>

@@ -3,7 +3,7 @@ const Collection = () => {
     <div className="bg-white">
       <div className="mx-auto max-w-7xl px-6 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl py-16 sm:py-24 lg:max-w-none lg:py-32">
-          <h2 className="font-poppins text-4xl font-bold text-gray-900">
+          <h2 className="font-poppins text-3xl sm:text-4xl font-bold text-gray-900">
             Collections
           </h2>
 

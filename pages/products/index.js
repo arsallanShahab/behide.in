@@ -22,22 +22,22 @@ function index({ data }) {
                   <Link
                     key={index}
                     href={`/products/${product.sys.id}`}
-                    className="group"
+                    className="group inline-block box-shadow border rounded-md active:box-shadow-hover hover:box-shadow-hover active:-translate-y-4 hover:-translate-y-4 duration-300"
                   >
-                    <div className=" w-full overflow-hidden border border-b-0 rounded-md rounded-b-none p-3 ">
+                    <div className=" w-full overflow-hidden p-3 border-b">
                       <img
                         src={product.fields.productBannerImage.fields.file.url}
                         alt={product.fields.productBannerImage.fields.title}
                         className="h-auto w-full object-center group-hover:opacity-75 rounded-lg"
                       />
                     </div>
-                    <div className="font-poppins overflow-hidden border rounded-b-md">
-                      <h3 className="font-semibold text-center leading-relaxed my-4 py-3 px-4 text-xs text-black">
+                    <div className="font-poppins overflow-hidden">
+                      <h3 className="font-poppins font-semibold text-center leading-5 my-4 py-3 px-4 text-xs text-black">
                         {product.fields.productName}
                       </h3>
-                      <div className="flex justify-between items-center px-5 py-3 my-1 border-t">
+                      <div className="flex justify-between items-center px-5 py-4 border-t">
                         <p className="text-sm text-black font-semibold">
-                          ₹ {product.fields.productPrice}
+                          ₹{product.fields.productPrice}
                         </p>
                         {product.fields.productInStock ? (
                           <p className="text-sm text-green-600 font-semibold">

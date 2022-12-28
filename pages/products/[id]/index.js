@@ -113,7 +113,7 @@ const index = ({ data }) => {
           </div>
 
           {/* Options */}
-          <div className="mt-10 lg:row-span-3 lg:mt-0">
+          <div className="mt-12 lg:row-span-3 lg:mt-0">
             <h2 className="sr-only">Product information</h2>
             <div className="flex flex-row flex-wrap items-center justify-between gap-3">
               <p className="font-poppins font-bold text-3xl tracking-tight text-gray-900">

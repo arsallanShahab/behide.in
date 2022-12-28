@@ -31,13 +31,13 @@ function index({ data }) {
                         className="h-auto w-full object-center group-hover:opacity-75 rounded-lg"
                       />
                     </div>
-                    <div className="overflow-hidden border rounded-b-md">
-                      <h3 className="font-poppins font-semibold text-center leading-relaxed my-4 py-3 px-2 text-xs text-black">
+                    <div className="font-poppins overflow-hidden border rounded-b-md">
+                      <h3 className="font-semibold text-center leading-relaxed my-4 py-3 px-4 text-xs text-black">
                         {product.fields.productName}
                       </h3>
-                      <div className="flex justify-between items-center px-8 py-3 my-1 border-t">
-                        <p className="text-sm text-gray-900 font-semibold">
-                          Rs. {product.fields.productPrice}
+                      <div className="flex justify-between items-center px-5 py-3 my-1 border-t">
+                        <p className="text-sm text-black font-semibold">
+                          ₹ {product.fields.productPrice}
                         </p>
                         {product.fields.productInStock ? (
                           <p className="text-sm text-green-600 font-semibold">

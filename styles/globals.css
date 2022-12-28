@@ -40,3 +40,10 @@
   content: "<";
   margin-left: -5px;
 }
+
+@media screen and (max-width: 640px) {
+  .slideshow .swiper-button-next,
+  .slideshow .swiper-button-prev {
+    display: none;
+  }
+}

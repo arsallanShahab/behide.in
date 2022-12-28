@@ -42,12 +42,14 @@ const Header = () => {
     <>
       <div className="relative bg-white text-black group/header font-poppins header flex flex-row justify-between flex-wrap items-center py-3 px-3 sm:px-8 border-b w-full z-[501]">
         <div className="p-4 max-w-[100px] rounded-lg">
-          <Image
-            priority={true}
-            src={logo}
-            alt="behide logo"
-            className="w-full"
-          />
+          <Link href="/">
+            <Image
+              priority={true}
+              src={logo}
+              alt="behide logo"
+              className="w-full"
+            />
+          </Link>
         </div>
         <div
           style={{ top: open ? "100%" : "-600%" }}

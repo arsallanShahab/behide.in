@@ -3,11 +3,12 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
+import Collection from "../components/Collection";
 import Header from "../components/PageHead";
 import { client } from "../lib/contentful";
 
 export default function Home({ data }) {
-  console.log(data);
+  // console.log(data);
   const { bannerImages } = data;
   return (
     <>
@@ -21,6 +22,7 @@ export default function Home({ data }) {
             delay: 2500,
             disableOnInteraction: false,
           }}
+          loop
           navigation
         >
           <SwiperSlide>
@@ -34,7 +36,7 @@ export default function Home({ data }) {
           </SwiperSlide>
         </Swiper>
       </div>
-      <h1 className="text-4xl font-bold font-poppins py-16 px-8">Category</h1>
+      <Collection />
     </>
   );
 }

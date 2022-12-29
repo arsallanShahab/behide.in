@@ -40,7 +40,7 @@ const Header = () => {
 
   return (
     <>
-      <div className="relative bg-white text-black group/header font-poppins header flex flex-row justify-between flex-wrap items-center py-3 px-3 sm:px-8 border-b w-full z-[501]">
+      <div className="relative bg-brandGrey text-black group/header font-poppins header flex flex-row justify-between flex-wrap items-center py-3 px-3 sm:px-8 w-full z-[501]">
         <div className="p-4 max-w-[100px] rounded-lg">
           <Link href="/">
             <Image
@@ -55,7 +55,7 @@ const Header = () => {
           style={{ top: open ? "100%" : "-600%" }}
           className="flex items-center justify-end absolute sm:relative left-0 w-full sm:w-auto top-full sm:top-auto"
         >
-          <ul className="text-xs font-[600] m-0 flex items-center border w-full sm:w-auto sm:border-none py-8 sm:p-0 sm:right-auto bg-white flex-col sm:flex-row gap-1  z-500 sm:z-auto">
+          <ul className="text-xs font-[600] bg-white sm:bg-transparent box-shadow-hover sm:shadow-none m-0 flex items-center border w-full sm:w-auto sm:border-none py-8 sm:p-0 sm:right-auto flex-col sm:flex-row gap-1  z-500 sm:z-auto">
             <li className="w-full sm:w-auto py-1 sm:py-0 px-6 sm:px-0">
               <Link
                 className="inline-block px-3 py-3 rounded-lg w-full sm:w-auto hover:bg-green-100 hover:text-green-800 duration-200"

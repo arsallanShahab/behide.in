@@ -9,7 +9,15 @@ module.exports = {
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
         rubik: ["Rubik", "sans-serif"],
-        nerko: ["Rubik", "sans-serif"],
+        nerko: ["nerko one", "sans-serif"],
+        space: ["Space Grotesk", "sans-serif"],
+      },
+      colors: {
+        brandGrey: "#f7f7f7",
+        brandBlack: "#1d1d1d",
+        brandMediumGrey: "#595959",
+        brandTeal: "#004743",
+        brandYellow: "#ffc038",
       },
     },
   },

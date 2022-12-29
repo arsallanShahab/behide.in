@@ -126,10 +126,12 @@ const index = ({ data }) => {
               ) : null}
             </div>
 
-            <form className="mt-10 font-poppins">
+            <form className="mt-10">
               {/* Colors */}
               <div>
-                <h3 className="text-sm font-medium text-gray-900">Color</h3>
+                <h3 className="font-rubik uppercase text-xs font-semibold text-gray-900">
+                  Color
+                </h3>
                 <p className="capitalize mt-3 font-semibold p-3 bg-slate-100 text-black rounded-lg text-center cursor-pointer select-none active:bg-slate-200 duration-200">
                   {product.fields.productColor}
                 </p>
@@ -137,7 +139,9 @@ const index = ({ data }) => {
 
               {/* Sizes */}
               <div className="mt-10">
-                <h3 className="text-sm font-medium text-gray-900">Size</h3>
+                <h3 className="text-xs font-rubik uppercase font-semibold text-gray-900">
+                  Size
+                </h3>
                 <div className="font-poppins flex flex-row flex-wrap justify-center items-center p-3 mt-3 rounded-lg bg-slate-100 gap-y-0 gap-x-1">
                   <div className="p-2 rounded-md flex items-center justify-between text-sm font-medium text-slate-800 cursor-pointer active:bg-slate-200 duration-200 select-none">
                     Length:
@@ -160,7 +164,9 @@ const index = ({ data }) => {
                 </div>
 
                 <div className="mt-10">
-                  <h3 className="text-sm font-medium text-gray-900">Stock</h3>
+                  <h3 className="text-xs font-rubik uppercase font-semibold text-gray-900">
+                    Stock
+                  </h3>
                   {product.fields.productInStock ? (
                     <p className="capitalize text-center mt-3 font-semibold p-3 bg-slate-100 rounded-lg cursor-pointer active:bg-slate-200 duration-200 select-none">
                       {" "}
@@ -190,7 +196,9 @@ const index = ({ data }) => {
             </div>
 
             <div className="mt-10">
-              <h3 className="text-sm font-medium text-gray-900">Highlights</h3>
+              <h3 className="font-rubik uppercase text-sm font-semibold text-gray-900">
+                Highlights
+              </h3>
 
               <div className="mt-4">
                 <ul
@@ -213,7 +221,9 @@ const index = ({ data }) => {
             </div>
 
             <div className="mt-10">
-              <h2 className="text-sm font-medium text-gray-900">Details</h2>
+              <h2 className="font-rubik uppercase text-sm font-semibold text-gray-900">
+                Details
+              </h2>
 
               <div className="mt-4 space-y-6">
                 <p className="text-sm text-gray-600 leading-loose">

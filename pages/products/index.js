@@ -14,7 +14,9 @@ function index({ data }) {
       <PageHead pageTitle={path} />
       <div className="bg-white">
         <div className="mx-auto max-w-2xl py-16 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-          <h2 className="font-poppins text-4xl font-bold pb-10">Products</h2>
+          <h2 className="font-poppins text-3xl sm:text-4xl font-bold pb-10">
+            Products
+          </h2>
 
           <div className="grid grid-cols-1 gap-y-10 gap-x-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
             {data
@@ -35,7 +37,7 @@ function index({ data }) {
                       <h3 className="font-poppins font-semibold text-center leading-5 my-4 py-3 px-4 text-xs text-black">
                         {product.fields.productName}
                       </h3>
-                      <div className="flex justify-between items-center px-5 py-4 border-t">
+                      <div className="flex justify-between items-center px-6 py-4 border-t">
                         <p className="text-sm text-black font-semibold">
                           ₹{product.fields.productPrice}
                         </p>

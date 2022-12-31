@@ -61,7 +61,7 @@ const Header = () => {
           <ul className="text-xs font-[600] bg-white sm:bg-transparent box-shadow-hover sm:shadow-none m-0 flex items-center border w-full sm:w-auto sm:border-none py-8 sm:p-0 sm:right-auto flex-col sm:flex-row gap-1  z-500 sm:z-auto">
             <li className="w-full px-6 py-1 sm:w-auto sm:py-0 sm:px-0">
               <Link
-                className="inline-block w-full px-3 py-3 duration-200 rounded-lg sm:w-auto hover:bg-brandTeal hover:text-white ease-in-out"
+                className="inline-block w-full px-3 py-3 duration-200 rounded-lg sm:w-auto hover:bg-white hover:text-green-600 ease-in-out"
                 href="/"
               >
                 HOME
@@ -72,7 +72,7 @@ const Header = () => {
                 // onMouseEnter={enterMouse}
                 // onMouseLeave={leaveMouse}
                 onClick={dropdownClick}
-                className="relative items-center inline-block origin-top-left w-full px-3 py-3 duration-200 rounded-lg cursor-pointer sm:w-auto hover:bg-brandTeal hover:text-white"
+                className="relative items-center inline-block origin-top-left w-full px-3 py-3 duration-200 rounded-lg cursor-pointer sm:w-auto hover:bg-white hover:text-green-600"
               >
                 {/* PRODUCTS */}
 
@@ -121,7 +121,7 @@ const Header = () => {
             </li>
             <li className="w-full px-6 py-1 sm:w-auto sm:py-0 sm:px-0">
               <Link
-                className="inline-block w-full px-3 py-3 duration-200 rounded-lg sm:w-auto hover:bg-brandTeal hover:text-white"
+                className="inline-block w-full px-3 py-3 duration-200 rounded-lg sm:w-auto hover:bg-white hover:text-green-600"
                 href="/products"
               >
                 PRODUCTS
@@ -129,7 +129,7 @@ const Header = () => {
             </li>
             <li className="w-full px-6 py-1 sm:w-auto sm:py-0 sm:px-0">
               <Link
-                className="inline-block w-full px-3 py-3 duration-200 rounded-lg sm:w-auto hover:bg-brandTeal hover:text-white"
+                className="inline-block w-full px-3 py-3 duration-200 rounded-lg sm:w-auto hover:bg-white hover:text-green-600"
                 href="/bulk-corporate"
               >
                 BULK/CORPORATE
@@ -137,7 +137,7 @@ const Header = () => {
             </li>
             <li className="w-full px-6 py-1 sm:w-auto sm:py-0 sm:px-0">
               <Link
-                className="inline-block w-full px-3 py-3 duration-200 rounded-lg sm:w-auto hover:bg-brandTeal hover:text-white"
+                className="inline-block w-full px-3 py-3 duration-200 rounded-lg sm:w-auto hover:bg-white hover:text-green-600"
                 href="/hot-products"
               >
                 HOT PRODUCTS
@@ -145,7 +145,7 @@ const Header = () => {
             </li>
             <li className="w-full px-6 py-1 sm:w-auto sm:py-0 sm:px-0">
               <Link
-                className="inline-block w-full px-3 py-3 duration-200 rounded-lg sm:w-auto hover:bg-brandTeal hover:text-white"
+                className="inline-block w-full px-3 py-3 duration-200 rounded-lg sm:w-auto hover:bg-white hover:text-green-600"
                 href="/about-us"
               >
                 ABOUT US

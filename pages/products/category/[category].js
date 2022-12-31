@@ -54,13 +54,6 @@ const index = ({ data }) => {
                 ))
               : null}
           </div>
-          <div>
-            {data.length == 0 ? (
-              <p className="mt-6 text-3xl text-gray-400">
-                currently we don't have any products
-              </p>
-            ) : null}
-          </div>
         </div>
       </div>
     </>

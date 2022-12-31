@@ -7,6 +7,12 @@ const index = ({ data }) => {
   console.log(data);
   const { id, product } = data;
 
+  const excerpt = (string) => {
+    if (string.length > 100) {
+      return string.slice(0, 100) + " . . . ";
+    }
+  };
+
   return (
     <div className="bg-white">
       <PageHead pageTitle={product.fields.productName} />
@@ -64,7 +70,7 @@ const index = ({ data }) => {
                 aria-current="page"
                 className="font-medium text-gray-500 hover:text-gray-600"
               >
-                {product.fields.productName}
+                {excerpt(product.fields.productName)}
               </Link>
             </li>
           </ol>
@@ -185,16 +191,6 @@ const index = ({ data }) => {
 
           {/* Description and details */}
           <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pt-6 lg:pb-16 lg:pr-8">
-            <div>
-              <h3 className="sr-only">Description</h3>
-
-              <div className="space-y-6">
-                {/* <p className="text-base text-gray-900">
-                  {product.productDescription}
-                </p> */}
-              </div>
-            </div>
-
             <div className="mt-10">
               <h3 className="font-rubik uppercase text-sm font-semibold text-gray-900">
                 Highlights
@@ -217,18 +213,6 @@ const index = ({ data }) => {
                         )
                     : null}
                 </ul>
-              </div>
-            </div>
-
-            <div className="mt-10">
-              <h2 className="font-rubik uppercase text-sm font-semibold text-gray-900">
-                Details
-              </h2>
-
-              <div className="mt-4 space-y-6">
-                <p className="text-sm text-gray-600 leading-loose">
-                  {product.fields.productDetails}
-                </p>
               </div>
             </div>
           </div>

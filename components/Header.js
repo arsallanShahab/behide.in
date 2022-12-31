@@ -32,6 +32,9 @@ const Header = () => {
   const leaveMouse = () => {
     setDropdown((prev) => !prev);
   };
+  const dropdownClick = () => {
+    setDropdown((prev) => !prev);
+  };
 
   useEffect(() => {
     setDropdown(false);
@@ -53,30 +56,34 @@ const Header = () => {
         </div>
         <div
           style={{ top: open ? "100%" : "-600%" }}
-          className="flex items-center justify-end absolute sm:relative left-0 w-full sm:w-auto top-full sm:top-auto"
+          className="absolute left-0 flex items-center justify-end w-full sm:relative sm:w-auto top-full sm:top-auto"
         >
           <ul className="text-xs font-[600] bg-white sm:bg-transparent box-shadow-hover sm:shadow-none m-0 flex items-center border w-full sm:w-auto sm:border-none py-8 sm:p-0 sm:right-auto flex-col sm:flex-row gap-1  z-500 sm:z-auto">
-            <li className="w-full sm:w-auto py-1 sm:py-0 px-6 sm:px-0">
+            <li className="w-full px-6 py-1 sm:w-auto sm:py-0 sm:px-0">
               <Link
-                className="inline-block px-3 py-3 rounded-lg w-full sm:w-auto hover:bg-green-100 hover:text-green-800 duration-200"
+                className="inline-block w-full px-3 py-3 duration-200 rounded-lg sm:w-auto hover:bg-brandTeal hover:text-white ease-in-out"
                 href="/"
               >
                 HOME
               </Link>
             </li>
-            <li className="w-full sm:w-auto py-1 sm:py-0 px-6 sm:px-0">
+            <li className="w-full px-6 py-1 sm:w-auto sm:py-0 sm:px-0">
               <div
-                onMouseEnter={enterMouse}
-                onMouseLeave={leaveMouse}
-                className="relative inline-block cursor-pointer items-center px-3 py-3 rounded-lg w-full sm:w-auto hover:bg-green-100 hover:text-green-800 duration-200"
+                // onMouseEnter={enterMouse}
+                // onMouseLeave={leaveMouse}
+                onClick={dropdownClick}
+                className="relative items-center inline-block origin-top-left w-full px-3 py-3 duration-200 rounded-lg cursor-pointer sm:w-auto hover:bg-brandTeal hover:text-white"
               >
                 {/* PRODUCTS */}
 
                 <div className="flex justify-start sm:justify-center">
                   <div className="relative inline-block">
-                    <span className="inline-block mx-1">CATEGORY</span>
+                    <span className="inline-block mx-1 mt-1">CATEGORY</span>
                     <svg
-                      className="w-5 h-5 mx-1 inline-block"
+                      style={{
+                        transform: dropdown ? "rotate(0deg)" : "rotate(-90deg)",
+                      }}
+                      className="inline-block w-5 h-5 mx-1 duration-200 rotate-90"
                       viewBox="0 0 24 24"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
@@ -94,14 +101,14 @@ const Header = () => {
                           : "scale(.8) translateY(-10px)",
                         visibility: dropdown ? "visible" : "hidden",
                       }}
-                      className="absolute p-2 left-full sm:left-auto -right-12 z-20 w-40 py-2 mt-2  border origin-top-right overflow-hidden font-semibold bg-white rounded-xl shadow-xl duration-200"
+                      className="absolute z-20 w-40 p-2 py-2 top-full mt-4 overflow-hidden font-semibold duration-200 origin-top-left bg-white border shadow-xl -left-3 rounded-xl"
                     >
                       {productCategory.map((item, index) => {
                         return (
                           <Link
                             key={index}
                             href={`/products/category/${item.toLowerCase()}`}
-                            className="block px-4 py-3 text-[0.8rem] capitalize duration-200 transform rounded-md text-black font-normal  hover:bg-gray-100 hover:text-green-600"
+                            className="block px-4 py-3 text-[0.8rem] capitalize duration-200 transform rounded-md text-black font-normal  hover:bg-brandGrey hover:text-brandBlack"
                           >
                             {item}
                           </Link>
@@ -112,33 +119,33 @@ const Header = () => {
                 </div>
               </div>
             </li>
-            <li className="w-full sm:w-auto py-1 sm:py-0 px-6 sm:px-0">
+            <li className="w-full px-6 py-1 sm:w-auto sm:py-0 sm:px-0">
               <Link
-                className="inline-block px-3 py-3 rounded-lg w-full sm:w-auto hover:bg-green-100 hover:text-green-800 duration-200"
+                className="inline-block w-full px-3 py-3 duration-200 rounded-lg sm:w-auto hover:bg-brandTeal hover:text-white"
                 href="/products"
               >
                 PRODUCTS
               </Link>
             </li>
-            <li className="w-full sm:w-auto py-1 sm:py-0 px-6 sm:px-0">
+            <li className="w-full px-6 py-1 sm:w-auto sm:py-0 sm:px-0">
               <Link
-                className="inline-block px-3 py-3 rounded-lg w-full sm:w-auto hover:bg-green-100 hover:text-green-800 duration-200"
+                className="inline-block w-full px-3 py-3 duration-200 rounded-lg sm:w-auto hover:bg-brandTeal hover:text-white"
                 href="/bulk-corporate"
               >
                 BULK/CORPORATE
               </Link>
             </li>
-            <li className="w-full sm:w-auto py-1 sm:py-0 px-6 sm:px-0">
+            <li className="w-full px-6 py-1 sm:w-auto sm:py-0 sm:px-0">
               <Link
-                className="inline-block px-3 py-3 rounded-lg w-full sm:w-auto hover:bg-green-100 hover:text-green-800 duration-200"
+                className="inline-block w-full px-3 py-3 duration-200 rounded-lg sm:w-auto hover:bg-brandTeal hover:text-white"
                 href="/hot-products"
               >
                 HOT PRODUCTS
               </Link>
             </li>
-            <li className="w-full sm:w-auto py-1 sm:py-0 px-6 sm:px-0">
+            <li className="w-full px-6 py-1 sm:w-auto sm:py-0 sm:px-0">
               <Link
-                className="inline-block px-3 py-3 rounded-lg w-full sm:w-auto hover:bg-green-100 hover:text-green-800 duration-200"
+                className="inline-block w-full px-3 py-3 duration-200 rounded-lg sm:w-auto hover:bg-brandTeal hover:text-white"
                 href="/about-us"
               >
                 ABOUT US
@@ -151,7 +158,7 @@ const Header = () => {
           className="max-w-[50px] h-auto pr-3 group/menu cursor-pointer block sm:hidden"
         >
           {/* <svg
-              className="fill-slate-600 group-hover/menu:fill-green-600 duration-200"
+              className="duration-200 fill-slate-600 group-hover/menu:fill-green-600"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 512 512"
               width={"100%"}

@@ -61,7 +61,7 @@ const Header = () => {
           <ul className="text-xs font-[600] bg-white sm:bg-transparent box-shadow-hover sm:shadow-none m-0 flex items-center border w-full sm:w-auto sm:border-none py-8 sm:p-0 sm:right-auto flex-col sm:flex-row gap-1  z-500 sm:z-auto">
             <li className="w-full px-6 py-1 sm:w-auto sm:py-0 sm:px-0">
               <Link
-                className="inline-block w-full px-3 py-3 duration-200 rounded-lg sm:w-auto hover:bg-white hover:text-green-600 ease-in-out"
+                className="inline-block w-full px-3 py-3 duration-200 rounded-lg sm:w-auto hover:bg-green-100 hover:text-green-800 ease-in-out"
                 href="/"
               >
                 HOME
@@ -72,7 +72,7 @@ const Header = () => {
                 // onMouseEnter={enterMouse}
                 // onMouseLeave={leaveMouse}
                 onClick={dropdownClick}
-                className="relative items-center inline-block origin-top-left w-full px-3 py-3 duration-200 rounded-lg cursor-pointer sm:w-auto hover:bg-white hover:text-green-600"
+                className="relative items-center inline-block origin-top-left w-full px-3 py-3 duration-200 rounded-lg cursor-pointer sm:w-auto hover:bg-green-100 hover:text-green-800"
               >
                 {/* PRODUCTS */}
 
@@ -83,7 +83,7 @@ const Header = () => {
                       style={{
                         transform: dropdown ? "rotate(0deg)" : "rotate(-90deg)",
                       }}
-                      className="inline-block w-5 h-5 mx-1 duration-200 rotate-90"
+                      className="inline-block w-5 h-5 mx-1 transition-transform duration-200 rotate-90"
                       viewBox="0 0 24 24"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
@@ -121,7 +121,7 @@ const Header = () => {
             </li>
             <li className="w-full px-6 py-1 sm:w-auto sm:py-0 sm:px-0">
               <Link
-                className="inline-block w-full px-3 py-3 duration-200 rounded-lg sm:w-auto hover:bg-white hover:text-green-600"
+                className="inline-block w-full px-3 py-3 duration-200 rounded-lg sm:w-auto hover:bg-green-100 hover:text-green-800"
                 href="/products"
               >
                 PRODUCTS
@@ -129,7 +129,7 @@ const Header = () => {
             </li>
             <li className="w-full px-6 py-1 sm:w-auto sm:py-0 sm:px-0">
               <Link
-                className="inline-block w-full px-3 py-3 duration-200 rounded-lg sm:w-auto hover:bg-white hover:text-green-600"
+                className="inline-block w-full px-3 py-3 duration-200 rounded-lg sm:w-auto hover:bg-green-100 hover:text-green-800"
                 href="/bulk-corporate"
               >
                 BULK/CORPORATE
@@ -137,7 +137,7 @@ const Header = () => {
             </li>
             <li className="w-full px-6 py-1 sm:w-auto sm:py-0 sm:px-0">
               <Link
-                className="inline-block w-full px-3 py-3 duration-200 rounded-lg sm:w-auto hover:bg-white hover:text-green-600"
+                className="inline-block w-full px-3 py-3 duration-200 rounded-lg sm:w-auto hover:bg-green-100 hover:text-green-800"
                 href="/hot-products"
               >
                 HOT PRODUCTS
@@ -145,7 +145,7 @@ const Header = () => {
             </li>
             <li className="w-full px-6 py-1 sm:w-auto sm:py-0 sm:px-0">
               <Link
-                className="inline-block w-full px-3 py-3 duration-200 rounded-lg sm:w-auto hover:bg-white hover:text-green-600"
+                className="inline-block w-full px-3 py-3 duration-200 rounded-lg sm:w-auto hover:bg-green-100 hover:text-green-800"
                 href="/about-us"
               >
                 ABOUT US

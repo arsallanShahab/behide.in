@@ -4,15 +4,15 @@ import PageHead from "../../../components/PageHead";
 import { client } from "../../../lib/contentful";
 
 const index = ({ data }) => {
-  console.log(data);
+  // console.log(data);
   const router = useRouter();
   const { category } = router.query;
   return (
     <>
       <PageHead pageTitle={category} />
-      <div className="bg-white">
+      <div className="bg-brandGrey">
         <div className="mx-auto max-w-2xl py-16 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-          <h2 className="font-poppins text-3xl sm:text-4xl font-bold pb-10 capitalize">
+          <h2 className="font-poppins text-3xl sm:text-5xl font-bold pb-10 capitalize">
             {category}
           </h2>
 
@@ -22,7 +22,7 @@ const index = ({ data }) => {
                   <Link
                     key={index}
                     href={`/products/${product.sys.id}`}
-                    className="group inline-block box-shadow border rounded-md active:box-shadow-hover hover:box-shadow-hover active:-translate-y-4 hover:-translate-y-4 duration-300"
+                    className="group inline-block box-shadow border rounded-md active:box-shadow-hover hover:box-shadow-hover hover:bg-white active:bg-white active:-translate-y-4 hover:-translate-y-4 duration-300"
                   >
                     <div className=" w-full overflow-hidden p-3 border-b">
                       <img

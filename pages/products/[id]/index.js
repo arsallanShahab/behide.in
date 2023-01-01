@@ -1,20 +1,26 @@
 import Link from "next/link";
+import { useState } from "react";
 import safeJsonStringify from "safe-json-stringify";
 import PageHead from "../../../components/PageHead";
 import { client } from "../../../lib/contentful";
 
 const index = ({ data }) => {
   console.log(data);
+  const [index, setIndex] = useState(0);
   const { id, product } = data;
+  const Images = product.fields.productAssets;
+  // product.fields.productAssets[0].fields.file.url;
 
   const excerpt = (string) => {
-    if (string.length > 100) {
-      return string.slice(0, 100) + " . . . ";
+    if (string.length > 70) {
+      return string.slice(0, 70) + " . . . ";
+    } else {
+      return string;
     }
   };
 
   return (
-    <div className="bg-white">
+    <div className="bg-brandGrey">
       <PageHead pageTitle={product.fields.productName} />
       <div className="pt-6">
         <nav aria-label="Breadcrumb">
@@ -77,8 +83,8 @@ const index = ({ data }) => {
         </nav>
 
         {/* Image gallery */}
-        <div className="mx-auto mt-6 max-w-2xl items-center self-center justify-center sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
-          <div className="aspect-w-4 aspect-h-5 sm:overflow-hidden sm:rounded-lg lg:aspect-w-3 lg:aspect-h-4">
+        <div className="mx-auto mt-6 max-w-2xl items-stretch self-center justify-center sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
+          <div className="aspect-w-4 aspect-h-5 hidden sm:block sm:overflow-hidden sm:rounded-lg lg:aspect-w-3 lg:aspect-h-4">
             <img
               src={product.fields.productAssets[0].fields.file.url}
               alt={product.fields.productAssets[0].fields.title}
@@ -105,8 +111,68 @@ const index = ({ data }) => {
             <img
               src={product.fields.productAssets[3].fields.file.url}
               alt={product.fields.productAssets[3].fields.title}
-              className="w-full object-cover object-center"
+              className="w-full h-full object-cover object-center"
             />
+          </div>
+          <div className="flex flex-col sm:hidden p-3 gap-3">
+            <div className="w-full rounded-md overflow-hidden">
+              <img
+                className="w-full h-[60vh] object-cover object-center"
+                src={product.fields.productAssets[index].fields.file.url}
+              />
+            </div>
+
+            <div className="flex flex-row w-full gap-2 p-2 bg-white rounded-md">
+              {product.fields.productAssets.map((item, i) => {
+                return (
+                  <div
+                    onClick={() => setIndex(i)}
+                    className="basis-1/4 rounded-md overflow-hidden cursor-pointer active:scale-90 duration-200"
+                  >
+                    <img
+                      className="w-full h-32 object-cover object-center"
+                      src={product.fields.productAssets[i].fields.file.url}
+                    />
+                  </div>
+                );
+              })}
+              {/* <div
+                onClick={() => setIndex(0)}
+                className="basis-1/4 rounded-md overflow-hidden cursor-pointer"
+              >
+                <img
+                  className="w-full h-32 object-cover object-center"
+                  src={product.fields.productAssets[0].fields.file.url}
+                />
+              </div> */}
+              {/* <div
+                onClick={() => setIndex(1)}
+                className="basis-1/4 rounded-md overflow-hidden cursor-pointer"
+              >
+                <img
+                  className="w-full h-32 object-cover object-center"
+                  src={product.fields.productAssets[1].fields.file.url}
+                />
+              </div> */}
+              {/* <div
+                onClick={() => setIndex(2)}
+                className="basis-1/4 rounded-md overflow-hidden cursor-pointer"
+              >
+                <img
+                  className="w-full h-32 object-cover object-center"
+                  src={product.fields.productAssets[2].fields.file.url}
+                />
+              </div> */}
+              {/* <div
+                onClick={() => setIndex(3)}
+                className="basis-1/4 rounded-md overflow-hidden cursor-pointer"
+              >
+                <img
+                  className="w-full h-32 object-cover object-center"
+                  src={product.fields.productAssets[3].fields.file.url}
+                />
+              </div> */}
+            </div>
           </div>
         </div>
 
@@ -138,7 +204,7 @@ const index = ({ data }) => {
                 <h3 className="font-rubik uppercase text-xs font-semibold text-gray-900">
                   Color
                 </h3>
-                <p className="capitalize mt-3 font-semibold p-3 bg-slate-100 text-black rounded-lg text-center cursor-pointer select-none active:bg-slate-200 duration-200">
+                <p className="capitalize mt-3 font-semibold p-3 border bg-white text-black rounded-lg text-center cursor-pointer select-none active:bg-slate-200 duration-200">
                   {product.fields.productColor}
                 </p>
               </div>
@@ -148,8 +214,8 @@ const index = ({ data }) => {
                 <h3 className="text-xs font-rubik uppercase font-semibold text-gray-900">
                   Size
                 </h3>
-                <div className="font-poppins flex flex-row flex-wrap justify-center items-center p-3 mt-3 rounded-lg bg-slate-100 gap-y-0 gap-x-1">
-                  <div className="p-2 rounded-md flex items-center justify-between text-sm font-medium text-slate-800 cursor-pointer active:bg-slate-200 duration-200 select-none">
+                <div className="font-poppins flex flex-row flex-wrap justify-center items-center p-3 mt-3 border rounded-lg bg-white gap-y-0 gap-x-1">
+                  <div className="p-2 rounded-md flex items-center justify-between text-sm font-medium text-slate-800 bg-slate-100 cursor-pointer active:bg-slate-200 duration-200 select-none">
                     Length:
                     <span className="font-semibold text-black">
                       {`  ${product.fields.productLength}cm`}
@@ -174,13 +240,13 @@ const index = ({ data }) => {
                     Stock
                   </h3>
                   {product.fields.productInStock ? (
-                    <p className="capitalize text-center mt-3 font-semibold p-3 bg-slate-100 rounded-lg cursor-pointer active:bg-slate-200 duration-200 select-none">
+                    <p className="capitalize text-center mt-3 font-semibold p-3 border bg-white rounded-lg cursor-pointer active:bg-slate-200 duration-200 select-none">
                       {" "}
                       <span className="text-green-500">In Stock</span> and ready
                       to ship
                     </p>
                   ) : (
-                    <p className="capitalize text-center mt-3 font-semibold p-3 bg-slate-100 rounded-lg text-rose-500 cursor-pointer active:bg-slate-200 duration-200 select-none">
+                    <p className="capitalize text-center mt-3 font-semibold p-3 border bg-white rounded-lg text-rose-500 cursor-pointer active:bg-slate-200 duration-200 select-none">
                       Out of Stock
                     </p>
                   )}

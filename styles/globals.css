@@ -14,6 +14,27 @@
   .box-shadow-hover {
     box-shadow: 0px 100px 80px -5px rgba(0, 0, 0, 0.15);
   }
+  .clip-path {
+    clip-path: polygon(14% 0, 94% 11%, 88% 100%, 7% 100%);
+  }
+}
+
+@layer components {
+  .footer-link-svg {
+    @apply mr-0 inline-block w-0 scale-[.5] opacity-0 duration-300  group-hover:mr-2 group-hover:w-[19px] group-hover:translate-x-1 group-hover:scale-[.75] group-hover:opacity-100;
+  }
+  .footer-link-wrapper {
+    @apply mt-4 rounded-2xl bg-white px-5 py-3;
+  }
+  .footer-link {
+    @apply inline-block font-poppins text-sm font-semibold;
+  }
+  .gsaSX {
+    @apply mt-4 flex flex-row items-center gap-5 rounded-2xl bg-white px-4 py-3 sm:py-3 sm:px-5;
+  }
+  .AgjCXY {
+    @apply font-poppins text-xs font-semibold text-brandMediumGrey/75 sm:text-sm;
+  }
 }
 
 a {

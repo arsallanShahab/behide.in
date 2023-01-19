@@ -12,39 +12,39 @@ const index = ({ data }) => {
       <PageHead pageTitle={category} />
       <div className="bg-brandGrey">
         <div className="mx-auto max-w-2xl py-16 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-          <h2 className="font-poppins text-3xl sm:text-5xl font-bold pb-10 capitalize">
+          <h2 className="pb-10 font-poppins text-3xl font-bold capitalize text-brandBlack sm:text-5xl">
             {category}
           </h2>
 
-          <div className="grid grid-cols-1 gap-y-10 gap-x-10 items-start sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+          <div className="grid grid-cols-1 items-start gap-y-10 gap-x-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
             {data
               ? data.products.items.map((product, index) => (
                   <Link
                     key={index}
                     href={`/products/${product.sys.id}`}
-                    className="group inline-block box-shadow border rounded-md active:box-shadow-hover hover:box-shadow-hover hover:bg-white active:bg-white active:-translate-y-4 hover:-translate-y-4 duration-300"
+                    className="box-shadow active:box-shadow-hover hover:box-shadow-hover group inline-block rounded-md border duration-300 hover:-translate-y-4 hover:bg-white active:-translate-y-4 active:bg-white"
                   >
-                    <div className=" w-full overflow-hidden p-3 border-b">
+                    <div className=" w-full overflow-hidden border-b p-3">
                       <img
                         src={product.fields.productBannerImage.fields.file.url}
                         alt={product.fields.productBannerImage.fields.title}
-                        className="h-auto w-full object-center group-hover:opacity-75 rounded-lg"
+                        className="h-auto w-full rounded-lg object-center group-hover:opacity-75"
                       />
                     </div>
-                    <div className="font-poppins overflow-hidden">
-                      <h3 className="font-poppins font-semibold text-center leading-6 my-4 py-3 px-4 text-xs text-black">
+                    <div className="overflow-hidden font-poppins">
+                      <h3 className="my-4 py-3 px-4 text-center font-poppins text-xs font-semibold leading-6 text-black">
                         {product.fields.productName}
                       </h3>
-                      <div className="flex justify-between items-center px-5 py-4 border-t">
-                        <p className="text-sm text-black font-semibold">
+                      <div className="flex items-center justify-between border-t px-5 py-4">
+                        <p className="text-sm font-semibold text-black">
                           ₹{product.fields.productPrice}
                         </p>
                         {product.fields.productInStock ? (
-                          <p className="text-sm text-green-600 font-semibold">
+                          <p className="text-sm font-semibold text-green-600">
                             In Stock
                           </p>
                         ) : (
-                          <p className="text-sm text-rose-600 font-semibold">
+                          <p className="text-sm font-semibold text-rose-600">
                             Out of Stock
                           </p>
                         )}

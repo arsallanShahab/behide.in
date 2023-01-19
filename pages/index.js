@@ -1,36 +1,23 @@
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { Autoplay, Navigation } from "swiper";
-// import img from "../public/"
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Collection from "../components/Collection";
+import CompanyMoto from "../components/CompanyMoto";
 import Header from "../components/PageHead";
 import { client } from "../lib/contentful";
-import lightFile from "../public/zap.svg";
 
 export default function Home({ data }) {
-  console.log(data);
+  // console.log(data);
   const { homeBanner } = data;
   const homeBannerItems = homeBanner.items.map((item) => item.fields);
-  const [homeBannerData, setHomeBannerData] = useState(null);
-  const [index, setIndex] = useState(0);
 
-  // setInterval(() => {
-  //   if (index) {
-  //     setIndex(homeBannerData.length - 1);
-  //     console.log("if");
-  //   } else {
-  //     setIndex((prev) => prev - 1);
-  //     console.log("else");
-  //   }
-  // }, 2000);
   return (
     <>
       <Header />
-      <div className="slideshow">
+      <div className="slideshow relative">
         <Swiper
           modules={[Navigation, Autoplay]}
           spaceBetween={0}
@@ -44,10 +31,10 @@ export default function Home({ data }) {
         >
           {homeBannerItems.map((item, index) => {
             return (
-              <SwiperSlide>
-                <div className="relative flex flex-col items-center justify-center px-6 pt-10 bg-brandGrey sm:flex-row pb-44">
-                  <div className="flex flex-col items-center px-4 text-center sm:items-start basis-1/2 sm:px-8">
-                    <h3 className="py-3 font-rubik uppercase font-semibold word-spacing-trending align-middle text-[#afafaf]">
+              <SwiperSlide key={index}>
+                <div className="relative flex flex-col items-center justify-center bg-brandGrey px-6 pt-10 pb-32 sm:flex-row">
+                  <div className="flex basis-1/2 flex-col items-center px-4 text-center sm:items-start sm:px-8">
+                    <h3 className="word-spacing-trending py-3 align-middle font-rubik font-semibold uppercase text-[#afafaf]">
                       Trending Collection{" "}
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -59,12 +46,12 @@ export default function Home({ data }) {
                         strokeWidth="2"
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        className="inline-block -mt-1 -ml-2 feather feather-zap"
+                        className="feather feather-zap -mt-1 -ml-2 inline-block"
                       >
                         <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
                       </svg>
                     </h3>
-                    <h1 className="relative font-poppins z-10 font-bold capitalize text-[55px] sm:text-8xl leading-[.8] text-center sm:text-left text-brandBlack">
+                    <h1 className="relative z-10 text-center font-poppins text-[55px] font-bold capitalize leading-[.8] text-brandBlack sm:text-left sm:text-8xl">
                       {item.homeBannerText}
                     </h1>
                     <svg
@@ -84,15 +71,15 @@ export default function Home({ data }) {
                         fill="#FFF"
                       />
                     </svg>
-                    <p className="max-w-md pl-5 mt-10 text-sm font-semibold leading-relaxed text-center border-l-0 text-brandMediumGrey sm:border-l-4 font-poppins word-spacing sm:text-left">
+                    <p className="word-spacing mt-10 max-w-md border-l-0 pl-5 text-center font-poppins text-sm font-semibold leading-relaxed text-brandMediumGrey sm:border-l-4 sm:text-left">
                       {item.homeBannerDescription}
                     </p>
                     <Link
-                      className="relative inline-block px-16 py-5 mt-10 text-base font-semibold text-white capitalize font-poppins bg-brandTeal"
+                      className="relative mt-10 inline-block bg-brandTeal px-16 py-5 font-poppins text-base font-semibold capitalize text-white"
                       href={`/products/${item.homeBannerLink.sys.id}`}
                     >
                       <span className="mr-3">Check out</span>
-                      <div className="absolute px-4 pt-4 pb-2 rounded-full -right-3 -top-6 bg-brandYellow">
+                      <div className="absolute -right-3 -top-6 rounded-full bg-brandYellow px-4 pt-4 pb-2">
                         <svg
                           width="30"
                           height="30"
@@ -148,17 +135,17 @@ export default function Home({ data }) {
                       </div>
                     </Link>
                   </div>
-                  <div className="flex items-center justify-center w-full basis-1/2">
-                    <div className="w-[500px] h-[500px] relative">
+                  <div className="flex w-full basis-1/2 items-center justify-center">
+                    <div className="relative h-[500px] w-[500px]">
                       <img
-                        className="relative z-10 object-cover w-full h-full select-none"
+                        className="relative z-10 h-full w-full select-none object-cover"
                         src={item.homeBannerImage.fields.file.url}
                         alt={item.homeBannerImage.fields.productName}
                       />
-                      <div className="absolute select-none w-full h-full block -bottom-[25%] left-7 z-0 right-0 rounded-t-full">
+                      <div className="absolute -bottom-[25%] left-7 right-0 z-0 block h-full w-full select-none rounded-t-full">
                         <img
                           src="./bg-asset.png"
-                          className="object-cover object-center w-full h-[50%] scale-[1.75] "
+                          className="h-[50%] w-full scale-[1.75] object-cover object-center "
                         />
                       </div>
                     </div>
@@ -169,6 +156,8 @@ export default function Home({ data }) {
           })}
         </Swiper>
       </div>
+      <CompanyMoto />
+      <Collection />
     </>
   );
 }

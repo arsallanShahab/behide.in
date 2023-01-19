@@ -26,7 +26,7 @@ const index = ({ data }) => {
         <nav aria-label="Breadcrumb">
           <ol
             role="list"
-            className="font-poppins mx-auto flex flex-wrap max-w-2xl items-start gap-x-2 gap-y-4 px-4 sm:px-6 lg:max-w-7xl lg:px-8"
+            className="mx-auto flex max-w-2xl flex-wrap items-start gap-x-2 gap-y-4 px-4 font-poppins sm:px-6 lg:max-w-7xl lg:px-8"
           >
             <li>
               <div className="flex items-center">
@@ -83,12 +83,12 @@ const index = ({ data }) => {
         </nav>
 
         {/* Image gallery */}
-        <div className="mx-auto mt-6 max-w-2xl items-stretch self-center justify-center sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
-          <div className="aspect-w-4 aspect-h-5 hidden sm:block sm:overflow-hidden sm:rounded-lg lg:aspect-w-3 lg:aspect-h-4">
+        <div className="mx-auto mt-6 max-w-2xl items-stretch justify-center self-center sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
+          <div className="aspect-w-4 aspect-h-5 lg:aspect-w-3 lg:aspect-h-4 hidden sm:block sm:overflow-hidden sm:rounded-lg">
             <img
               src={product.fields.productAssets[0].fields.file.url}
               alt={product.fields.productAssets[0].fields.title}
-              className="h-[60vh] sm:h-full w-full object-cover object-center"
+              className="h-[60vh] w-full object-cover object-center sm:h-full"
             />
           </div>
           <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
@@ -111,26 +111,26 @@ const index = ({ data }) => {
             <img
               src={product.fields.productAssets[3].fields.file.url}
               alt={product.fields.productAssets[3].fields.title}
-              className="w-full h-full object-cover object-center"
+              className="h-full w-full object-cover object-center"
             />
           </div>
-          <div className="flex flex-col sm:hidden p-3 gap-3">
-            <div className="w-full rounded-md overflow-hidden">
+          <div className="flex flex-col gap-3 p-3 sm:hidden">
+            <div className="w-full overflow-hidden rounded-md">
               <img
-                className="w-full h-[60vh] object-cover object-center"
+                className="h-[60vh] w-full object-cover object-center"
                 src={product.fields.productAssets[index].fields.file.url}
               />
             </div>
 
-            <div className="flex flex-row w-full gap-2 p-2 bg-white rounded-md">
+            <div className="flex w-full flex-row gap-3 rounded-md bg-white p-3">
               {product.fields.productAssets.map((item, i) => {
                 return (
                   <div
                     onClick={() => setIndex(i)}
-                    className="basis-1/4 rounded-md overflow-hidden cursor-pointer active:scale-90 duration-200"
+                    className="basis-1/4 cursor-pointer overflow-hidden rounded-md duration-200 active:scale-75 active:opacity-75"
                   >
                     <img
-                      className="w-full h-32 object-cover object-center"
+                      className="h-32 w-full object-cover object-center"
                       src={product.fields.productAssets[i].fields.file.url}
                     />
                   </div>
@@ -179,7 +179,7 @@ const index = ({ data }) => {
         {/* Product info */}
         <div className="mx-auto max-w-2xl px-4 pt-10 pb-16 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pt-16 lg:pb-24">
           <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
-            <h1 className="font-poppins text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+            <h1 className="font-poppins text-xl font-bold text-gray-900 sm:text-2xl">
               {product.fields.productName}
             </h1>
           </div>
@@ -188,11 +188,11 @@ const index = ({ data }) => {
           <div className="mt-12 lg:row-span-3 lg:mt-0">
             <h2 className="sr-only">Product information</h2>
             <div className="flex flex-row flex-wrap items-center justify-between gap-3">
-              <p className="font-poppins font-bold text-3xl tracking-tight text-gray-900">
+              <p className="font-poppins text-3xl font-bold text-gray-900">
                 Rs. {product.fields.productPrice}
               </p>
               {product.fields.skuId ? (
-                <p className="font-poppins font-semibold px-6 border py-3 bg-slate-100 rounded-lg text-black cursor-pointer active:bg-slate-200 duration-200 select-none">
+                <p className="cursor-pointer select-none rounded-lg border bg-white px-4 py-3 font-poppins text-sm font-semibold text-black duration-200 active:bg-slate-200">
                   SKU ID - {product.fields.skuId}
                 </p>
               ) : null}
@@ -201,33 +201,33 @@ const index = ({ data }) => {
             <form className="mt-10">
               {/* Colors */}
               <div>
-                <h3 className="font-rubik uppercase text-xs font-semibold text-gray-900">
+                <h3 className="font-rubik text-xs font-semibold uppercase text-gray-900">
                   Color
                 </h3>
-                <p className="capitalize mt-3 font-semibold p-3 border bg-white text-black rounded-lg text-center cursor-pointer select-none active:bg-slate-200 duration-200">
+                <p className="mt-3 cursor-pointer select-none rounded-lg bg-brand-grey p-3 text-center font-semibold uppercase text-black duration-200 active:bg-slate-200">
                   {product.fields.productColor}
                 </p>
               </div>
 
               {/* Sizes */}
               <div className="mt-10">
-                <h3 className="text-xs font-rubik uppercase font-semibold text-gray-900">
+                <h3 className="font-rubik text-xs font-semibold uppercase text-gray-900">
                   Size
                 </h3>
-                <div className="font-poppins flex flex-row flex-wrap justify-center items-center p-3 mt-3 border rounded-lg bg-white gap-y-0 gap-x-1">
-                  <div className="p-2 rounded-md flex items-center justify-between text-sm font-medium text-slate-800 bg-slate-100 cursor-pointer active:bg-slate-200 duration-200 select-none">
+                <div className="mt-3 flex flex-row flex-wrap justify-center gap-y-0 gap-x-3  rounded-lg  bg-brand-grey p-3 font-poppins">
+                  <div className="flex-1 cursor-pointer select-none items-center rounded-md bg-white p-2 text-center text-sm font-medium text-slate-800 duration-200 active:bg-slate-200">
                     Length:
                     <span className="font-semibold text-black">
                       {`  ${product.fields.productLength}cm`}
                     </span>
                   </div>
-                  <div className="p-2 rounded-md flex items-center justify-between text-sm font-medium text-slate-600 cursor-pointer bg-slate-100 active:bg-slate-200 duration-200 select-none">
+                  <div className="flex-1 cursor-pointer select-none items-center justify-between rounded-md bg-white p-2 text-center text-sm font-medium text-slate-600 duration-200 active:bg-slate-200">
                     Breadth:{" "}
                     <span className="font-semibold text-black">
                       {`  ${product.fields.productBreadth}cm`}
                     </span>
                   </div>
-                  <div className="p-2 rounded-md flex items-center justify-between text-sm font-medium text-slate-600 cursor-pointer bg-slate-100 active:bg-slate-200 duration-200 select-none">
+                  <div className="flex-1 cursor-pointer select-none items-center justify-between rounded-md bg-white p-2 text-center text-sm font-medium text-slate-600 duration-200 active:bg-slate-200">
                     Height:{" "}
                     <span className="font-semibold text-black">
                       {`  ${product.fields.productHeight}cm`}
@@ -236,17 +236,17 @@ const index = ({ data }) => {
                 </div>
 
                 <div className="mt-10">
-                  <h3 className="text-xs font-rubik uppercase font-semibold text-gray-900">
+                  <h3 className="font-rubik text-xs font-semibold uppercase text-gray-900">
                     Stock
                   </h3>
                   {product.fields.productInStock ? (
-                    <p className="capitalize text-center mt-3 font-semibold p-3 border bg-white rounded-lg cursor-pointer active:bg-slate-200 duration-200 select-none">
+                    <p className="mt-3 cursor-pointer select-none rounded-lg bg-brand-grey p-3 text-center font-semibold capitalize duration-200 active:bg-slate-200">
                       {" "}
                       <span className="text-green-500">In Stock</span> and ready
                       to ship
                     </p>
                   ) : (
-                    <p className="capitalize text-center mt-3 font-semibold p-3 border bg-white rounded-lg text-rose-500 cursor-pointer active:bg-slate-200 duration-200 select-none">
+                    <p className="mt-3 cursor-pointer select-none rounded-lg border bg-white p-3 text-center font-semibold capitalize text-rose-500 duration-200 active:bg-slate-200">
                       Out of Stock
                     </p>
                   )}
@@ -258,7 +258,7 @@ const index = ({ data }) => {
           {/* Description and details */}
           <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pt-6 lg:pb-16 lg:pr-8">
             <div className="mt-10">
-              <h3 className="font-rubik uppercase text-sm font-semibold text-gray-900">
+              <h3 className="font-rubik text-sm font-semibold uppercase text-gray-900">
                 Highlights
               </h3>
 

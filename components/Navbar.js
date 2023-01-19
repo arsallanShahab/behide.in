@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import logo from "../public/behide-logo-new.png";
 import menu from "../public/menu.svg";
 
-const Header = () => {
+const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [dropdown, setDropdown] = useState(false);
   const router = useRouter();
@@ -43,8 +43,8 @@ const Header = () => {
 
   return (
     <>
-      <div className="relative bg-brandGrey text-black group/header font-poppins header flex flex-row justify-between flex-wrap items-center py-3 px-3 sm:px-8 w-full z-[501]">
-        <div className="p-4 max-w-[100px] rounded-lg">
+      <div className="group/header header relative z-[501] flex w-full flex-row flex-wrap items-center justify-between bg-brandGrey py-3 px-3 font-poppins text-black sm:px-8">
+        <div className="max-w-[100px] rounded-lg p-4">
           <Link href="/">
             <Image
               priority={true}
@@ -56,12 +56,12 @@ const Header = () => {
         </div>
         <div
           style={{ top: open ? "100%" : "-600%" }}
-          className="absolute left-0 flex items-center justify-end w-full sm:relative sm:w-auto top-full sm:top-auto"
+          className="absolute left-0 top-full flex w-full items-center justify-end sm:relative sm:top-auto sm:w-auto"
         >
-          <ul className="text-xs font-[600] bg-white sm:bg-transparent box-shadow-hover sm:shadow-none m-0 flex items-center border w-full sm:w-auto sm:border-none py-8 sm:p-0 sm:right-auto flex-col sm:flex-row gap-1  z-500 sm:z-auto">
+          <ul className="box-shadow-hover z-500 m-0 flex w-full flex-col items-center gap-1 border bg-white py-8 text-xs font-[600] sm:right-auto sm:z-auto sm:w-auto sm:flex-row sm:border-none sm:bg-transparent  sm:p-0 sm:shadow-none">
             <li className="w-full px-6 py-1 sm:w-auto sm:py-0 sm:px-0">
               <Link
-                className="inline-block w-full px-3 py-3 duration-200 rounded-lg sm:w-auto hover:bg-green-100 hover:text-green-800 ease-in-out"
+                className="inline-block w-full rounded-lg px-3 py-3 duration-200 ease-in-out hover:bg-green-100 hover:text-green-800 sm:w-auto"
                 href="/"
               >
                 HOME
@@ -72,18 +72,18 @@ const Header = () => {
                 // onMouseEnter={enterMouse}
                 // onMouseLeave={leaveMouse}
                 onClick={dropdownClick}
-                className="relative items-center inline-block origin-top-left w-full px-3 py-3 duration-200 rounded-lg cursor-pointer sm:w-auto hover:bg-green-100 hover:text-green-800"
+                className="relative inline-block w-full origin-top-left cursor-pointer items-center rounded-lg px-3 py-3 duration-200 hover:bg-green-100 hover:text-green-800 sm:w-auto"
               >
                 {/* PRODUCTS */}
 
                 <div className="flex justify-start sm:justify-center">
                   <div className="relative inline-block">
-                    <span className="inline-block mx-1 mt-1">CATEGORY</span>
+                    <span className="mx-1 mt-1 inline-block">CATEGORY</span>
                     <svg
                       style={{
                         transform: dropdown ? "rotate(0deg)" : "rotate(-90deg)",
                       }}
-                      className="inline-block w-5 h-5 mx-1 transition-transform duration-200 rotate-90"
+                      className="mx-1 inline-block h-5 w-5 rotate-90 transition-transform duration-200"
                       viewBox="0 0 24 24"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
@@ -101,14 +101,14 @@ const Header = () => {
                           : "scale(.8) translateY(-10px)",
                         visibility: dropdown ? "visible" : "hidden",
                       }}
-                      className="absolute z-20 w-40 p-2 py-2 top-full mt-4 overflow-hidden font-semibold duration-200 origin-top-left bg-white border shadow-xl -left-3 rounded-xl"
+                      className="absolute top-full -left-3 z-20 mt-4 w-40 origin-top-left overflow-hidden rounded-xl border bg-white p-2 py-2 font-semibold shadow-xl duration-200"
                     >
                       {productCategory.map((item, index) => {
                         return (
                           <Link
                             key={index}
                             href={`/products/category/${item.toLowerCase()}`}
-                            className="block px-4 py-3 text-[0.8rem] capitalize duration-200 transform rounded-md text-black font-normal  hover:bg-brandGrey hover:text-brandBlack"
+                            className="block transform rounded-md px-4 py-3 text-[0.8rem] font-normal capitalize text-black duration-200  hover:bg-brandGrey hover:text-brandBlack"
                           >
                             {item}
                           </Link>
@@ -121,7 +121,7 @@ const Header = () => {
             </li>
             <li className="w-full px-6 py-1 sm:w-auto sm:py-0 sm:px-0">
               <Link
-                className="inline-block w-full px-3 py-3 duration-200 rounded-lg sm:w-auto hover:bg-green-100 hover:text-green-800"
+                className="inline-block w-full rounded-lg px-3 py-3 duration-200 hover:bg-green-100 hover:text-green-800 sm:w-auto"
                 href="/products"
               >
                 PRODUCTS
@@ -129,7 +129,7 @@ const Header = () => {
             </li>
             <li className="w-full px-6 py-1 sm:w-auto sm:py-0 sm:px-0">
               <Link
-                className="inline-block w-full px-3 py-3 duration-200 rounded-lg sm:w-auto hover:bg-green-100 hover:text-green-800"
+                className="inline-block w-full rounded-lg px-3 py-3 duration-200 hover:bg-green-100 hover:text-green-800 sm:w-auto"
                 href="/bulk-corporate"
               >
                 BULK/CORPORATE
@@ -137,7 +137,7 @@ const Header = () => {
             </li>
             <li className="w-full px-6 py-1 sm:w-auto sm:py-0 sm:px-0">
               <Link
-                className="inline-block w-full px-3 py-3 duration-200 rounded-lg sm:w-auto hover:bg-green-100 hover:text-green-800"
+                className="inline-block w-full rounded-lg px-3 py-3 duration-200 hover:bg-green-100 hover:text-green-800 sm:w-auto"
                 href="/hot-products"
               >
                 HOT PRODUCTS
@@ -145,7 +145,7 @@ const Header = () => {
             </li>
             <li className="w-full px-6 py-1 sm:w-auto sm:py-0 sm:px-0">
               <Link
-                className="inline-block w-full px-3 py-3 duration-200 rounded-lg sm:w-auto hover:bg-green-100 hover:text-green-800"
+                className="inline-block w-full rounded-lg px-3 py-3 duration-200 hover:bg-green-100 hover:text-green-800 sm:w-auto"
                 href="/about-us"
               >
                 ABOUT US
@@ -155,7 +155,7 @@ const Header = () => {
         </div>
         <div
           onClick={toggleMenu}
-          className="max-w-[50px] h-auto pr-3 group/menu cursor-pointer block sm:hidden"
+          className="group/menu block h-auto max-w-[50px] cursor-pointer pr-3 sm:hidden"
         >
           {/* <svg
               className="duration-200 fill-slate-600 group-hover/menu:fill-green-600"
@@ -165,11 +165,11 @@ const Header = () => {
             >
               <path d="M61.1 224C45 224 32 211 32 194.9c0-1.9 .2-3.7 .6-5.6C37.9 168.3 78.8 32 256 32s218.1 136.3 223.4 157.3c.5 1.9 .6 3.7 .6 5.6c0 16.1-13 29.1-29.1 29.1H61.1zM144 128c0-8.8-7.2-16-16-16s-16 7.2-16 16s7.2 16 16 16s16-7.2 16-16zm240 16c8.8 0 16-7.2 16-16s-7.2-16-16-16s-16 7.2-16 16s7.2 16 16 16zM272 96c0-8.8-7.2-16-16-16s-16 7.2-16 16s7.2 16 16 16s16-7.2 16-16zM16 304c0-26.5 21.5-48 48-48H448c26.5 0 48 21.5 48 48s-21.5 48-48 48H64c-26.5 0-48-21.5-48-48zm16 96c0-8.8 7.2-16 16-16H464c8.8 0 16 7.2 16 16v16c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V400z" />
             </svg> */}
-          <Image src={menu} width={30} />
+          <Image src="/menu.svg" width={30} height={30} />
         </div>
       </div>
     </>
   );
 };
 
-export default Header;
+export default Navbar;

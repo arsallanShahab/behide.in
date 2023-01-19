@@ -30,7 +30,7 @@
     @apply inline-block font-poppins text-sm font-semibold;
   }
   .gsaSX {
-    @apply mt-4 flex flex-row items-center gap-5 rounded-2xl bg-white px-4 py-3 sm:py-3 sm:px-5;
+    @apply mt-4 flex flex-row items-center gap-5 rounded-2xl bg-white px-4 py-3 sm:py-4 sm:px-5;
   }
   .AgjCXY {
     @apply font-poppins text-xs font-semibold text-brandMediumGrey/75 sm:text-sm;

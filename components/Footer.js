@@ -1,11 +1,11 @@
 import Link from "next/link";
+import ArrowRightIcon from "../assets/arrow-right.svg";
 import FacebookIcon from "../assets/facebook.svg";
 import InstagramIcon from "../assets/instagram.svg";
+import MailIcon from "../assets/mail.svg";
+import MapIcon from "../assets/map-pin.svg";
 import WhatsappIcon from "../assets/message-circle.svg";
-import ArrowRightIcon from "../public/arrow-right.svg";
-import MailIcon from "../public/mail.svg";
-import MapIcon from "../public/map-pin.svg";
-import PhoneIcon from "../public/phone.svg";
+import PhoneIcon from "../assets/phone.svg";
 
 const Footer = () => {
   return (

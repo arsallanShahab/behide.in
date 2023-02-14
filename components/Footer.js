@@ -10,21 +10,23 @@ import PhoneIcon from "../assets/phone.svg";
 const Footer = () => {
   return (
     <>
-      <div className="flex w-full flex-row flex-wrap gap-3 bg-brand-grey py-16 px-2 sm:px-8">
+      <div className="flex w-full flex-row flex-wrap gap-3 bg-gray-50 py-16 px-2 sm:px-8">
         <div className="flex-1 flex-wrap rounded-md px-4 py-6">
-          <h3 className="ml-2 font-poppins text-sm font-semibold">
-            CONTACT INFO
-          </h3>
+          <h3 className="ml-2 font-sora text-sm font-semibold">CONTACT INFO</h3>
           <div className="gsaSX">
             <div className="rounded-2xl bg-black p-2 sm:p-3">
               <MapIcon className="stroke-white" />
             </div>
             <div>
-              <h4 className="mb-1 align-middle font-poppins text-xs font-semibold">
+              <h4 className="mb-1 align-middle font-sora text-xs font-medium text-gray-500">
                 ADDRESS
               </h4>
-              <p className="AgjCXY">21/A,ALIMUDDIN STREET</p>
-              <p className="AgjCXY">KOL-16, WEST BENGAL, INDIA</p>
+              <p className="font-poppins text-xs font-medium text-black sm:text-sm">
+                21/A,ALIMUDDIN STREET
+              </p>
+              <p className="font-poppins text-xs font-medium text-black sm:text-sm">
+                KOL-16, WEST BENGAL, INDIA
+              </p>
             </div>
           </div>
           <div className="gsaSX">
@@ -32,9 +34,15 @@ const Footer = () => {
               <PhoneIcon className="stroke-white" />
             </div>
             <div>
-              <h4 className="mb-1 font-poppins text-xs font-semibold">PHONE</h4>
-              <p className="AgjCXY">+91 62898 39240</p>
-              <p className="AgjCXY">+91 90734 48018</p>
+              <h4 className="mb-1 align-middle font-sora text-xs font-medium text-gray-500">
+                PHONE
+              </h4>
+              <p className="font-poppins text-xs font-medium text-black sm:text-sm">
+                +91 62898 39240
+              </p>
+              <p className="font-poppins text-xs font-medium text-black sm:text-sm">
+                +91 90734 48018
+              </p>
             </div>
           </div>
           <div className="gsaSX">
@@ -42,8 +50,10 @@ const Footer = () => {
               <MailIcon className="stroke-white" />
             </div>
             <div>
-              <h4 className="mb-1 font-poppins text-xs font-semibold">EMAIL</h4>
-              <p className="AgjCXY break-words">
+              <h4 className="mb-1 align-middle font-sora text-xs font-medium text-gray-500">
+                EMAIL
+              </h4>
+              <p className="break-words font-poppins text-xs font-medium text-black sm:text-sm">
                 <a
                   className="break-words"
                   href="mailto:enquiries.behideindia@gmail.com"
@@ -55,7 +65,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="flex-1 rounded-md px-4 py-6">
-          <h3 className="ml-2 font-poppins text-sm font-semibold">ACCOUNT</h3>
+          <h3 className="ml-2 font-sora text-sm font-semibold">ACCOUNT</h3>
           <div className="footer-link-wrapper">
             <Link className="footer-link group" href={"/about-us"}>
               <ArrowRightIcon className="footer-link-svg" />
@@ -88,7 +98,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="flex-1 rounded-md px-4 py-6">
-          <h3 className="ml-2 font-poppins text-sm font-semibold">PAGES</h3>
+          <h3 className="ml-2 font-sora text-sm font-semibold">PAGES</h3>
           <div className="footer-link-wrapper">
             <Link className="footer-link group" href={"/hot-products"}>
               <ArrowRightIcon className="footer-link-svg" />
@@ -112,9 +122,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="flex-1 rounded-md px-4 py-6">
-          <h3 className="ml-2 font-poppins text-sm font-semibold">
-            NEWS LETTER
-          </h3>
+          <h3 className="ml-2 font-sora text-sm font-semibold">NEWS LETTER</h3>
           <div className="footer-link-wrapper">
             <label htmlFor="email" className="footer-link group">
               SUBSCRIBE
@@ -137,7 +145,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="flex flex-row flex-wrap items-center justify-center gap-5 py-10 px-10 sm:justify-between">
-        <p className="text-center font-poppins text-sm font-semibold">
+        <p className="text-center font-poppins text-base font-medium">
           © Behide India 2022. All Rights Reserved.
         </p>
         <div className="flex flex-row gap-2 rounded-xl bg-brand-grey px-4 py-3">

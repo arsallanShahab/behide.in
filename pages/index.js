@@ -32,9 +32,9 @@ export default function Home({ data }) {
           {homeBannerItems.map((item, index) => {
             return (
               <SwiperSlide key={index}>
-                <div className="relative flex flex-col items-center justify-center bg-brandGrey px-6 pt-10 pb-32 sm:flex-row">
+                <div className="relative flex flex-col items-center justify-center bg-brandGrey px-6 pt-10 pb-32 sm:flex-row sm:px-3">
                   <div className="flex basis-1/2 flex-col items-center px-4 text-center sm:items-start sm:px-8">
-                    <h3 className="word-spacing-trending py-3 align-middle font-rubik font-semibold uppercase text-[#afafaf]">
+                    <h3 className="word-spacing-trending py-3 align-middle font-poppins text-sm font-medium uppercase text-[#afafaf]">
                       Trending Collection{" "}
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -51,7 +51,7 @@ export default function Home({ data }) {
                         <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
                       </svg>
                     </h3>
-                    <h1 className="relative z-10 text-center font-poppins text-[55px] font-bold capitalize leading-[.8] text-brandBlack sm:text-left sm:text-8xl">
+                    <h1 className="relative z-10 text-center font-sora text-[55px] font-bold capitalize leading-[.9] -tracking-[3px] text-brandBlack sm:text-left sm:text-8xl">
                       {item.homeBannerText}
                     </h1>
                     <svg
@@ -71,7 +71,7 @@ export default function Home({ data }) {
                         fill="#FFF"
                       />
                     </svg>
-                    <p className="word-spacing mt-10 max-w-md border-l-0 pl-5 text-center font-poppins text-sm font-semibold leading-relaxed text-brandMediumGrey sm:border-l-4 sm:text-left">
+                    <p className="word-spacing mt-10 max-w-md border-l-0 pl-5 text-center font-poppins text-[18px] font-semibold leading-relaxed text-brandMediumGrey sm:border-l-4 sm:text-left">
                       {item.homeBannerDescription}
                     </p>
                     <Link

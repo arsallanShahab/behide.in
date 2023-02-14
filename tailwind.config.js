@@ -11,6 +11,7 @@ module.exports = {
         rubik: ["Rubik", "sans-serif"],
         nerko: ["nerko one", "sans-serif"],
         space: ["Space Grotesk", "sans-serif"],
+        sora: ["Sora", "sans-serif"],
       },
       colors: {
         // brandGrey: "#f7f7f7",

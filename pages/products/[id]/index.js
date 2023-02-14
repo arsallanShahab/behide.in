@@ -84,11 +84,11 @@ const index = ({ data }) => {
 
         {/* Image gallery */}
         <div className="mx-auto mt-6 max-w-2xl items-stretch justify-center self-center sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
-          <div className="aspect-w-4 aspect-h-5 lg:aspect-w-3 lg:aspect-h-4 hidden sm:block sm:overflow-hidden sm:rounded-lg">
+          <div className="aspect-w-4 aspect-h-5 lg:aspect-w-3 lg:aspect-h-4 hidden sm:flex sm:items-center sm:overflow-hidden ">
             <img
               src={product.fields.productAssets[0].fields.file.url}
               alt={product.fields.productAssets[0].fields.title}
-              className="h-[60vh] w-full object-cover object-center sm:h-full"
+              className="h-full w-full object-center sm:h-auto sm:rounded-lg"
             />
           </div>
           <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
@@ -107,11 +107,11 @@ const index = ({ data }) => {
               />
             </div>
           </div>
-          <div className="aspect-w-3 aspect-h-4 hidden overflow-hidden rounded-lg lg:block">
+          <div className="aspect-w-3 aspect-h-4 hidden overflow-hidden rounded-lg lg:flex lg:items-center lg:justify-center">
             <img
               src={product.fields.productAssets[3].fields.file.url}
               alt={product.fields.productAssets[3].fields.title}
-              className="h-full w-full object-cover object-center"
+              className="h-full w-full object-center sm:h-auto sm:rounded-lg"
             />
           </div>
           <div className="flex flex-col gap-3 p-3 sm:hidden">
@@ -177,9 +177,9 @@ const index = ({ data }) => {
         </div>
 
         {/* Product info */}
-        <div className="mx-auto max-w-2xl px-4 pt-10 pb-16 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pt-16 lg:pb-24">
+        <div className="mx-auto max-w-2xl px-4 pt-10 pb-16 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pt-24 lg:pb-24">
           <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
-            <h1 className="font-poppins text-xl font-bold text-gray-900 sm:text-2xl">
+            <h1 className="font-sora text-xl font-semibold text-gray-900 sm:text-2xl">
               {product.fields.productName}
             </h1>
           </div>
@@ -188,7 +188,7 @@ const index = ({ data }) => {
           <div className="mt-12 lg:row-span-3 lg:mt-0">
             <h2 className="sr-only">Product information</h2>
             <div className="flex flex-row flex-wrap items-center justify-between gap-3">
-              <p className="font-poppins text-3xl font-bold text-gray-900">
+              <p className="font-sora text-3xl font-semibold text-gray-900">
                 Rs. {product.fields.productPrice}
               </p>
               {product.fields.skuId ? (
@@ -257,23 +257,22 @@ const index = ({ data }) => {
 
           {/* Description and details */}
           <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pt-6 lg:pb-16 lg:pr-8">
-            <div className="mt-10">
+            <div className="mt-5">
               <h3 className="font-rubik text-sm font-semibold uppercase text-gray-900">
                 Highlights
               </h3>
 
               <div className="mt-4">
-                <ul
-                  role="list"
-                  className="list-disc space-y-2 pl-4 text-sm leading-loose"
-                >
+                <ul role="list" className="list-disc space-y-2 pl-4 ">
                   {product.fields.productHighlight
                     ? product.fields.productHighlight
                         .split("--")
                         .map((highlight, index) =>
                           highlight.length < 5 ? null : (
-                            <li key={index} className="text-gray-400">
-                              <span className="text-gray-600">{highlight}</span>
+                            <li key={index}>
+                              <span className="font-poppins text-base leading-loose text-gray-700">
+                                {highlight}
+                              </span>
                             </li>
                           )
                         )

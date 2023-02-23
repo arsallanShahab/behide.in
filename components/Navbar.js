@@ -1,13 +1,29 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import Cart from "../assets/shopping-cart.js";
+import { useCartProvider } from "../context/CartContext.js";
 import logo from "../public/behide-logo-new.png";
+import CartModal from "./CartModal.js";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [dropdown, setDropdown] = useState(false);
+  const [isOrdered, setIsOrdered] = useState(false);
   const router = useRouter();
+  const ref = useRef(null);
+  const { totalQuantity, showCart, setShowCart } = useCartProvider();
+  useEffect(() => {
+    const stoargeOrderedItems = JSON.parse(
+      localStorage.getItem("order") || "[]"
+    );
+    if (stoargeOrderedItems.length > 0) {
+      setIsOrdered(true);
+    } else {
+      setIsOrdered(false);
+    }
+  }, [router.asPath]);
 
   const productCategory = [
     "Backpack",
@@ -40,9 +56,25 @@ const Navbar = () => {
     setOpen(false);
   }, [router.asPath]);
 
+  // useEffect(() => {
+  //   const scrollCallBack = window.addEventListener("scroll", () => {
+  //     if (window.pageYOffset > 50) {
+  //       ref.current.classList.add("scrolled");
+  //     } else {
+  //       ref.current.classList.remove("scrolled");
+  //     }
+  //   });
+  //   return () => {
+  //     window.removeEventListener("scroll", scrollCallBack);
+  //   };
+  // }, [ref.current]);
+
   return (
     <>
-      <div className="group/header header relative z-[501] flex w-full flex-row flex-wrap items-center justify-between bg-brandGrey py-3 px-3 font-poppins text-black sm:px-8">
+      <div
+        ref={ref}
+        className="group/header header sticky top-0 z-[501] flex w-full flex-row flex-wrap items-center justify-between bg-brandGrey/95 py-3 px-3 font-poppins text-black backdrop-blur-md duration-150 sm:px-8"
+      >
         <div className="max-w-[100px] rounded-lg p-4">
           <Link href="/">
             <Image
@@ -107,7 +139,7 @@ const Navbar = () => {
                           <Link
                             key={index}
                             href={`/products/category/${item.toLowerCase()}`}
-                            className="block transform rounded-md px-4 py-3 text-[0.8rem] font-normal capitalize text-black duration-200  hover:bg-brandGrey hover:text-brandBlack"
+                            className="block transform rounded-md px-4 py-3 text-[0.8rem] font-normal capitalize text-black duration-200  hover:bg-gray-100 hover:text-brandBlack"
                           >
                             {item}
                           </Link>
@@ -152,21 +184,39 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
+        <div className="flex flex-row flex-wrap gap-3">
+          {isOrdered > 0 && (
+            <Link
+              href="/orders"
+              className="inline-block cursor-pointer rounded-xl bg-green-50 px-6 py-3 font-medium text-green-700 duration-150  hover:bg-green-100 active:scale-90 active:bg-green-200"
+            >
+              Orders
+            </Link>
+          )}
+          <a
+            onClick={() => setShowCart(true)}
+            className="relative inline-block cursor-pointer rounded-xl bg-green-50 px-6 py-3 duration-150  hover:bg-green-100 active:scale-90 active:bg-green-200"
+          >
+            <Cart className="inline-block w-5 stroke-green-700" />
+            <div className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-green-700 text-xs text-white">
+              {totalQuantity}
+            </div>
+          </a>
+        </div>
         <div
           onClick={toggleMenu}
           className="group/menu block h-auto max-w-[50px] cursor-pointer pr-3 sm:hidden"
         >
-          {/* <svg
-              className="duration-200 fill-slate-600 group-hover/menu:fill-green-600"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 512 512"
-              width={"100%"}
-            >
-              <path d="M61.1 224C45 224 32 211 32 194.9c0-1.9 .2-3.7 .6-5.6C37.9 168.3 78.8 32 256 32s218.1 136.3 223.4 157.3c.5 1.9 .6 3.7 .6 5.6c0 16.1-13 29.1-29.1 29.1H61.1zM144 128c0-8.8-7.2-16-16-16s-16 7.2-16 16s7.2 16 16 16s16-7.2 16-16zm240 16c8.8 0 16-7.2 16-16s-7.2-16-16-16s-16 7.2-16 16s7.2 16 16 16zM272 96c0-8.8-7.2-16-16-16s-16 7.2-16 16s7.2 16 16 16s16-7.2 16-16zM16 304c0-26.5 21.5-48 48-48H448c26.5 0 48 21.5 48 48s-21.5 48-48 48H64c-26.5 0-48-21.5-48-48zm16 96c0-8.8 7.2-16 16-16H464c8.8 0 16 7.2 16 16v16c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V400z" />
-            </svg> */}
-          <Image src="/menu.svg" width={30} height={30} />
+          <Image alt="menu-button" src="/menu.svg" width={30} height={30} />
         </div>
       </div>
+      {showCart && <CartModal />}
+      {showCart && (
+        <div
+          onClick={() => setShowCart(false)}
+          className="fixed inset-0 z-[777] bg-black opacity-50"
+        ></div>
+      )}
     </>
   );
 };

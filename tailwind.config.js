@@ -8,9 +8,6 @@ module.exports = {
     extend: {
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
-        rubik: ["Rubik", "sans-serif"],
-        nerko: ["nerko one", "sans-serif"],
-        space: ["Space Grotesk", "sans-serif"],
         sora: ["Sora", "sans-serif"],
       },
       colors: {
@@ -24,6 +21,15 @@ module.exports = {
       },
       letterSpacing: {
         tight: "-6px",
+      },
+      animation: {
+        "slide-in": "slide-in 300ms",
+      },
+      keyframes: {
+        "slide-in": {
+          "0%": { transform: "translateX(100%)" },
+          "100%": { transform: "translateX(0)" },
+        },
       },
     },
   },

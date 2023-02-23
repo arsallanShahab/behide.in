@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import ArrowRightIcon from "../assets/arrow-right.svg";
 import FacebookIcon from "../assets/facebook.svg";
@@ -6,79 +7,37 @@ import MailIcon from "../assets/mail.svg";
 import MapIcon from "../assets/map-pin.svg";
 import WhatsappIcon from "../assets/message-circle.svg";
 import PhoneIcon from "../assets/phone.svg";
+import logo from "../public/behide-logo-new.png";
 
 const Footer = () => {
   return (
     <>
-      <div className="flex w-full flex-row flex-wrap gap-3 bg-gray-50 py-16 px-2 sm:px-8">
-        <div className="flex-1 flex-wrap rounded-md px-4 py-6">
-          <h3 className="ml-2 font-sora text-sm font-semibold">CONTACT INFO</h3>
-          <div className="gsaSX">
-            <div className="rounded-2xl bg-black p-2 sm:p-3">
-              <MapIcon className="stroke-white" />
-            </div>
-            <div>
-              <h4 className="mb-1 align-middle font-sora text-xs font-medium text-gray-500">
-                ADDRESS
-              </h4>
-              <p className="font-poppins text-xs font-medium text-black sm:text-sm">
-                21/A,ALIMUDDIN STREET
-              </p>
-              <p className="font-poppins text-xs font-medium text-black sm:text-sm">
-                KOL-16, WEST BENGAL, INDIA
-              </p>
-            </div>
-          </div>
-          <div className="gsaSX">
-            <div className="rounded-2xl bg-black p-2 sm:p-3">
-              <PhoneIcon className="stroke-white" />
-            </div>
-            <div>
-              <h4 className="mb-1 align-middle font-sora text-xs font-medium text-gray-500">
-                PHONE
-              </h4>
-              <p className="font-poppins text-xs font-medium text-black sm:text-sm">
-                +91 62898 39240
-              </p>
-              <p className="font-poppins text-xs font-medium text-black sm:text-sm">
-                +91 90734 48018
-              </p>
-            </div>
-          </div>
-          <div className="gsaSX">
-            <div className="rounded-2xl bg-black p-2 sm:p-3">
-              <MailIcon className="stroke-white" />
-            </div>
-            <div>
-              <h4 className="mb-1 align-middle font-sora text-xs font-medium text-gray-500">
-                EMAIL
-              </h4>
-              <p className="break-words font-poppins text-xs font-medium text-black sm:text-sm">
-                <a
-                  className="break-words"
-                  href="mailto:enquiries.behideindia@gmail.com"
-                >
-                  enquiries.behideindia@gmail.com
-                </a>
-              </p>
-            </div>
+      <div className="flex w-full flex-row flex-wrap items-start justify-center gap-3 bg-black py-28 px-2 sm:px-8">
+        <div className="flex-grow flex-wrap justify-center rounded-md px-4 py-6 sm:flex-1">
+          <div className="mt-4 flex flex-col items-center justify-center gap-5 rounded-2xl px-4 py-3 text-center sm:items-start sm:py-4 sm:px-5 sm:text-left">
+            <Image src={logo} alt="Behide Logo" width={90} />
+            <h4 className="mb-1 max-w-[200px] align-middle font-sora text-base font-medium leading-[2] text-white">
+              Genuine Leather Products
+            </h4>
           </div>
         </div>
-        <div className="flex-1 rounded-md px-4 py-6">
-          <h3 className="ml-2 font-sora text-sm font-semibold">ACCOUNT</h3>
-          <div className="footer-link-wrapper">
+        <div className="flex flex-grow flex-col items-center justify-center rounded-md px-4 py-6 sm:flex-1 sm:items-start">
+          <h3 className="font-sora text-sm font-semibold text-white sm:ml-3 sm:mb-6">
+            ACCOUNT
+          </h3>
+          <div className="mt-6 sm:mt-2">
             <Link className="footer-link group" href={"/about-us"}>
               <ArrowRightIcon className="footer-link-svg" />
               About us
             </Link>
           </div>
-          <div className="footer-link-wrapper">
+          <div className="mt-6 sm:mt-2">
             <Link className="footer-link group" href={"/about-us#contact"}>
               <ArrowRightIcon className="footer-link-svg" />
               Contact us
             </Link>
           </div>
-          <div className="footer-link-wrapper">
+          <div className="mt-6 sm:mt-2">
             <Link
               className="footer-link group"
               href={"/about-us#privacy-policy"}
@@ -87,7 +46,7 @@ const Footer = () => {
               Privacy Policy
             </Link>
           </div>
-          <div className="footer-link-wrapper">
+          <div className="mt-6 sm:mt-2">
             <Link
               className="footer-link group"
               href={"/about-us#terms-and-conditions"}
@@ -97,21 +56,23 @@ const Footer = () => {
             </Link>
           </div>
         </div>
-        <div className="flex-1 rounded-md px-4 py-6">
-          <h3 className="ml-2 font-sora text-sm font-semibold">PAGES</h3>
-          <div className="footer-link-wrapper">
+        <div className="flex flex-grow flex-col items-center justify-center rounded-md px-4 py-6 sm:flex-1 sm:items-start">
+          <h3 className="font-sora text-sm font-semibold text-white sm:ml-3 sm:mb-6">
+            PAGES
+          </h3>
+          <div className="mt-6 sm:mt-2">
             <Link className="footer-link group" href={"/hot-products"}>
               <ArrowRightIcon className="footer-link-svg" />
               Hot Products
             </Link>
           </div>
-          <div className="footer-link-wrapper">
+          <div className="mt-6 sm:mt-2">
             <Link className="footer-link group" href={"/bulk-corporate"}>
               <ArrowRightIcon className="footer-link-svg" />
               Corporate Order
             </Link>
           </div>
-          <div className="footer-link-wrapper">
+          <div className="mt-6 sm:mt-2">
             <Link
               className="footer-link group"
               href={"/about-us#return-policy"}
@@ -121,13 +82,15 @@ const Footer = () => {
             </Link>
           </div>
         </div>
-        <div className="flex-1 rounded-md px-4 py-6">
-          <h3 className="ml-2 font-sora text-sm font-semibold">NEWS LETTER</h3>
-          <div className="footer-link-wrapper">
+        <div className="flex flex-grow flex-col items-center justify-center rounded-md px-4 py-6 sm:flex-1 sm:items-start">
+          <h3 className="font-sora text-sm font-semibold text-white sm:ml-3 sm:mb-6">
+            NEWS LETTER
+          </h3>
+          <div className="mt-6 text-center sm:mt-2 sm:text-left">
             <label htmlFor="email" className="footer-link group">
               SUBSCRIBE
             </label>
-            <div className="relative mt-2 pb-1">
+            <div className="relative mt-4 pb-1 sm:mt-2">
               <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                 <span className="text-gray-500 sm:text-sm">
                   <MailIcon className="scale-75" />
@@ -144,8 +107,8 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-row flex-wrap items-center justify-center gap-5 py-10 px-10 sm:justify-between">
-        <p className="text-center font-poppins text-base font-medium">
+      <div className="flex flex-row flex-wrap items-center justify-center gap-5 py-6 px-10 sm:justify-between">
+        <p className="text-center font-poppins text-sm font-medium">
           © Behide India 2022. All Rights Reserved.
         </p>
         <div className="flex flex-row gap-2 rounded-xl bg-brand-grey px-4 py-3">

@@ -1,22 +1,118 @@
 import Link from "next/link";
 import { useState } from "react";
+import { toast } from "react-hot-toast";
 import safeJsonStringify from "safe-json-stringify";
 import PageHead from "../../../components/PageHead";
+import { useCartProvider } from "../../../context/CartContext";
 import { client } from "../../../lib/contentful";
 
 const index = ({ data }) => {
   console.log(data);
   const [index, setIndex] = useState(0);
+  const {
+    quantity,
+    setQuantity,
+    showCart,
+    cartItems,
+    setCartItems,
+    setTotalQuantity,
+    totalQuantity,
+    totalPrice,
+    setTotalPrice,
+  } = useCartProvider();
   const { id, product } = data;
   const Images = product.fields.productAssets;
   // product.fields.productAssets[0].fields.file.url;
 
-  const excerpt = (string) => {
-    if (string.length > 70) {
-      return string.slice(0, 70) + " . . . ";
+  const excerpt = (string, length = 70) => {
+    if (string.length > length) {
+      return string.slice(0, length) + " . . . ";
     } else {
       return string;
     }
+  };
+  const addToCart = () => {
+    const checkProductInCart = cartItems.find((item) => item.id === id);
+    const stoargeCart = JSON.parse(localStorage.getItem("cart") || "[]");
+
+    setTotalPrice(totalPrice + product.fields.productPrice * quantity);
+    setTotalQuantity(totalQuantity + quantity);
+
+    if (stoargeCart && stoargeCart.length > 0 && checkProductInCart) {
+      const checkProductInStorage = stoargeCart.find((item) => item.id === id);
+      if (checkProductInStorage) {
+        const updatedCartItems = cartItems.map((item) => {
+          if (item.id === id) {
+            return { ...item, quantity: item.quantity + quantity };
+          }
+          return item;
+        });
+        setCartItems(updatedCartItems);
+        const updatedStorageCart = stoargeCart.map((item) => {
+          if (item.id === id) {
+            return { ...item, quantity: item.quantity + quantity };
+          }
+          return item;
+        });
+        localStorage.setItem("cart", JSON.stringify(updatedStorageCart));
+      }
+      // if (checkProductInCart) {
+      //   const updatedCartItems = cartItems.map((item) => {
+      //     if (item.id === id) {
+      //       return { ...item, quantity: item.quantity + quantity };
+      //     }
+      //     return item;
+      //   });
+      //   setCartItems(updatedCartItems);
+      // }
+    } else {
+      setCartItems([
+        ...cartItems,
+        {
+          quantity,
+          id,
+          thumbnail: product.fields.productBannerImage.fields.file.url.replace(
+            "//",
+            "https://"
+          ),
+          price: product.fields.productPrice,
+          name: product.fields.productName,
+        },
+      ]);
+      localStorage.setItem(
+        "cart",
+        JSON.stringify(
+          stoargeCart.concat({
+            quantity,
+            id,
+            thumbnail:
+              product.fields.productBannerImage.fields.file.url.replace(
+                "//",
+                "https://"
+              ),
+
+            price: product.fields.productPrice,
+            name: product.fields.productName,
+          })
+        )
+      );
+    }
+    setQuantity(1);
+    toast.success(`${quantity} item added to cart`);
+    // const cart = JSON.parse(localStorage.getItem("cart"));
+    // if (cart && checkProductInCart) {
+    //   const item = cart.find((item) => item.id === id);
+    //   if (item) {
+    //     item.quantity += quantity;
+    //     localStorage.setItem("cart", safeJsonStringify(cart));
+    //   } else {
+    //     cart.push({ ...data, quantity });
+    //     localStorage.setItem("cart", safeJsonStringify(cart));
+    //   }
+    // } else {
+    //   setTotalQuantity(quantity + totalQuantity);
+    //   // localStorage.setItem("cart", safeJsonStringify([{ ...data, quantity }]));
+    // }
   };
 
   return (
@@ -117,61 +213,26 @@ const index = ({ data }) => {
           <div className="flex flex-col gap-3 p-3 sm:hidden">
             <div className="w-full overflow-hidden rounded-md">
               <img
-                className="h-[60vh] w-full object-cover object-center"
+                className="h-[60vh] w-full object-contain object-center"
                 src={product.fields.productAssets[index].fields.file.url}
               />
             </div>
 
-            <div className="flex w-full flex-row gap-3 rounded-md bg-white p-3">
+            <div className="flex w-full flex-row gap-3 rounded-3xl bg-white">
               {product.fields.productAssets.map((item, i) => {
                 return (
                   <div
+                    key={i}
                     onClick={() => setIndex(i)}
-                    className="basis-1/4 cursor-pointer overflow-hidden rounded-md duration-200 active:scale-75 active:opacity-75"
+                    className="basis-1/4 cursor-pointer overflow-hidden rounded-xl border px-3 py-3 duration-200 active:scale-90 active:opacity-75"
                   >
                     <img
-                      className="h-32 w-full object-cover object-center"
+                      className="w-full object-contain object-center"
                       src={product.fields.productAssets[i].fields.file.url}
                     />
                   </div>
                 );
               })}
-              {/* <div
-                onClick={() => setIndex(0)}
-                className="basis-1/4 rounded-md overflow-hidden cursor-pointer"
-              >
-                <img
-                  className="w-full h-32 object-cover object-center"
-                  src={product.fields.productAssets[0].fields.file.url}
-                />
-              </div> */}
-              {/* <div
-                onClick={() => setIndex(1)}
-                className="basis-1/4 rounded-md overflow-hidden cursor-pointer"
-              >
-                <img
-                  className="w-full h-32 object-cover object-center"
-                  src={product.fields.productAssets[1].fields.file.url}
-                />
-              </div> */}
-              {/* <div
-                onClick={() => setIndex(2)}
-                className="basis-1/4 rounded-md overflow-hidden cursor-pointer"
-              >
-                <img
-                  className="w-full h-32 object-cover object-center"
-                  src={product.fields.productAssets[2].fields.file.url}
-                />
-              </div> */}
-              {/* <div
-                onClick={() => setIndex(3)}
-                className="basis-1/4 rounded-md overflow-hidden cursor-pointer"
-              >
-                <img
-                  className="w-full h-32 object-cover object-center"
-                  src={product.fields.productAssets[3].fields.file.url}
-                />
-              </div> */}
             </div>
           </div>
         </div>
@@ -179,7 +240,7 @@ const index = ({ data }) => {
         {/* Product info */}
         <div className="mx-auto max-w-2xl px-4 pt-10 pb-16 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pt-24 lg:pb-24">
           <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
-            <h1 className="font-sora text-xl font-semibold text-gray-900 sm:text-2xl">
+            <h1 className="break-all font-sora text-2xl font-semibold text-gray-900 sm:text-2xl">
               {product.fields.productName}
             </h1>
           </div>
@@ -187,60 +248,99 @@ const index = ({ data }) => {
           {/* Options */}
           <div className="mt-12 lg:row-span-3 lg:mt-0">
             <h2 className="sr-only">Product information</h2>
-            <div className="flex flex-row flex-wrap items-center justify-between gap-3">
+            <div className="mb-10 flex flex-row flex-wrap items-center justify-between gap-3">
               <p className="font-sora text-3xl font-semibold text-gray-900">
                 Rs. {product.fields.productPrice}
               </p>
-              {product.fields.skuId ? (
-                <p className="cursor-pointer select-none rounded-lg border bg-white px-4 py-3 font-poppins text-sm font-semibold text-black duration-200 active:bg-slate-200">
-                  SKU ID - {product.fields.skuId}
+            </div>
+
+            {/* //generate code for incraesing and decreasing quantity */}
+
+            <div className="flex flex-row flex-wrap gap-3">
+              <div className="flex-1">
+                <button
+                  onClick={addToCart}
+                  className="w-full rounded-xl border border-green-200 bg-green-50 px-3 py-4 text-center font-sora font-semibold text-green-700 duration-150 hover:bg-green-100 active:scale-90 active:bg-green-200"
+                >
+                  Add to cart
+                </button>
+              </div>
+              <div className="flex flex-row items-center justify-between gap-3 rounded-xl border bg-white px-2">
+                <button
+                  onClick={() => {
+                    if (quantity > 1) {
+                      setQuantity(quantity - 1);
+                    }
+                  }}
+                  className="flex h-10 w-10 items-center justify-center rounded-xl border bg-gray-50 font-sora font-semibold text-black duration-150 hover:bg-gray-100 active:scale-90 active:bg-gray-200"
+                >
+                  -
+                </button>
+                <p className="font-sora text-xl font-semibold text-gray-900">
+                  {quantity}
                 </p>
-              ) : null}
+                <button
+                  onClick={() => {
+                    setQuantity(quantity + 1);
+                  }}
+                  className="flex h-10 w-10 items-center justify-center rounded-xl border bg-gray-50 font-sora font-semibold text-black duration-150 hover:bg-gray-100 active:scale-90 active:bg-gray-200"
+                >
+                  +
+                </button>
+              </div>
             </div>
 
             <form className="mt-10">
               {/* Colors */}
               <div>
-                <h3 className="font-rubik text-xs font-semibold uppercase text-gray-900">
+                <h3 className="font-sora text-xs font-semibold uppercase text-gray-900">
+                  SKU ID
+                </h3>
+                <p className="mt-3 cursor-pointer select-none rounded-xl border bg-gray-50 px-3 py-4 text-center font-poppins font-semibold uppercase text-gray-900 duration-200 active:bg-slate-100">
+                  {product.fields.skuId}
+                </p>
+              </div>
+              <div className="mt-10">
+                <h3 className="font-sora text-xs font-semibold uppercase text-gray-900">
                   Color
                 </h3>
-                <p className="mt-3 cursor-pointer select-none rounded-lg bg-brand-grey p-3 text-center font-semibold uppercase text-black duration-200 active:bg-slate-200">
+                <p className="mt-3 cursor-pointer select-none rounded-xl border bg-gray-50 px-3 py-4 text-center font-poppins font-semibold uppercase text-gray-900 duration-200 active:bg-slate-100">
                   {product.fields.productColor}
                 </p>
               </div>
 
               {/* Sizes */}
               <div className="mt-10">
-                <h3 className="font-rubik text-xs font-semibold uppercase text-gray-900">
+                <h3 className="font-sora text-xs font-semibold uppercase text-gray-900">
                   Size
                 </h3>
-                <div className="mt-3 flex flex-row flex-wrap justify-center gap-y-0 gap-x-3  rounded-lg  bg-brand-grey p-3 font-poppins">
-                  <div className="flex-1 cursor-pointer select-none items-center rounded-md bg-white p-2 text-center text-sm font-medium text-slate-800 duration-200 active:bg-slate-200">
-                    Length:
-                    <span className="font-semibold text-black">
+                <div className="mt-3 flex flex-row flex-wrap justify-center gap-y-0 gap-x-3 rounded-xl border  bg-gray-50 p-3 font-poppins">
+                  <div className="flex-1 cursor-pointer select-none rounded-xl border bg-white px-3 py-4 text-center font-poppins uppercase text-gray-900 duration-200 active:bg-slate-100">
+                    <span className="text-xs">Length:</span>
+                    <span className="block font-semibold text-black">
                       {`  ${product.fields.productLength}cm`}
                     </span>
                   </div>
-                  <div className="flex-1 cursor-pointer select-none items-center justify-between rounded-md bg-white p-2 text-center text-sm font-medium text-slate-600 duration-200 active:bg-slate-200">
-                    Breadth:{" "}
-                    <span className="font-semibold text-black">
+                  <div className="flex-1 cursor-pointer select-none rounded-xl border bg-white px-3 py-4 text-center font-poppins uppercase text-gray-900 duration-200 active:bg-slate-100">
+                    <span className="text-xs">Breadth:</span>
+                    <span className="block font-semibold text-black">
                       {`  ${product.fields.productBreadth}cm`}
                     </span>
                   </div>
-                  <div className="flex-1 cursor-pointer select-none items-center justify-between rounded-md bg-white p-2 text-center text-sm font-medium text-slate-600 duration-200 active:bg-slate-200">
-                    Height:{" "}
-                    <span className="font-semibold text-black">
+                  <div className="flex-1 cursor-pointer select-none rounded-xl border bg-white px-3 py-4 text-center font-poppins uppercase text-gray-900 duration-200 active:bg-slate-100">
+                    <span className="text-xs">Height:</span>
+                    <span className="block font-semibold text-black">
                       {`  ${product.fields.productHeight}cm`}
                     </span>
                   </div>
                 </div>
 
                 <div className="mt-10">
-                  <h3 className="font-rubik text-xs font-semibold uppercase text-gray-900">
+                  <h3 className="font-sora text-xs font-semibold uppercase text-gray-900">
                     Stock
                   </h3>
                   {product.fields.productInStock ? (
-                    <p className="mt-3 cursor-pointer select-none rounded-lg bg-brand-grey p-3 text-center font-semibold capitalize duration-200 active:bg-slate-200">
+                    <p className="mt-3 cursor-pointer select-none rounded-xl border bg-gray-50 px-3 py-4 text-center font-poppins font-semibold uppercase text-gray-900 duration-200 active:bg-slate-100">
                       {" "}
                       <span className="text-green-500">In Stock</span> and ready
                       to ship
@@ -258,7 +358,7 @@ const index = ({ data }) => {
           {/* Description and details */}
           <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pt-6 lg:pb-16 lg:pr-8">
             <div className="mt-5">
-              <h3 className="font-rubik text-sm font-semibold uppercase text-gray-900">
+              <h3 className="font-sora text-sm font-semibold uppercase text-gray-900">
                 Highlights
               </h3>
 

@@ -19,7 +19,7 @@ export default async function handler(req, res) {
         client_reference_id: req.body.client_reference_id,
         shipping_options: [
           {
-            shipping_rate: 'shr_1MiuICSBtevc6DlHyiPuQDkp',
+            shipping_rate: 'shr_1MkvvwSGmgt5WnxfKI1fAy6e',
           },
         ],
 

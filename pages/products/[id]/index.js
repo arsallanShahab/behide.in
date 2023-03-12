@@ -1,10 +1,11 @@
-import Link from "next/link";
-import { useState } from "react";
-import { toast } from "react-hot-toast";
-import safeJsonStringify from "safe-json-stringify";
-import PageHead from "../../../components/PageHead";
-import { useCartProvider } from "../../../context/CartContext";
-import { client } from "../../../lib/contentful";
+import ShoppingCart from '@/assets/shopping-cart';
+import PageHead from '@components/PageHead';
+import { useGlobalContextProvider } from '@context/CartContext';
+import { client } from '@lib/contentful';
+import Link from 'next/link';
+import { useState } from 'react';
+import { toast } from 'react-hot-toast';
+import safeJsonStringify from 'safe-json-stringify';
 
 const index = ({ data }) => {
   console.log(data);
@@ -12,28 +13,26 @@ const index = ({ data }) => {
   const {
     quantity,
     setQuantity,
-    showCart,
     cartItems,
     setCartItems,
     setTotalQuantity,
     totalQuantity,
     totalPrice,
     setTotalPrice,
-  } = useCartProvider();
+  } = useGlobalContextProvider();
   const { id, product } = data;
   const Images = product.fields.productAssets;
-  // product.fields.productAssets[0].fields.file.url;
 
   const excerpt = (string, length = 70) => {
     if (string.length > length) {
-      return string.slice(0, length) + " . . . ";
+      return string.slice(0, length) + ' . . . ';
     } else {
       return string;
     }
   };
   const addToCart = () => {
     const checkProductInCart = cartItems.find((item) => item.id === id);
-    const stoargeCart = JSON.parse(localStorage.getItem("cart") || "[]");
+    const stoargeCart = JSON.parse(localStorage.getItem('cart') || '[]');
 
     setTotalPrice(totalPrice + product.fields.productPrice * quantity);
     setTotalQuantity(totalQuantity + quantity);
@@ -54,65 +53,37 @@ const index = ({ data }) => {
           }
           return item;
         });
-        localStorage.setItem("cart", JSON.stringify(updatedStorageCart));
+        localStorage.setItem('cart', JSON.stringify(updatedStorageCart));
       }
-      // if (checkProductInCart) {
-      //   const updatedCartItems = cartItems.map((item) => {
-      //     if (item.id === id) {
-      //       return { ...item, quantity: item.quantity + quantity };
-      //     }
-      //     return item;
-      //   });
-      //   setCartItems(updatedCartItems);
-      // }
     } else {
       setCartItems([
         ...cartItems,
         {
           quantity,
           id,
-          thumbnail: product.fields.productBannerImage.fields.file.url.replace(
-            "//",
-            "https://"
-          ),
+          thumbnail: product.fields.productBannerImage.fields.file.url.replace('//', 'https://'),
           price: product.fields.productPrice,
           name: product.fields.productName,
+          sku_id: product.fields.skuId,
         },
       ]);
       localStorage.setItem(
-        "cart",
+        'cart',
         JSON.stringify(
           stoargeCart.concat({
             quantity,
             id,
-            thumbnail:
-              product.fields.productBannerImage.fields.file.url.replace(
-                "//",
-                "https://"
-              ),
+            thumbnail: product.fields.productBannerImage.fields.file.url.replace('//', 'https://'),
 
             price: product.fields.productPrice,
             name: product.fields.productName,
-          })
-        )
+            sku_id: product.fields.skuId,
+          }),
+        ),
       );
     }
     setQuantity(1);
     toast.success(`${quantity} item added to cart`);
-    // const cart = JSON.parse(localStorage.getItem("cart"));
-    // if (cart && checkProductInCart) {
-    //   const item = cart.find((item) => item.id === id);
-    //   if (item) {
-    //     item.quantity += quantity;
-    //     localStorage.setItem("cart", safeJsonStringify(cart));
-    //   } else {
-    //     cart.push({ ...data, quantity });
-    //     localStorage.setItem("cart", safeJsonStringify(cart));
-    //   }
-    // } else {
-    //   setTotalQuantity(quantity + totalQuantity);
-    //   // localStorage.setItem("cart", safeJsonStringify([{ ...data, quantity }]));
-    // }
   };
 
   return (
@@ -122,14 +93,11 @@ const index = ({ data }) => {
         <nav aria-label="Breadcrumb">
           <ol
             role="list"
-            className="mx-auto flex max-w-2xl flex-wrap items-start gap-x-2 gap-y-4 px-4 font-poppins sm:px-6 lg:max-w-7xl lg:px-8"
+            className="mx-auto flex max-w-2xl flex-wrap items-start gap-x-2 gap-y-4 px-4 sm:px-6 lg:max-w-7xl lg:px-8"
           >
             <li>
               <div className="flex items-center">
-                <Link
-                  href={`/`}
-                  className="mr-2 text-sm font-semibold text-gray-900"
-                >
+                <Link href={`/`} className="mr-2 text-sm font-light text-black">
                   Homepage
                 </Link>
                 <svg
@@ -149,7 +117,7 @@ const index = ({ data }) => {
               <div className="flex items-center">
                 <Link
                   href={`/products/category/${product.fields.productType}`}
-                  className="mr-2 text-sm font-semibold text-gray-900"
+                  className="mr-2 text-sm font-light text-black"
                 >
                   {product.fields.productType}
                 </Link>
@@ -170,9 +138,9 @@ const index = ({ data }) => {
               <Link
                 href={`/products/${product.sys.id}`}
                 aria-current="page"
-                className="font-medium text-gray-500 hover:text-gray-600"
+                className="font-light text-gray-500 hover:text-gray-600"
               >
-                {excerpt(product.fields.productName)}
+                {excerpt(product.fields.productName, 45)}
               </Link>
             </li>
           </ol>
@@ -256,34 +224,32 @@ const index = ({ data }) => {
 
             {/* //generate code for incraesing and decreasing quantity */}
 
-            <div className="flex flex-row flex-wrap gap-3">
+            <div className="flex flex-row flex-wrap items-stretch gap-3">
               <div className="flex-1">
                 <button
                   onClick={addToCart}
-                  className="w-full rounded-xl border border-green-200 bg-green-50 px-3 py-4 text-center font-sora font-semibold text-green-700 duration-150 hover:bg-green-100 active:scale-90 active:bg-green-200"
+                  className="inline-block h-full w-full rounded-xl bg-green-600 px-3.5 text-base font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
                 >
                   Add to cart
                 </button>
               </div>
-              <div className="flex flex-row items-center justify-between gap-3 rounded-xl border bg-white px-2">
+              <div className="flex flex-row items-center justify-between gap-3 rounded-xl border bg-white px-2 py-2">
                 <button
                   onClick={() => {
                     if (quantity > 1) {
                       setQuantity(quantity - 1);
                     }
                   }}
-                  className="flex h-10 w-10 items-center justify-center rounded-xl border bg-gray-50 font-sora font-semibold text-black duration-150 hover:bg-gray-100 active:scale-90 active:bg-gray-200"
+                  className="flex h-10 w-10 items-center justify-center rounded-xl font-sora font-semibold text-black duration-150 hover:bg-gray-100 active:scale-90 active:bg-gray-200"
                 >
                   -
                 </button>
-                <p className="font-sora text-xl font-semibold text-gray-900">
-                  {quantity}
-                </p>
+                <p className="font-sora text-xl font-semibold text-gray-900">{quantity}</p>
                 <button
                   onClick={() => {
                     setQuantity(quantity + 1);
                   }}
-                  className="flex h-10 w-10 items-center justify-center rounded-xl border bg-gray-50 font-sora font-semibold text-black duration-150 hover:bg-gray-100 active:scale-90 active:bg-gray-200"
+                  className="flex h-10 w-10 items-center justify-center rounded-xl font-sora font-semibold text-black duration-150 hover:bg-gray-100 active:scale-90 active:bg-gray-200"
                 >
                   +
                 </button>
@@ -293,17 +259,13 @@ const index = ({ data }) => {
             <form className="mt-10">
               {/* Colors */}
               <div>
-                <h3 className="font-sora text-xs font-semibold uppercase text-gray-900">
-                  SKU ID
-                </h3>
+                <h3 className="font-sora text-xs font-semibold uppercase text-gray-900">SKU ID</h3>
                 <p className="mt-3 cursor-pointer select-none rounded-xl border bg-gray-50 px-3 py-4 text-center font-poppins font-semibold uppercase text-gray-900 duration-200 active:bg-slate-100">
                   {product.fields.skuId}
                 </p>
               </div>
               <div className="mt-10">
-                <h3 className="font-sora text-xs font-semibold uppercase text-gray-900">
-                  Color
-                </h3>
+                <h3 className="font-sora text-xs font-semibold uppercase text-gray-900">Color</h3>
                 <p className="mt-3 cursor-pointer select-none rounded-xl border bg-gray-50 px-3 py-4 text-center font-poppins font-semibold uppercase text-gray-900 duration-200 active:bg-slate-100">
                   {product.fields.productColor}
                 </p>
@@ -311,9 +273,7 @@ const index = ({ data }) => {
 
               {/* Sizes */}
               <div className="mt-10">
-                <h3 className="font-sora text-xs font-semibold uppercase text-gray-900">
-                  Size
-                </h3>
+                <h3 className="font-sora text-xs font-semibold uppercase text-gray-900">Size</h3>
                 <div className="mt-3 flex flex-row flex-wrap justify-center gap-y-0 gap-x-3 rounded-xl border  bg-gray-50 p-3 font-poppins">
                   <div className="flex-1 cursor-pointer select-none rounded-xl border bg-white px-3 py-4 text-center font-poppins uppercase text-gray-900 duration-200 active:bg-slate-100">
                     <span className="text-xs">Length:</span>
@@ -336,14 +296,11 @@ const index = ({ data }) => {
                 </div>
 
                 <div className="mt-10">
-                  <h3 className="font-sora text-xs font-semibold uppercase text-gray-900">
-                    Stock
-                  </h3>
+                  <h3 className="font-sora text-xs font-semibold uppercase text-gray-900">Stock</h3>
                   {product.fields.productInStock ? (
                     <p className="mt-3 cursor-pointer select-none rounded-xl border bg-gray-50 px-3 py-4 text-center font-poppins font-semibold uppercase text-gray-900 duration-200 active:bg-slate-100">
-                      {" "}
-                      <span className="text-green-500">In Stock</span> and ready
-                      to ship
+                      {' '}
+                      <span className="text-green-500">In Stock</span> and ready to ship
                     </p>
                   ) : (
                     <p className="mt-3 cursor-pointer select-none rounded-lg border bg-white p-3 text-center font-semibold capitalize text-rose-500 duration-200 active:bg-slate-200">
@@ -365,17 +322,15 @@ const index = ({ data }) => {
               <div className="mt-4">
                 <ul role="list" className="list-disc space-y-2 pl-4 ">
                   {product.fields.productHighlight
-                    ? product.fields.productHighlight
-                        .split("--")
-                        .map((highlight, index) =>
-                          highlight.length < 5 ? null : (
-                            <li key={index}>
-                              <span className="font-poppins text-base leading-loose text-gray-700">
-                                {highlight}
-                              </span>
-                            </li>
-                          )
-                        )
+                    ? product.fields.productHighlight.split('--').map((highlight, index) =>
+                        highlight.length < 5 ? null : (
+                          <li key={index}>
+                            <span className="text-base leading-loose text-gray-700">
+                              {highlight}
+                            </span>
+                          </li>
+                        ),
+                      )
                     : null}
                 </ul>
               </div>
@@ -388,7 +343,6 @@ const index = ({ data }) => {
 };
 
 export const getStaticProps = async (ctx) => {
-  //   const { name, category, id } = ctx.query;
   const id = ctx.params.id;
   const response = await client.getEntry(`${id}`);
   const fields = safeJsonStringify(response);
@@ -401,7 +355,7 @@ export const getStaticProps = async (ctx) => {
 };
 
 export const getStaticPaths = async () => {
-  const response = await client.getEntries({ content_type: "blog" });
+  const response = await client.getEntries({ content_type: 'blog' });
   const entries = response.items;
   const ids = entries.map((item, index) => item.sys.id);
   const paths = ids.map((item) => ({

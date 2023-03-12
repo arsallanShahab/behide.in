@@ -1,27 +1,17 @@
-import Image from "next/image";
-import Link from "next/link";
-import React, { useRef } from "react";
-import { toast } from "react-hot-toast";
-import ShoppingCart from "../assets/shopping-cart";
-import { useCartProvider } from "../context/CartContext";
-import getStripe from "../lib/getStripe";
+import ShoppingCart from '@assets/shopping-cart';
+import { useGlobalContextProvider } from '@context/CartContext';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React from 'react';
+import { toast } from 'react-hot-toast';
 
 const CartModal = () => {
-  const cartRef = useRef(null);
-  const {
-    showCart,
-    setShowCart,
-    cartItems,
-    setCartItems,
-    totalQuantity,
-    setTotalQuantity,
-    totalPrice,
-    setTotalPrice,
-  } = useCartProvider();
+  const { setShowCart, cartItems } = useGlobalContextProvider();
 
   const excerpt = (string) => {
     if (string.length > 60) {
-      return string.slice(0, 60) + " . . . ";
+      return string.slice(0, 60) + ' . . . ';
     } else {
       return string;
     }
@@ -43,12 +33,8 @@ const CartModal = () => {
         <CartItems />
       ) : (
         <div className="flex h-3/4 flex-col items-center justify-center">
-          {/* <Image src="../assets/shopping-cart.js" width={200} height={200} />
-           */}
           <ShoppingCart className="w-20 stroke-black" />
-          <h1 className="mt-4 font-sora text-lg font-semibold">
-            Your cart is empty
-          </h1>
+          <h1 className="mt-4 font-sora text-lg font-semibold">Your cart is empty</h1>
 
           <Link onClick={() => setShowCart(false)} href="/products">
             <p className="mt-4 rounded-lg bg-green-50 px-3 py-2 text-sm font-semibold text-green-700 duration-150  hover:bg-green-100 active:scale-90 active:bg-green-200">
@@ -69,36 +55,53 @@ const CartItems = () => {
     setTotalQuantity,
     totalPrice,
     setTotalPrice,
-  } = useCartProvider();
+    user,
+  } = useGlobalContextProvider();
 
   const excerpt = (string) => {
     if (string.length > 60) {
-      return string.slice(0, 60) + " . . . ";
+      return string.slice(0, 60) + ' . . . ';
     } else {
       return string;
     }
   };
+  const router = useRouter();
   const handleCheckout = async () => {
-    const stripe = await getStripe();
+    toast.loading('Redirecting to checkout page');
+    const token = localStorage.getItem('token');
+    if (!user && !token) {
+      toast.dismiss();
+      toast.error('Please login to continue');
+      return;
+    }
 
-    const response = await fetch("/api/stripe/", {
-      method: "POST",
+    const response = await fetch('/api/stripe/checkout/', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ cartItems }),
+      body: JSON.stringify({
+        cartItems,
+        client_reference_id: user._id,
+        total_quantity: totalQuantity,
+        total_price: totalPrice,
+      }),
     });
     if (response.statusCode === 500) return;
 
-    const data = await response.json();
+    const session = await response.json();
+    window.location.href = session.url;
+  };
 
-    toast.loading("Redirecting to checkout page");
-
-    //rediect user to checkout page
-    const result = await stripe.redirectToCheckout({
-      sessionId: data.id,
-    });
-    console.log(result);
+  const handleCheckoutCOD = async (e) => {
+    toast.loading('Redirecting to checkout page');
+    const token = localStorage.getItem('token');
+    if (!user && !token) {
+      toast.dismiss();
+      toast.error('Please login to continue');
+      return;
+    }
+    router.push('/checkout/cash-on-delivery');
   };
 
   return (
@@ -106,7 +109,6 @@ const CartItems = () => {
       <div className="flex flex-col rounded-xl border">
         {cartItems.map((item, i) => {
           return (
-            // return console.log(item);
             <div className="flex flex-row border-b last:border-b-0" key={i}>
               <div className="flex items-center justify-center border-r p-3">
                 <Image
@@ -122,35 +124,23 @@ const CartItems = () => {
                   {excerpt(item.name)}
                 </h1>
                 <div className="mt-4 flex flex-row items-center justify-between">
-                  <h1 className="font-sora text-sm font-semibold">
-                    ₹{item.price}
-                  </h1>
+                  <h1 className="font-sora text-sm font-semibold">₹{item.price}</h1>
                   <div className="font-sora text-sm font-semibold">
-                    {/* {item.quantity}
-                    <span className="text-xs">Qty.</span> */}
                     <div className="flex flex-row items-center justify-between gap-2 rounded-md border bg-white p-1">
                       <button
                         onClick={() => {
-                          const storageCart = JSON.parse(
-                            localStorage.getItem("cart")
-                          );
+                          const storageCart = JSON.parse(localStorage.getItem('cart'));
 
                           storageCart.forEach((cartItem) => {
                             if (cartItem.id === item.id) {
                               if (cartItem.quantity > 1) {
                                 cartItem.quantity -= 1;
                               } else {
-                                storageCart.splice(
-                                  storageCart.indexOf(cartItem),
-                                  1
-                                );
+                                storageCart.splice(storageCart.indexOf(cartItem), 1);
                               }
                             }
                           });
-                          localStorage.setItem(
-                            "cart",
-                            JSON.stringify(storageCart)
-                          );
+                          localStorage.setItem('cart', JSON.stringify(storageCart));
 
                           if (item.quantity > 1) {
                             setTotalPrice(totalPrice - item.price);
@@ -163,17 +153,13 @@ const CartItems = () => {
                                   };
                                 }
                                 return cartItem;
-                              })
+                              }),
                             );
                             setTotalQuantity(totalQuantity - 1);
                           } else {
                             setTotalPrice(totalPrice - item.price);
                             setTotalQuantity(totalQuantity - 1);
-                            setCartItems(
-                              cartItems.filter(
-                                (cartItem) => cartItem.id !== item.id
-                              )
-                            );
+                            setCartItems(cartItems.filter((cartItem) => cartItem.id !== item.id));
                           }
                         }}
                         className="flex h-6 w-6 items-center justify-center rounded-md border bg-gray-50 font-sora font-semibold text-black duration-150 hover:bg-gray-100 active:scale-90 active:bg-gray-200"
@@ -185,19 +171,14 @@ const CartItems = () => {
                       </p>
                       <button
                         onClick={() => {
-                          const storageCart = JSON.parse(
-                            localStorage.getItem("cart")
-                          );
+                          const storageCart = JSON.parse(localStorage.getItem('cart'));
                           setTotalPrice(totalPrice + item.price);
                           storageCart.forEach((cartItem) => {
                             if (cartItem.id === item.id) {
                               cartItem.quantity += 1;
                             }
                           });
-                          localStorage.setItem(
-                            "cart",
-                            JSON.stringify(storageCart)
-                          );
+                          localStorage.setItem('cart', JSON.stringify(storageCart));
                           setCartItems(
                             cartItems.map((cartItem) => {
                               if (cartItem.id === item.id) {
@@ -207,7 +188,7 @@ const CartItems = () => {
                                 };
                               }
                               return cartItem;
-                            })
+                            }),
                           );
                           setTotalQuantity(totalQuantity + 1);
                         }}
@@ -227,21 +208,27 @@ const CartItems = () => {
         <div className="mt-6 flex w-full flex-col rounded-xl border ">
           <div className="flex flex-row items-center justify-between border-b py-3 px-4">
             <h1 className="font-sora text-sm font-semibold">Total Quantity</h1>
-            <h1 className="font-sora text-sm font-semibold">
-              {totalQuantity}Qty.
-            </h1>
+            <h1 className="font-sora text-sm font-semibold">{totalQuantity}Qty.</h1>
           </div>
           <div className="flex flex-row items-center justify-between  py-3 px-4">
             <h1 className="font-sora text-sm font-semibold">Total</h1>
             <h1 className="font-sora text-sm font-semibold">₹{totalPrice}</h1>
           </div>
         </div>
-        <button
-          onClick={handleCheckout}
-          className="mt-6 w-full rounded-lg bg-green-700 px-3 py-2 text-sm font-semibold text-green-50 duration-150 hover:bg-green-600 active:scale-95 active:bg-green-500"
-        >
-          Checkout
-        </button>
+        <div className="flex flex-row flex-wrap gap-3">
+          <button
+            onClick={handleCheckout}
+            className="mt-6 flex-1 rounded-lg bg-indigo-600 px-3 py-3 font-sora font-semibold text-indigo-50 ring-indigo-200 duration-150 hover:bg-indigo-700 active:bg-indigo-700 active:ring-4"
+          >
+            Pay
+          </button>
+          {/* <button
+            onClick={handleCheckoutCOD}
+            className="mt-6 flex-1 rounded-lg bg-black px-3 py-4 text-center text-sm font-semibold text-green-50 ring-black/25 duration-150 hover:bg-black/95 active:bg-black/90 active:ring-4"
+          >
+            Cash on delivery
+          </button> */}
+        </div>
       </div>
     </>
   );

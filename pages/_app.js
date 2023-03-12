@@ -1,29 +1,29 @@
-import { Toaster } from "react-hot-toast";
-import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
-import { CartProvider } from "../context/CartContext";
-import "../styles/globals.css";
+import Footer from '@components/Footer';
+import Navbar from '@components/Navbar';
+import { GlobalContextProvider } from '@context/CartContext';
+import '@styles/globals.css';
+import { Toaster } from 'react-hot-toast';
 
 function MyApp({ Component, pageProps }) {
   return (
     <>
-      <CartProvider>
+      <GlobalContextProvider>
         <Toaster
           position="bottom-center"
           toastOptions={{
             style: {
-              background: "#000",
-              color: "#fff",
-              borderRadius: "99px",
-              fontFamily: "Poppins",
-              fontWeight: "500",
+              background: '#000',
+              color: '#fff',
+              borderRadius: '99px',
+              fontFamily: 'Poppins',
+              fontWeight: '500',
             },
           }}
         />
         <Navbar />
         <Component {...pageProps} />
         <Footer />
-      </CartProvider>
+      </GlobalContextProvider>
     </>
   );
 }

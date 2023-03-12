@@ -1,18 +1,37 @@
+import { CornerUpLeft, CreditCard, Headphones, Truck } from '@/assets';
+
 const Category = () => {
   return (
-    <div className="w-full pb-12">
-      <div className="relative z-10 bg-gray-50 px-3 py-28 sm:px-16 sm:py-32">
-        <h1 className="relative z-10 max-w-4xl text-center indent-0 font-sora text-4xl font-bold capitalize leading-none tracking-normal text-black sm:text-left sm:text-8xl sm:leading-[.8] sm:tracking-tight">
-          " From the
-          <span className="inline-block text-brandYellow">Boardroom</span> to
-          the <span className="inline-block text-black"> Boarding </span> Gate:
-          Travel in <span className="inline-block text-brandYellow">Style</span>
-          with Our Laptop <span className="inline-block text-black">Bags"</span>
-        </h1>
-        <p className="mt-12 max-w-2xl px-6 text-center font-poppins text-base font-semibold text-slate-500 sm:px-0 sm:text-left sm:text-xl">
-          we at behide handcraft every details you like about it, the small
-          pockets to the handle and to the finishing of the bag
-        </p>
+    <div className="w-full bg-green-500 py-20 px-10">
+      <div className="container mx-auto flex flex-row flex-wrap items-center justify-center gap-9">
+        <div className="flex flex-col items-center justify-center p-5">
+          <div className="rounded-full bg-white p-5">
+            <Headphones className="stroke-green-500" />
+          </div>
+          <h3 className="mt-5 font-sora text-2xl font-semibold"> Customer Support </h3>
+          <p className="mt-2 text-center text-sm font-bold text-white">We are here to help you</p>
+        </div>
+        <div className="flex flex-col items-center justify-center p-5">
+          <div className="rounded-full bg-white p-5">
+            <CreditCard className="stroke-green-500" />
+          </div>
+          <h3 className="mt-5 font-sora text-2xl font-semibold">Secured Payment</h3>
+          <p className="mt-2 text-center text-sm font-bold text-white">We ensure secure payment</p>
+        </div>
+        <div className="flex flex-col items-center justify-center p-5">
+          <div className="rounded-full bg-white p-5">
+            <CornerUpLeft className="stroke-green-500" />
+          </div>
+          <h3 className="mt-5 font-sora text-2xl font-semibold">Easy Returns</h3>
+          <p className="mt-2 text-center text-sm font-bold text-white">Return or exchange items</p>
+        </div>
+        <div className="flex flex-col items-center justify-center p-5">
+          <div className="rounded-full bg-white p-5">
+            <Truck className="stroke-green-500" />
+          </div>
+          <h3 className="mt-5 font-sora text-2xl font-semibold">Free Shipping</h3>
+          <p className="mt-2 text-center text-sm font-bold text-white">on all orders over $100</p>
+        </div>
       </div>
     </div>
   );

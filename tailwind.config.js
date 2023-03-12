@@ -10,15 +10,6 @@ module.exports = {
         poppins: ["Poppins", "sans-serif"],
         sora: ["Sora", "sans-serif"],
       },
-      colors: {
-        // brandGrey: "#f7f7f7",
-        brandGrey: "#FFF",
-        "brand-grey": "#f7f7f7",
-        brandBlack: "#1d1d1d",
-        brandMediumGrey: "#595959",
-        brandTeal: "#004743",
-        brandYellow: "#ffc038",
-      },
       letterSpacing: {
         tight: "-6px",
       },

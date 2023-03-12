@@ -1,5 +1,5 @@
+import PageHead from "@components/PageHead";
 import { useRouter } from "next/router";
-import PageHead from "../components/PageHead";
 
 const index = () => {
   const router = useRouter();

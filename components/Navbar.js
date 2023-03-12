@@ -1,38 +1,55 @@
-import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
-import logo from "../public/behide-logo-new.png";
+import Cart from '@/assets/shopping-cart.js';
+import User from '@/assets/user.js';
+import CartModal from '@components/CartModal.js';
+import { useGlobalContextProvider } from '@context/CartContext.js';
+import logo from '@public/behide-logo-new.png';
+import jwt from 'jsonwebtoken';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React, { useEffect, useRef, useState } from 'react';
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [dropdown, setDropdown] = useState(false);
+  const [isOrdered, setIsOrdered] = useState(false);
   const router = useRouter();
+  const navbar = useRef(null);
+  const { totalQuantity, showCart, setShowCart, user, setUser, isScrolled } =
+    useGlobalContextProvider();
+  useEffect(() => {
+    const stoargeOrderedItems = JSON.parse(localStorage.getItem('order') || '[]');
+    if (stoargeOrderedItems.length > 0) {
+      setIsOrdered(true);
+    } else {
+      setIsOrdered(false);
+    }
+  }, [router.asPath]);
 
   const productCategory = [
-    "Backpack",
-    "Briefcase",
-    "Laptop Bag",
-    "Messenger Bag",
-    "Luggage Bag",
-    "Ladies Bag",
-    "Belt",
-    "Wallet",
-    "Sling Bag",
-    "Jacket",
+    'Backpack',
+    'Briefcase',
+    'Laptop Bag',
+    'Messenger Bag',
+    'Luggage Bag',
+    'Ladies Bag',
+    'Belt',
+    'Wallet',
+    'Sling Bag',
+    'Jacket',
   ];
 
   const toggleMenu = () => {
     setOpen((prev) => !prev);
   };
-  const enterMouse = () => {
-    setDropdown((prev) => !prev);
-  };
-  const leaveMouse = () => {
-    setDropdown((prev) => !prev);
-  };
   const dropdownClick = () => {
     setDropdown((prev) => !prev);
+  };
+  const logout = () => {
+    setUser(null);
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    router.push('/user/login');
   };
 
   useEffect(() => {
@@ -40,47 +57,53 @@ const Navbar = () => {
     setOpen(false);
   }, [router.asPath]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        navbar.current.classList.add('navbar-active');
+      } else {
+        navbar.current.classList.remove('navbar-active');
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <>
-      <div className="group/header header relative z-[501] flex w-full flex-row flex-wrap items-center justify-between bg-brandGrey py-3 px-3 font-poppins text-black sm:px-8">
-        <div className="max-w-[100px] rounded-lg p-4">
+      <div
+        ref={navbar}
+        className="group/header header sticky top-0 z-[100] flex w-full flex-row flex-wrap items-center justify-between py-3 px-3 text-black duration-150 lg:px-8"
+      >
+        <div className="max-w-[80px] rounded-lg p-4 pr-0">
           <Link href="/">
-            <Image
-              priority={true}
-              src={logo}
-              alt="behide logo"
-              className="w-full"
-            />
+            <Image src={logo} alt="behide logo" className="w-full" />
           </Link>
         </div>
         <div
-          style={{ top: open ? "100%" : "-600%" }}
-          className="absolute left-0 top-full flex w-full items-center justify-end sm:relative sm:top-auto sm:w-auto"
+          style={{ top: open ? '100%' : '-600%' }}
+          className="absolute left-0 top-full flex w-full items-center justify-end lg:relative lg:top-auto lg:w-auto"
         >
-          <ul className="box-shadow-hover z-500 m-0 flex w-full flex-col items-center gap-1 border bg-white py-8 text-xs font-[600] sm:right-auto sm:z-auto sm:w-auto sm:flex-row sm:border-none sm:bg-transparent  sm:p-0 sm:shadow-none">
-            <li className="w-full px-6 py-1 sm:w-auto sm:py-0 sm:px-0">
+          <ul className="box-shadow-hover z-500 m-0 flex w-full flex-col items-center gap-1 border bg-white py-8 font-sora text-sm font-medium lg:right-auto lg:z-auto lg:w-auto lg:flex-row lg:border-none lg:bg-transparent  lg:p-0 lg:shadow-none">
+            <li className="w-full px-6 py-1 lg:w-auto lg:py-0 lg:px-0">
               <Link
-                className="inline-block w-full rounded-lg px-3 py-3 duration-200 ease-in-out hover:bg-green-100 hover:text-green-800 sm:w-auto"
+                className="inline-block w-full rounded-lg px-3 py-3 duration-200 ease-in-out hover:text-slate-500 md:w-auto"
                 href="/"
               >
-                HOME
+                home
               </Link>
             </li>
-            <li className="w-full px-6 py-1 sm:w-auto sm:py-0 sm:px-0">
+            <li className="w-full px-6 py-1 lg:w-auto lg:py-0 lg:px-0">
               <div
-                // onMouseEnter={enterMouse}
-                // onMouseLeave={leaveMouse}
                 onClick={dropdownClick}
-                className="relative inline-block w-full origin-top-left cursor-pointer items-center rounded-lg px-3 py-3 duration-200 hover:bg-green-100 hover:text-green-800 sm:w-auto"
+                className="relative inline-block w-full origin-top-left cursor-pointer items-center rounded-lg px-3 py-3 duration-200 hover:text-slate-500 md:w-auto"
               >
-                {/* PRODUCTS */}
-
                 <div className="flex justify-start sm:justify-center">
                   <div className="relative inline-block">
-                    <span className="mx-1 mt-1 inline-block">CATEGORY</span>
+                    <span className="mx-1 mt-1 inline-block">category</span>
                     <svg
                       style={{
-                        transform: dropdown ? "rotate(0deg)" : "rotate(-90deg)",
+                        transform: dropdown ? 'rotate(0deg)' : 'rotate(-90deg)',
                       }}
                       className="mx-1 inline-block h-5 w-5 rotate-90 transition-transform duration-200"
                       viewBox="0 0 24 24"
@@ -96,9 +119,9 @@ const Navbar = () => {
                       style={{
                         opacity: dropdown ? 1 : 0,
                         transform: dropdown
-                          ? "scale(1) translateY(0px)"
-                          : "scale(.8) translateY(-10px)",
-                        visibility: dropdown ? "visible" : "hidden",
+                          ? 'scale(1) translateY(0px)'
+                          : 'scale(.8) translateY(-10px)',
+                        visibility: dropdown ? 'visible' : 'hidden',
                       }}
                       className="absolute top-full -left-3 z-20 mt-4 w-40 origin-top-left overflow-hidden rounded-xl border bg-white p-2 py-2 font-semibold shadow-xl duration-200"
                     >
@@ -107,7 +130,7 @@ const Navbar = () => {
                           <Link
                             key={index}
                             href={`/products/category/${item.toLowerCase()}`}
-                            className="block transform rounded-md px-4 py-3 text-[0.8rem] font-normal capitalize text-black duration-200  hover:bg-brandGrey hover:text-brandBlack"
+                            className="hover:text-brandBlack block transform rounded-md px-4 py-3 text-[0.8rem] font-normal capitalize text-black  duration-200 hover:bg-gray-100"
                           >
                             {item}
                           </Link>
@@ -118,55 +141,103 @@ const Navbar = () => {
                 </div>
               </div>
             </li>
-            <li className="w-full px-6 py-1 sm:w-auto sm:py-0 sm:px-0">
+            <li className="w-full px-6 py-1 lg:w-auto lg:py-0 lg:px-0">
               <Link
-                className="inline-block w-full rounded-lg px-3 py-3 duration-200 hover:bg-green-100 hover:text-green-800 sm:w-auto"
+                className="inline-block w-full rounded-lg px-3 py-3 duration-200 hover:text-slate-500 md:w-auto"
                 href="/products"
               >
-                PRODUCTS
+                products
               </Link>
             </li>
-            <li className="w-full px-6 py-1 sm:w-auto sm:py-0 sm:px-0">
+            <li className="w-full px-6 py-1 lg:w-auto lg:py-0 lg:px-0">
               <Link
-                className="inline-block w-full rounded-lg px-3 py-3 duration-200 hover:bg-green-100 hover:text-green-800 sm:w-auto"
+                className="inline-block w-full rounded-lg px-3 py-3 duration-200 hover:text-slate-500 md:w-auto"
                 href="/bulk-corporate"
               >
-                BULK/CORPORATE
+                bulk & corporate
               </Link>
             </li>
-            <li className="w-full px-6 py-1 sm:w-auto sm:py-0 sm:px-0">
+            <li className="w-full px-6 py-1 lg:w-auto lg:py-0 lg:px-0">
               <Link
-                className="inline-block w-full rounded-lg px-3 py-3 duration-200 hover:bg-green-100 hover:text-green-800 sm:w-auto"
+                className="inline-block w-full rounded-lg px-3 py-3 duration-200 hover:text-slate-500 md:w-auto"
                 href="/hot-products"
               >
-                HOT PRODUCTS
+                hot products
               </Link>
             </li>
-            <li className="w-full px-6 py-1 sm:w-auto sm:py-0 sm:px-0">
+            <li className="w-full px-6 py-1 lg:w-auto lg:py-0 lg:px-0">
               <Link
-                className="inline-block w-full rounded-lg px-3 py-3 duration-200 hover:bg-green-100 hover:text-green-800 sm:w-auto"
+                className="inline-block w-full rounded-lg px-3 py-3 duration-200 hover:text-slate-500 md:w-auto"
                 href="/about-us"
               >
-                ABOUT US
+                about us
               </Link>
             </li>
           </ul>
         </div>
+        <div className="flex flex-row flex-wrap gap-3">
+          {user ? (
+            //create a dropdown
+            <>
+              <div className="group relative">
+                <p className="inline-block cursor-pointer rounded-xl bg-gray-50 px-6 py-3 font-medium text-black duration-150  hover:bg-green-100 active:scale-90 active:bg-green-200">
+                  {user?.name.split(' ')[0] || 'USER'}
+                </p>
+
+                <div className="invisible absolute top-3/4 right-0 z-20 w-40 origin-top-right scale-75 overflow-hidden rounded-xl border border-gray-100 bg-gray-50 p-2 py-2 opacity-0 shadow-xl duration-200 group-hover:visible group-hover:scale-100 group-hover:opacity-100 ">
+                  <Link
+                    href="/user/profile"
+                    className="block transform rounded-md px-4 py-3 text-[0.8rem] font-normal capitalize text-black transition-[background]  duration-200 hover:bg-white  hover:font-semibold hover:text-green-900"
+                  >
+                    Profile
+                  </Link>
+                  <Link
+                    href="/user/logout"
+                    className="block transform rounded-md px-4 py-3 text-[0.8rem] font-normal capitalize text-black transition-[background]  duration-200 hover:bg-white hover:font-semibold hover:text-green-900"
+                  >
+                    Logout
+                  </Link>
+                </div>
+              </div>
+            </>
+          ) : (
+            <Link
+              href="/user/login"
+              className="inline-block cursor-pointer rounded-xl bg-white px-4 py-3 font-medium text-black duration-150  hover:bg-gray-100 active:scale-90 active:bg-green-200"
+            >
+              <User className="inline-block w-6 stroke-black" />
+            </Link>
+          )}
+          <a
+            onClick={() => setShowCart(true)}
+            className="relative inline-block cursor-pointer rounded-xl bg-gray-50 px-4 py-3 duration-150  hover:bg-gray-100 active:scale-90 active:bg-green-200"
+          >
+            <Cart className="inline-block w-5 stroke-black" />
+            <div className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-gray-700 text-xs text-white">
+              {totalQuantity}
+            </div>
+          </a>
+        </div>
         <div
           onClick={toggleMenu}
-          className="group/menu block h-auto max-w-[50px] cursor-pointer pr-3 sm:hidden"
+          className="group/menu block h-auto max-w-[50px] cursor-pointer pr-3 lg:hidden"
         >
-          {/* <svg
-              className="duration-200 fill-slate-600 group-hover/menu:fill-green-600"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 512 512"
-              width={"100%"}
-            >
-              <path d="M61.1 224C45 224 32 211 32 194.9c0-1.9 .2-3.7 .6-5.6C37.9 168.3 78.8 32 256 32s218.1 136.3 223.4 157.3c.5 1.9 .6 3.7 .6 5.6c0 16.1-13 29.1-29.1 29.1H61.1zM144 128c0-8.8-7.2-16-16-16s-16 7.2-16 16s7.2 16 16 16s16-7.2 16-16zm240 16c8.8 0 16-7.2 16-16s-7.2-16-16-16s-16 7.2-16 16s7.2 16 16 16zM272 96c0-8.8-7.2-16-16-16s-16 7.2-16 16s7.2 16 16 16s16-7.2 16-16zM16 304c0-26.5 21.5-48 48-48H448c26.5 0 48 21.5 48 48s-21.5 48-48 48H64c-26.5 0-48-21.5-48-48zm16 96c0-8.8 7.2-16 16-16H464c8.8 0 16 7.2 16 16v16c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V400z" />
-            </svg> */}
-          <Image src="/menu.svg" width={30} height={30} />
+          <Image alt="menu-button" src="/menu.svg" width={30} height={30} />
         </div>
       </div>
+      {showCart && <CartModal />}
+      {showCart && (
+        <div
+          onClick={() => setShowCart(false)}
+          className="fixed inset-0 z-[200] bg-black opacity-50"
+        ></div>
+      )}
+      {/* <div
+        style={{
+          marginTop: navbar.current.offsetHeight + "px",
+        }}
+        className="block h-[1px] w-full"
+      ></div> */}
     </>
   );
 };

@@ -4,7 +4,7 @@ const PageHead = ({ pageTitle = "" }) => {
   return (
     <div>
       <Head>
-        <title>{`Behide - ${pageTitle}`}</title>
+        <title>{`${pageTitle ? pageTitle : "Behide"}`}</title>
         <meta
           name="description"
           content={`Behide - A leather product company ${
@@ -12,6 +12,7 @@ const PageHead = ({ pageTitle = "" }) => {
           } `}
         />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
     </div>
   );

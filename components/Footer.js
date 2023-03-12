@@ -1,178 +1,138 @@
-import Link from "next/link";
-import ArrowRightIcon from "../assets/arrow-right.svg";
-import FacebookIcon from "../assets/facebook.svg";
-import InstagramIcon from "../assets/instagram.svg";
-import MailIcon from "../assets/mail.svg";
-import MapIcon from "../assets/map-pin.svg";
-import WhatsappIcon from "../assets/message-circle.svg";
-import PhoneIcon from "../assets/phone.svg";
+import { ArrowRightIcon, FacebookIcon, InstagramIcon, WhatsappIcon } from '@/assets';
+import logo from '@public/behide-logo-new.png';
+import Image from 'next/image';
+import Link from 'next/link';
 
 const Footer = () => {
   return (
-    <>
-      <div className="flex w-full flex-row flex-wrap gap-3 bg-gray-50 py-16 px-2 sm:px-8">
-        <div className="flex-1 flex-wrap rounded-md px-4 py-6">
-          <h3 className="ml-2 font-sora text-sm font-semibold">CONTACT INFO</h3>
-          <div className="gsaSX">
-            <div className="rounded-2xl bg-black p-2 sm:p-3">
-              <MapIcon className="stroke-white" />
-            </div>
-            <div>
-              <h4 className="mb-1 align-middle font-sora text-xs font-medium text-gray-500">
-                ADDRESS
-              </h4>
-              <p className="font-poppins text-xs font-medium text-black sm:text-sm">
-                21/A,ALIMUDDIN STREET
-              </p>
-              <p className="font-poppins text-xs font-medium text-black sm:text-sm">
-                KOL-16, WEST BENGAL, INDIA
-              </p>
-            </div>
-          </div>
-          <div className="gsaSX">
-            <div className="rounded-2xl bg-black p-2 sm:p-3">
-              <PhoneIcon className="stroke-white" />
-            </div>
-            <div>
-              <h4 className="mb-1 align-middle font-sora text-xs font-medium text-gray-500">
-                PHONE
-              </h4>
-              <p className="font-poppins text-xs font-medium text-black sm:text-sm">
-                +91 62898 39240
-              </p>
-              <p className="font-poppins text-xs font-medium text-black sm:text-sm">
-                +91 90734 48018
-              </p>
-            </div>
-          </div>
-          <div className="gsaSX">
-            <div className="rounded-2xl bg-black p-2 sm:p-3">
-              <MailIcon className="stroke-white" />
-            </div>
-            <div>
-              <h4 className="mb-1 align-middle font-sora text-xs font-medium text-gray-500">
-                EMAIL
-              </h4>
-              <p className="break-words font-poppins text-xs font-medium text-black sm:text-sm">
-                <a
-                  className="break-words"
-                  href="mailto:enquiries.behideindia@gmail.com"
-                >
-                  enquiries.behideindia@gmail.com
-                </a>
-              </p>
-            </div>
+    <div className="overflow-hidden">
+      <div className="container relative mx-auto flex w-full flex-row flex-wrap items-start justify-between gap-3 py-28 px-5 sm:px-20">
+        <div className="absolute inset-x-0 bottom-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:bottom-[-20rem]">
+          <svg
+            className="relative left-1/2 -z-10 h-[21.1875rem] max-w-none -translate-x-1/2 rotate-[30deg] sm:left-[calc(50%-40rem)] sm:h-[55.375rem]"
+            viewBox="0 0 1155 678"
+          >
+            <path
+              fill="url(#80ed99-92d5-4d68-a6a0-9b9b2abad533)"
+              fillOpacity=".6"
+              d="M317.219 518.975L203.852 678 0 438.341l317.219 80.634 204.172-286.402c1.307 132.337 45.083 346.658 209.733 145.248C936.936 126.058 882.053-94.234 1031.02 41.331c119.18 108.451 130.68 295.337 121.53 375.223L855 299l21.173 362.054-558.954-142.079z"
+            />
+            <defs>
+              <linearGradient
+                id="80ed99-92d5-4d68-a6a0-9b9b2abad533"
+                x1="1155.49"
+                x2="-78.208"
+                y1=".177"
+                y2="474.645"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stopColor="#57cc99" />
+                <stop offset={1} stopColor="#80ed99" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div className="flex-wrap justify-center rounded-md px-4 py-6">
+          <div className="flex flex-col items-start justify-start gap-5 rounded-2xl text-center sm:text-left">
+            <Image src={logo} alt="Behide Logo" width={90} />
+            <h4 className="mb-1 max-w-xs align-middle font-sora text-xs leading-[2] text-black">
+              Behide is the renowned name in the industry for manufacturing, supplying and
+              distributing of Leather products.
+            </h4>
           </div>
         </div>
-        <div className="flex-1 rounded-md px-4 py-6">
-          <h3 className="ml-2 font-sora text-sm font-semibold">ACCOUNT</h3>
-          <div className="footer-link-wrapper">
-            <Link className="footer-link group" href={"/about-us"}>
-              <ArrowRightIcon className="footer-link-svg" />
-              About us
-            </Link>
+        <div className="flex flex-1 flex-wrap items-start justify-end gap-9">
+          <div className="flex flex-col items-center justify-center rounded-md px-4 py-6 sm:items-start">
+            <h3 className="font-sora text-sm font-semibold text-black">ACCOUNT</h3>
+            <div className="mt-6">
+              <Link className="footer-link group" href={'/about-us'}>
+                About us
+              </Link>
+            </div>
+            <div className="mt-6 sm:mt-2">
+              <Link className="footer-link group" href={'/about-us#contact'}>
+                Contact us
+              </Link>
+            </div>
+            <div className="mt-6 sm:mt-2">
+              <Link className="footer-link group" href={'/about-us#privacy-policy'}>
+                Privacy Policy
+              </Link>
+            </div>
+            <div className="mt-6 sm:mt-2">
+              <Link className="footer-link group" href={'/about-us#terms-and-conditions'}>
+                Terms & Conditions
+              </Link>
+            </div>
           </div>
-          <div className="footer-link-wrapper">
-            <Link className="footer-link group" href={"/about-us#contact"}>
-              <ArrowRightIcon className="footer-link-svg" />
-              Contact us
-            </Link>
+          <div className="flex flex-col items-center justify-center rounded-md px-4 py-6 sm:items-start">
+            <h3 className="font-sora text-sm font-semibold text-black">PAGES</h3>
+            <div className="mt-6">
+              <Link className="footer-link group" href={'/hot-products'}>
+                Hot Products
+              </Link>
+            </div>
+            <div className="mt-6 sm:mt-2">
+              <Link className="footer-link group" href={'/bulk-corporate'}>
+                Corporate Order
+              </Link>
+            </div>
+            <div className="mt-6 sm:mt-2">
+              <Link className="footer-link group" href={'/about-us#return-policy'}>
+                Return Policy
+              </Link>
+            </div>
           </div>
-          <div className="footer-link-wrapper">
-            <Link
-              className="footer-link group"
-              href={"/about-us#privacy-policy"}
-            >
-              <ArrowRightIcon className="footer-link-svg" />
-              Privacy Policy
-            </Link>
-          </div>
-          <div className="footer-link-wrapper">
-            <Link
-              className="footer-link group"
-              href={"/about-us#terms-and-conditions"}
-            >
-              <ArrowRightIcon className="footer-link-svg" />
-              Terms & Conditions
-            </Link>
-          </div>
-        </div>
-        <div className="flex-1 rounded-md px-4 py-6">
-          <h3 className="ml-2 font-sora text-sm font-semibold">PAGES</h3>
-          <div className="footer-link-wrapper">
-            <Link className="footer-link group" href={"/hot-products"}>
-              <ArrowRightIcon className="footer-link-svg" />
-              Hot Products
-            </Link>
-          </div>
-          <div className="footer-link-wrapper">
-            <Link className="footer-link group" href={"/bulk-corporate"}>
-              <ArrowRightIcon className="footer-link-svg" />
-              Corporate Order
-            </Link>
-          </div>
-          <div className="footer-link-wrapper">
-            <Link
-              className="footer-link group"
-              href={"/about-us#return-policy"}
-            >
-              <ArrowRightIcon className="footer-link-svg" />
-              Return Policy
-            </Link>
-          </div>
-        </div>
-        <div className="flex-1 rounded-md px-4 py-6">
-          <h3 className="ml-2 font-sora text-sm font-semibold">NEWS LETTER</h3>
-          <div className="footer-link-wrapper">
-            <label htmlFor="email" className="footer-link group">
-              SUBSCRIBE
-            </label>
-            <div className="relative mt-2 pb-1">
-              <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                <span className="text-gray-500 sm:text-sm">
-                  <MailIcon className="scale-75" />
-                </span>
-              </div>
-              <input
-                type="email"
-                name="email"
-                id="email"
-                className="block w-full rounded-xl border-none bg-brand-grey py-4 pl-10 pr-7 font-poppins focus:border-2 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 sm:text-sm"
-                placeholder="abc@gmail.com"
-              />
+          <div className="flex flex-col items-center justify-center rounded-md px-4 py-6 sm:items-start">
+            <h3 className="font-sora text-sm font-semibold text-black">SOCIAL</h3>
+            <div className="mt-6">
+              <Link className="footer-link group" href={'https://www.instagram.com/behide_india'}>
+                Instagram
+              </Link>
+            </div>
+            <div className="mt-6 sm:mt-2">
+              <Link className="footer-link group" href={'https://www.facebook.com/behide.india/'}>
+                Facebook
+              </Link>
+            </div>
+            <div className="mt-6 sm:mt-2">
+              <Link className="footer-link group" href={'https://wa.me/+919073448018'}>
+                Whatsapp
+              </Link>
             </div>
           </div>
         </div>
       </div>
-      <div className="flex flex-row flex-wrap items-center justify-center gap-5 py-10 px-10 sm:justify-between">
-        <p className="text-center font-poppins text-base font-medium">
-          © Behide India 2022. All Rights Reserved.
-        </p>
-        <div className="flex flex-row gap-2 rounded-xl bg-brand-grey px-4 py-3">
+      <div className="flex flex-row flex-wrap items-center justify-center gap-5 py-6 px-10 sm:justify-between">
+        <p className="-sm text-center font-medium">© Behide India 2022. All Rights Reserved.</p>
+        <div className="flex flex-row items-center justify-center gap-2 ">
           <a
-            target={"_blank"}
-            href="//facebook.com"
-            className="inline-block px-2 py-1"
+            target={'_blank'}
+            href="https://www.facebook.com/behide.india/"
+            className="inline-block rounded-xl px-4 py-3 text-sm duration-150 hover:bg-gray-100"
           >
-            <FacebookIcon className="scale-[.85]" />
+            <FacebookIcon className="-mt-[2px] inline-block scale-[.7]" />
+            facebook
           </a>
           <a
-            target={"_blank"}
-            href="//instagram.com"
-            className="inline-block px-2 py-1"
+            target={'_blank'}
+            href="https://www.instagram.com/behide_india/"
+            className="inline-block rounded-xl px-4 py-3 text-sm duration-150 hover:bg-gray-100"
           >
-            <InstagramIcon className="scale-[.85]" />
+            <InstagramIcon className="-mt-[2px] inline-block scale-[.7]" />
+            instagram
           </a>
           <a
-            target={"_blank"}
-            href="//whatsapp.com"
-            className="inline-block px-2 py-1"
+            target={'_blank'}
+            href="https://wa.me/+919073448018"
+            className="inline-block rounded-xl px-4 py-3 text-sm duration-150 hover:bg-gray-100"
           >
-            <WhatsappIcon className="scale-[.85]" />
+            <WhatsappIcon className="-mt-[2px] inline-block scale-[.7]" />
+            whatsapp
           </a>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

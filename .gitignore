@@ -11,9 +11,11 @@
 # next.js
 /.next/
 /out/
+out
 
 # production
 /build
+/temp-folder
 
 # misc
 .DS_Store

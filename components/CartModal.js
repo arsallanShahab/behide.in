@@ -1,4 +1,4 @@
-import ShoppingCart from '@assets/shopping-cart';
+import ShoppingCart from '@/assets/shopping-cart';
 import { useGlobalContextProvider } from '@context/CartContext';
 import Image from 'next/image';
 import Link from 'next/link';

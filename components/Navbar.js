@@ -1,5 +1,5 @@
-import Cart from '@assets/shopping-cart.js';
-import User from '@assets/user.js';
+import Cart from '@/assets/shopping-cart.js';
+import User from '@/assets/user.js';
 import CartModal from '@components/CartModal.js';
 import { useGlobalContextProvider } from '@context/CartContext.js';
 import logo from '@public/behide-logo-new.png';
@@ -42,12 +42,6 @@ const Navbar = () => {
   const toggleMenu = () => {
     setOpen((prev) => !prev);
   };
-  const enterMouse = () => {
-    setDropdown((prev) => !prev);
-  };
-  const leaveMouse = () => {
-    setDropdown((prev) => !prev);
-  };
   const dropdownClick = () => {
     setDropdown((prev) => !prev);
   };
@@ -61,27 +55,6 @@ const Navbar = () => {
   useEffect(() => {
     setDropdown(false);
     setOpen(false);
-  }, [router.asPath]);
-
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    const userLocal = localStorage.getItem('user');
-    const decodedToken = jwt.decode(token);
-    console.log(decodedToken, 'decodedToken');
-    if (decodedToken && decodedToken.exp * 1000 < new Date().getTime()) {
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
-      setUser(null);
-    }
-    if (token && userLocal) {
-      setUser(() => {
-        return JSON.parse(userLocal);
-      });
-    }
-    if (!token) {
-      setUser(null);
-      localStorage.removeItem('user');
-    }
   }, [router.asPath]);
 
   useEffect(() => {

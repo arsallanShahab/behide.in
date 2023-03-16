@@ -9,6 +9,44 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+const headerIntro = {
+  hide: {
+    opacity: 0,
+    x: -100,
+    transition: {
+      duration: 0.3,
+    },
+  },
+  show: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      easing: 'easeIn',
+      duration: 0.75,
+    },
+  },
+};
+
+const productsIntro = {
+  hide: {
+    opacity: 0,
+    y: 100,
+    scale: 0.9,
+    transition: {
+      duration: 0.35,
+      easing: 'linear',
+    },
+  },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.35,
+    },
+  },
+};
+
 export default function Home({ data }) {
   const [laptopBags, setLaptopBags] = useState([]);
   const [backpacks, setBackpacks] = useState([]);

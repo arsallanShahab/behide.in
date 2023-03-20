@@ -12,58 +12,10 @@ const index = ({ data }) => {
   return (
     <>
       <PageHead pageTitle={category} />
-      <nav aria-label="Breadcrumb" className="mt-14">
-        <ol
-          role="list"
-          className="mx-auto flex max-w-2xl flex-wrap items-start gap-x-2 gap-y-4 px-4 sm:px-6 lg:max-w-7xl lg:px-8"
-        >
-          <li>
-            <div className="flex items-center">
-              <Link href={`/`} className="mr-2 text-sm font-light text-black">
-                Homepage
-              </Link>
-              <svg
-                width={16}
-                height={20}
-                viewBox="0 0 16 20"
-                fill="currentColor"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-                className="h-5 w-4 text-gray-300"
-              >
-                <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
-              </svg>
-            </div>
-          </li>
-          <li>
-            <div className="flex items-center">
-              <Link href={`/products`} className="mr-2 text-sm font-light text-black">
-                products
-              </Link>
-              <svg
-                width={16}
-                height={20}
-                viewBox="0 0 16 20"
-                fill="currentColor"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-                className="h-5 w-4 text-gray-300"
-              >
-                <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
-              </svg>
-            </div>
-          </li>
-          <li className="text-sm">
-            <Link
-              href={`/products/category/${category}`}
-              aria-current="page"
-              className="font-light text-gray-500 hover:text-gray-600"
-            >
-              {category}
-            </Link>
-          </li>
-        </ol>
-      </nav>
+
+      <div className="mb-5 px-16 pt-14">
+        <h1 className="font-sora text-5xl font-bold capitalize">{category}</h1>
+      </div>
       <div className="bg-brandGrey">
         <div className="mx-auto max-w-2xl py-16 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
           <div className="grid grid-cols-1 items-start gap-y-10 gap-x-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">

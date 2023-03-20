@@ -1,4 +1,4 @@
-import { useGlobalContextProvider } from '@context/CartContext';
+import { useGlobalContextProvider } from '@/context/GlobalContext';
 import logo from '@public/behide-logo-new.png';
 import Image from 'next/image';
 import Link from 'next/link';

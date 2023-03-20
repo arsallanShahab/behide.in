@@ -1,6 +1,6 @@
+import { GlobalContextProvider } from '@/context/GlobalContext';
 import Footer from '@components/Footer';
 import Navbar from '@components/Navbar';
-import { GlobalContextProvider } from '@context/CartContext';
 import '@styles/globals.css';
 import { Toaster } from 'react-hot-toast';
 

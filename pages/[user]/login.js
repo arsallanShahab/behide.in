@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { useGlobalContextProvider } from '../../context/CartContext';
+import { useGlobalContextProvider } from '../../context/GlobalContext';
 
 export default function Example() {
   const { setUser, user } = useGlobalContextProvider();
@@ -31,6 +31,7 @@ export default function Example() {
       toast.error(message);
     }
     if (success && token && user) {
+      const username = user?.name?.replace(' ', '-').toLowerCase();
       toast.dismiss();
       toast.success(message);
       localStorage.setItem('token', token);
@@ -41,7 +42,7 @@ export default function Example() {
           _id: user._id,
         };
       });
-      router.push('/user/profile');
+      router.push(`/${username}/profile`);
     }
   };
 

@@ -1,7 +1,9 @@
-import Cart from '@/assets/shopping-cart.js';
+import LogOut from '@/assets/log-out';
+import ShoppingBag from '@/assets/shopping-bag';
+import { default as Cart, default as ShoppingCart } from '@/assets/shopping-cart.js';
 import User from '@/assets/user.js';
+import { useGlobalContextProvider } from '@/context/GlobalContext.js';
 import CartModal from '@components/CartModal.js';
-import { useGlobalContextProvider } from '@context/CartContext.js';
 import logo from '@public/behide-logo-new.png';
 import jwt from 'jsonwebtoken';
 import Image from 'next/image';
@@ -12,11 +14,14 @@ import React, { useEffect, useRef, useState } from 'react';
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [dropdown, setDropdown] = useState(false);
+  const [dropdown2, setDropdown2] = useState(false);
   const [isOrdered, setIsOrdered] = useState(false);
   const router = useRouter();
   const navbar = useRef(null);
   const { totalQuantity, showCart, setShowCart, user, setUser, isScrolled } =
     useGlobalContextProvider();
+
+  const username = user?.name?.replace(' ', '-').toLowerCase();
   useEffect(() => {
     const stoargeOrderedItems = JSON.parse(localStorage.getItem('order') || '[]');
     if (stoargeOrderedItems.length > 0) {
@@ -24,6 +29,9 @@ const Navbar = () => {
     } else {
       setIsOrdered(false);
     }
+    setDropdown(false);
+    setOpen(false);
+    setDropdown2(false);
   }, [router.asPath]);
 
   const productCategory = [
@@ -180,23 +188,44 @@ const Navbar = () => {
             //create a dropdown
             <>
               <div className="group relative">
-                <p className="inline-block cursor-pointer rounded-xl bg-gray-50 px-6 py-3 font-medium text-black duration-150  hover:bg-green-100 active:scale-90 active:bg-green-200">
-                  {user?.name.split(' ')[0] || 'USER'}
+                <p
+                  onClick={() => setDropdown2(!dropdown2)}
+                  className="relative z-[99] inline-block cursor-pointer select-none rounded-xl bg-green-100 px-6 py-3 font-medium lowercase text-green-700 duration-150 active:scale-95 active:bg-green-200"
+                >
+                  <User className="inline-block w-6" />
                 </p>
 
-                <div className="invisible absolute top-3/4 right-0 z-20 w-40 origin-top-right scale-75 overflow-hidden rounded-xl border border-gray-100 bg-gray-50 p-2 py-2 opacity-0 shadow-xl duration-200 group-hover:visible group-hover:scale-100 group-hover:opacity-100 ">
-                  <Link
-                    href="/user/profile"
-                    className="block transform rounded-md px-4 py-3 text-[0.8rem] font-normal capitalize text-black transition-[background]  duration-200 hover:bg-white  hover:font-semibold hover:text-green-900"
-                  >
-                    Profile
-                  </Link>
-                  <Link
-                    href="/user/logout"
-                    className="block transform rounded-md px-4 py-3 text-[0.8rem] font-normal capitalize text-black transition-[background]  duration-200 hover:bg-white hover:font-semibold hover:text-green-900"
-                  >
-                    Logout
-                  </Link>
+                <div
+                  style={{
+                    opacity: dropdown2 ? 1 : 0,
+                    transform: dropdown2
+                      ? 'scale(1) translateY(0px)'
+                      : 'scale(.8) translateY(-10px)',
+                    visibility: dropdown2 ? 'visible' : 'hidden',
+                  }}
+                  className="absolute top-[125%] right-[0] z-[101] flex origin-top scale-75 flex-col rounded-xl border bg-white shadow-xl duration-200 "
+                >
+                  <div className="border-b border-b-gray-200 px-4 py-4 pr-12 text-sm">
+                    <p>Signed in as</p>
+                    <p className="font-semibold">{user?.email}</p>
+                  </div>
+                  <div className="flex flex-col border-b px-2 py-4 text-sm">
+                    {[
+                      ['Account', `/${username}/profile`],
+                      ['Orders', `/${username}/orders/`],
+                      ['Logout', `/${username}/logout/`],
+                    ].map((item, index) => {
+                      return (
+                        <Link
+                          className="inline-block rounded-lg px-3 py-2 text-left text-sm duration-100 hover:bg-gray-100"
+                          href={item[1]}
+                          key={index}
+                        >
+                          {item[0]}
+                        </Link>
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
             </>
@@ -210,7 +239,7 @@ const Navbar = () => {
           )}
           <a
             onClick={() => setShowCart(true)}
-            className="relative inline-block cursor-pointer rounded-xl bg-gray-50 px-4 py-3 duration-150  hover:bg-gray-100 active:scale-90 active:bg-green-200"
+            className="relative inline-block cursor-pointer select-none rounded-xl bg-gray-50 px-4 py-3  text-black duration-150 hover:bg-gray-100 active:scale-90 active:bg-gray-200"
           >
             <Cart className="inline-block w-5 stroke-black" />
             <div className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-gray-700 text-xs text-white">

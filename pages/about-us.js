@@ -8,7 +8,7 @@ const index = () => {
     <>
       <PageHead pageTitle={path} />
       <div className="mx-auto w-full max-w-2xl py-16 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-        <h2 className="text-brandBlack pb-10 pt-10 font-sora text-3xl font-bold capitalize sm:text-5xl">
+        <h2 className="pb-10 pt-10 font-sora text-5xl font-bold capitalize text-black sm:text-5xl">
           we at behide build trust
         </h2>
         <p className="text-brandBlack pb-10 font-sora text-xl font-medium leading-loose">

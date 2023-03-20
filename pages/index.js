@@ -200,7 +200,7 @@ export default function Home({ data }) {
         <p className="block px-5 py-10 font-sora text-2xl font-semibold text-black md:py-5 md:text-3xl lg:pl-10">
           Featured Products
         </p>
-        <div className="flex flex-row flex-wrap items-center justify-center gap-2 p-3 md:justify-start md:gap-4 md:p-6">
+        <div className="flex flex-row flex-wrap items-center justify-center gap-2 p-3 md:justify-start md:gap-3 md:p-6">
           {laptopBagsData &&
             laptopBagsData.items.map((item, index) => {
               return (
@@ -230,9 +230,12 @@ export default function Home({ data }) {
             <div className="md:flex-1 lg:p-5">
               <Link
                 href="/products/category/laptop bag"
-                className="block translate-x-0 break-normal py-2 font-sora text-sm font-semibold text-black duration-150 hover:translate-x-2 hover:text-green-600"
+                className="inline-block rounded-xl px-3 py-2 text-sm font-semibold leading-6 text-black duration-100 hover:bg-gray-100 active:scale-95 active:bg-gray-200"
               >
-                View all <span aria-hidden="true">&rarr;</span>
+                View all
+                <span className="inline-block" aria-hidden="true">
+                  &rarr;
+                </span>
               </Link>
             </div>
           )}
@@ -246,8 +249,11 @@ export default function Home({ data }) {
               <h2 className="font-sora text-3xl font-bold leading-loose text-black sm:text-7xl">
                 Behide new in's of the year <span className="text-green-600">2023</span>
               </h2>
-              <div className="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
-                <Link href="/products" className="text-sm font-semibold leading-6 text-black">
+              <div className="mt-5 flex items-center justify-center gap-x-6 sm:mt-10 lg:justify-start">
+                <Link
+                  href="/products"
+                  className="inline-block rounded-xl px-3 py-2 text-sm font-semibold leading-6 text-black duration-100 hover:bg-gray-100 active:scale-95 active:bg-gray-200"
+                >
                   Shop now
                   <span aria-hidden="true">→</span>
                 </Link>
@@ -255,7 +261,7 @@ export default function Home({ data }) {
             </div>
             <div className="relative mt-16 h-80 lg:mt-8">
               <img
-                className="absolute -top-32 left-20 w-[27rem] max-w-none rounded-3xl bg-white/5 ring-1 ring-white/10"
+                className="absolute bottom-0 left-12 w-[14rem] max-w-none rounded-3xl bg-white/5 ring-1 ring-white/10 sm:-top-32 sm:left-20 sm:w-[27rem]"
                 src="/s-l1600.jpg"
                 alt="App screenshot"
                 width={1824}
@@ -269,7 +275,7 @@ export default function Home({ data }) {
         <p className="block px-5 py-10 font-sora text-2xl font-semibold text-black md:py-5 md:text-3xl lg:pl-10">
           shop backpacks bags
         </p>
-        <div className="flex flex-row flex-wrap items-center justify-center gap-2 p-3 md:justify-start md:gap-4 md:p-6">
+        <div className="flex flex-row flex-wrap items-center justify-center gap-2 p-3 md:justify-start md:gap-3 md:p-6">
           {backpacksData &&
             backpacksData.items.map((item, index) => {
               return (
@@ -301,9 +307,12 @@ export default function Home({ data }) {
             <div className="p-5 md:flex-1">
               <Link
                 href="/products/category/backpack"
-                className="inline-block translate-x-0 py-2 font-sora text-sm font-semibold text-black duration-150 hover:translate-x-2 hover:text-gray-800"
+                className="inline-block rounded-xl px-3 py-2 text-sm font-semibold leading-6 text-black duration-100 hover:bg-gray-100 active:scale-95 active:bg-gray-200"
               >
-                View all <span aria-hidden="true">&rarr;</span>
+                View all{' '}
+                <span className="inline-block" aria-hidden="true">
+                  &rarr;
+                </span>
               </Link>
             </div>
           )}

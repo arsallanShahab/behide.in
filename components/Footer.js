@@ -33,7 +33,7 @@ const Footer = () => {
           </svg>
         </div>
         <div className="flex-wrap justify-center rounded-md px-4 py-6">
-          <div className="flex flex-col items-start justify-start gap-5 rounded-2xl text-center sm:text-left">
+          <div className="flex flex-col items-center justify-center gap-5 rounded-2xl text-center sm:items-start sm:justify-start sm:text-left">
             <Image src={logo} alt="Behide Logo" width={90} />
             <h4 className="mb-1 max-w-xs align-middle font-sora text-xs leading-[2] text-black">
               Behide is the renowned name in the industry for manufacturing, supplying and
@@ -41,8 +41,8 @@ const Footer = () => {
             </h4>
           </div>
         </div>
-        <div className="flex flex-1 flex-wrap items-start justify-end gap-9">
-          <div className="flex flex-col items-center justify-center rounded-md px-4 py-6 sm:items-start">
+        <div className="flex flex-1 flex-wrap items-start justify-center gap-10 sm:justify-end">
+          <div className="flex flex-col items-center justify-center rounded-md px-6 py-1 sm:items-start sm:py-6 sm:px-4">
             <h3 className="font-sora text-sm font-semibold text-black">ACCOUNT</h3>
             <div className="mt-6">
               <Link className="footer-link group" href={'/about-us'}>
@@ -65,7 +65,7 @@ const Footer = () => {
               </Link>
             </div>
           </div>
-          <div className="flex flex-col items-center justify-center rounded-md px-4 py-6 sm:items-start">
+          <div className="flex flex-col items-center justify-center rounded-md px-6 py-1 sm:items-start sm:py-6 sm:px-4">
             <h3 className="font-sora text-sm font-semibold text-black">PAGES</h3>
             <div className="mt-6">
               <Link className="footer-link group" href={'/hot-products'}>
@@ -83,7 +83,7 @@ const Footer = () => {
               </Link>
             </div>
           </div>
-          <div className="flex flex-col items-center justify-center rounded-md px-4 py-6 sm:items-start">
+          <div className="flex flex-col items-center justify-center rounded-md px-6 py-1 sm:items-start sm:py-6 sm:px-4">
             <h3 className="font-sora text-sm font-semibold text-black">SOCIAL</h3>
             <div className="mt-6">
               <Link className="footer-link group" href={'https://www.instagram.com/behide_india'}>
@@ -103,21 +103,21 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-row flex-wrap items-center justify-center gap-5 py-6 px-10 sm:justify-between">
+      <div className="flex flex-row flex-wrap items-center justify-center gap-5 px-6 pt-6 pb-10 sm:justify-between sm:px-10">
         <p className="-sm text-center font-medium">© Behide India 2022. All Rights Reserved.</p>
-        <div className="flex flex-row items-center justify-center gap-2 ">
+        <div className="flex flex-row flex-wrap items-center justify-center gap-1 sm:gap-2 ">
           <a
             target={'_blank'}
             href="https://www.facebook.com/behide.india/"
-            className="inline-block rounded-xl px-4 py-3 text-sm duration-150 hover:bg-gray-100"
+            className="inline-block rounded-xl px-3 py-2 text-sm font-semibold leading-6 text-black duration-100 hover:bg-gray-100 active:scale-95 active:bg-gray-200"
           >
-            <FacebookIcon className="-mt-[2px] inline-block scale-[.7]" />
+            <FacebookIcon className="-mt-[2px] inline-block scale-[.7] text-center" />
             facebook
           </a>
           <a
             target={'_blank'}
             href="https://www.instagram.com/behide_india/"
-            className="inline-block rounded-xl px-4 py-3 text-sm duration-150 hover:bg-gray-100"
+            className="inline-block rounded-xl px-3 py-2 text-sm font-semibold leading-6 text-black duration-100 hover:bg-gray-100 active:scale-95 active:bg-gray-200"
           >
             <InstagramIcon className="-mt-[2px] inline-block scale-[.7]" />
             instagram
@@ -125,7 +125,7 @@ const Footer = () => {
           <a
             target={'_blank'}
             href="https://wa.me/+919073448018"
-            className="inline-block rounded-xl px-4 py-3 text-sm duration-150 hover:bg-gray-100"
+            className="inline-block rounded-xl px-3 py-2 text-sm font-semibold leading-6 text-black duration-100 hover:bg-gray-100 active:scale-95 active:bg-gray-200"
           >
             <WhatsappIcon className="-mt-[2px] inline-block scale-[.7]" />
             whatsapp

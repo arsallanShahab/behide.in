@@ -1,6 +1,5 @@
-import ShoppingCart from '@/assets/shopping-cart';
+import { useGlobalContextProvider } from '@/context/GlobalContext';
 import PageHead from '@components/PageHead';
-import { useGlobalContextProvider } from '@context/CartContext';
 import { client } from '@lib/contentful';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -21,7 +20,6 @@ const index = ({ data }) => {
     setTotalPrice,
   } = useGlobalContextProvider();
   const { id, product } = data;
-  const Images = product.fields.productAssets;
 
   const excerpt = (string, length = 70) => {
     if (string.length > length) {
@@ -208,9 +206,7 @@ const index = ({ data }) => {
         {/* Product info */}
         <div className="mx-auto max-w-2xl px-4 pt-10 pb-16 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pt-24 lg:pb-24">
           <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
-            <h1 className="break-all font-sora text-2xl font-semibold text-gray-900 sm:text-2xl">
-              {product.fields.productName}
-            </h1>
+            <h1 className="break-words text-4xl text-gray-900">{product.fields.productName}</h1>
           </div>
 
           {/* Options */}

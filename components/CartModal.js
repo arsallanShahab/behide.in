@@ -1,5 +1,7 @@
+import ArrowRight from '@/assets/arrow-right';
+import ChevronRight from '@/assets/chevron-right';
 import ShoppingCart from '@/assets/shopping-cart';
-import { useGlobalContextProvider } from '@context/CartContext';
+import { useGlobalContextProvider } from '@/context/GlobalContext';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -23,9 +25,10 @@ const CartModal = () => {
         <h1 className="font-sora text-base font-semibold"> YOUR CART </h1>
         <button
           onClick={() => setShowCart(false)}
-          className="rounded-lg bg-red-50 px-3 py-2 text-sm font-semibold text-red-700 duration-150 hover:bg-red-100 active:scale-90 active:bg-red-200"
+          className="inline-block rounded-xl px-3 py-2 text-sm font-semibold leading-6 text-black duration-100 hover:bg-rose-100 hover:text-rose-700 active:scale-95 active:bg-rose-200"
         >
           close
+          <ChevronRight className="inline-block h-4 w-4 stroke-[3px]" />
         </button>
       </div>
 
@@ -37,8 +40,8 @@ const CartModal = () => {
           <h1 className="mt-4 font-sora text-lg font-semibold">Your cart is empty</h1>
 
           <Link onClick={() => setShowCart(false)} href="/products">
-            <p className="mt-4 rounded-lg bg-green-50 px-3 py-2 text-sm font-semibold text-green-700 duration-150  hover:bg-green-100 active:scale-90 active:bg-green-200">
-              Shop Now
+            <p className="mt-4 inline-block rounded-xl px-3 py-2 text-sm font-semibold leading-6 text-black duration-100 hover:bg-green-100 hover:text-green-700 active:scale-95 active:bg-green-200">
+              Shop Now <ArrowRight className="-mt-[2.75px] inline-block h-3.5 w-3.5 stroke-[3px]" />
             </p>
           </Link>
         </div>

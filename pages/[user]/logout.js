@@ -1,4 +1,4 @@
-import { useGlobalContextProvider } from '@context/CartContext';
+import { useGlobalContextProvider } from '@/context/GlobalContext';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 

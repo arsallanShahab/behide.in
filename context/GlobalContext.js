@@ -10,17 +10,19 @@ export const GlobalContextProvider = ({ children }) => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalQuantity, setTotalQuantity] = useState(0);
   const [quantity, setQuantity] = useState(1);
-  const [orderItems, setOrderItems] = useState([]);
-  const [ordered, setOrdered] = useState(false);
   const [user, setUser] = useState(null);
 
+  const excerpt = (str, length = 30) => {
+    if (str.length > length) {
+      return str.substring(0, length) + '...';
+    } else {
+      return str;
+    }
+  };
   useEffect(() => {
     let items = localStorage.getItem('cart');
     let order = localStorage.getItem('order');
     order = JSON.parse(order);
-    if (order) {
-      setOrderItems(order);
-    }
     items = JSON.parse(items);
     if (items) {
       setCartItems(items);
@@ -68,7 +70,6 @@ export const GlobalContextProvider = ({ children }) => {
         }
       } catch (error) {
         toast.error('Something went wrong!');
-        console.log(error);
       } finally {
         setLoading(false);
       }
@@ -76,6 +77,21 @@ export const GlobalContextProvider = ({ children }) => {
     if (token && token.length > 0 && !user) {
       fetchUser();
     }
+  }, []);
+
+  useEffect(() => {
+    const navbar = document.querySelector('.navbar');
+    const handleScroll = () => {
+      if (navbar) {
+        if (window.scrollY > 0) {
+          navbar.classList.add('navbar-active');
+        } else {
+          navbar.classList.remove('navbar-active');
+        }
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
   return (
     <GlobalContext.Provider
@@ -92,10 +108,7 @@ export const GlobalContextProvider = ({ children }) => {
         setTotalQuantity,
         quantity,
         setQuantity,
-        orderItems,
-        setOrderItems,
-        ordered,
-        setOrdered,
+        excerpt,
       }}
     >
       {loading ? (

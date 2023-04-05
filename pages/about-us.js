@@ -29,36 +29,33 @@ const index = () => {
       <div className="mx-auto flex max-w-2xl flex-row justify-center gap-3 p-10 lg:max-w-7xl">
         <div className="w-full  py-16 ">
           <h2 className="text-brandBlack pb-10 font-sora text-3xl font-bold capitalize sm:text-5xl">
-            Our Mission
+            Our <span className="text-green-500">Mission</span>
           </h2>
           <p className="text-brandBlack pb-10 font-sora text-sm font-medium leading-loose">
             Our mission is to provide our customers with the best quality products at the most
             competitive prices. We are committed to providing our customers with the best quality
-            products at the most competitive prices and to deliver them on time.
+            products at the most competitive prices.
           </p>
         </div>
 
         <div className="mx-auto w-full max-w-2xl py-16 lg:max-w-7xl lg:px-8">
           <h2 className="text-brandBlack pb-10 font-sora text-3xl font-bold capitalize sm:text-5xl">
-            Our Vision
+            Our <span className="text-green-500">Vision</span>
           </h2>
           <p className="text-brandBlack pb-10 font-sora text-sm font-medium leading-loose">
             Our vision is to be the most respected and trusted name in the industry. We are
-            committed to being the most respected and trusted name in the industry. We will achieve
-            this by providing our customers with the best quality products at the most competitive
-            prices and to deliver them on time.
+            committed to being the most respected and trusted name in the industry.
           </p>
         </div>
 
         <div className="mx-auto w-full max-w-2xl py-16 lg:max-w-7xl lg:px-8">
           <h2 className="text-brandBlack pb-10 font-sora text-3xl font-bold capitalize sm:text-5xl">
-            Our Values
+            Our <span className="text-green-500">Values</span>
           </h2>
           <p className="text-brandBlack pb-10 font-sora text-sm font-medium leading-loose">
             Our values are the foundation of our company. We are committed to providing our
             customers with the best quality products at the most competitive prices and to deliver
-            them on time. We will achieve this by providing our customers with the best quality
-            products at the most competitive prices and to deliver them on time.
+            them on time.
           </p>
         </div>
       </div>

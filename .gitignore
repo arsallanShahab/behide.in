@@ -5,8 +5,13 @@
 /.pnp
 .pnp.js
 
+#development tools
+run_app.py
+
 # testing
 /coverage
+start-app.shnpm run dev
+
 
 # next.js
 /.next/

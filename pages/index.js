@@ -1,6 +1,10 @@
+import Thunder from '@/assets/thunder';
+import ChevronRightButton from '@/components/arrow-right-btn';
+import { excerpt } from '@/lib/utils';
 import CompanyMoto from '@components/CompanyMoto';
 import Header from '@components/PageHead';
 import { client } from '@lib/contentful';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { Autoplay, Navigation } from 'swiper';
@@ -9,75 +13,9 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-const headerIntro = {
-  hide: {
-    opacity: 0,
-    x: -100,
-    transition: {
-      duration: 0.3,
-    },
-  },
-  show: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      easing: 'easeIn',
-      duration: 0.75,
-    },
-  },
-};
-
-const productsIntro = {
-  hide: {
-    opacity: 0,
-    y: 100,
-    scale: 0.9,
-    transition: {
-      duration: 0.35,
-      easing: 'linear',
-    },
-  },
-  show: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      duration: 0.35,
-    },
-  },
-};
-
 export default function Home({ data }) {
-  const [laptopBags, setLaptopBags] = useState([]);
-  const [backpacks, setBackpacks] = useState([]);
-  const [isFetching, setIsFetching] = useState(true);
-  useEffect(() => {
-    const fetchLaptopBags = async () => {
-      const res = await fetch('/api/products/laptop-bags');
-      const data = await res.json();
-      if (data.success) {
-        setLaptopBags(data.body.products);
-        // console.log(data.body.products);
-      }
-      setIsFetching(false);
-    };
-    fetchLaptopBags();
-    const fetchBackpacks = async () => {
-      const res = await fetch('/api/products/backpacks');
-      const data = await res.json();
-      if (data.success) {
-        setBackpacks(data.body.products);
-      }
-      setIsFetching(false);
-    };
-    fetchBackpacks();
-  }, []);
-  const excerpt = (str, end = 50) => {
-    return str.length > end ? str.substring(0, end) + '...' : str;
-  };
   const { homeBanner, laptopBagsData, backpacksData } = data;
   const homeBannerItems = homeBanner.items.map((item) => item.fields);
-  console.log(homeBannerItems);
   return (
     <>
       <Header />
@@ -149,29 +87,11 @@ export default function Home({ data }) {
                 <div className="relative mt-10 flex flex-col items-center justify-center px-6 pt-32 pb-32 sm:mt-0 sm:px-3 lg:flex-row">
                   <div className="flex basis-full flex-col items-center justify-center px-0 text-center sm:px-8 lg:basis-1/2 lg:items-end lg:justify-end">
                     <h3 className="word-spacing-trending py-3 text-right align-middle text-sm font-light uppercase text-[#afafaf]">
-                      Trending Collection{' '}
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="15"
-                        height="15"
-                        viewBox="0 0 24 24"
-                        fill="#ffc038"
-                        stroke="#ffc038"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="feather feather-zap -mt-1 -ml-2 inline-block"
-                      >
-                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-                      </svg>
+                      Trending Collection <Thunder className="-mt-1 -ml-2 inline-block h-5 w-5" />
                     </h3>
                     <h1 className="relative z-10 mb-5 max-w-xl text-center font-sora text-[40px] font-bold capitalize  leading-[.9] text-gray-900 sm:text-7xl lg:text-right">
                       {item.homeBannerText}
                     </h1>
-
-                    {/* <p className="word-spacing text-green mt-10 max-w-md text-center font-sora text-2xl font-bold leading-relaxed sm:text-left">
-                      RS. {item.homeBannerDescription}/.
-                    </p> */}
                     <Link
                       href={`products/${item.homeBannerLink.sys.id}`}
                       className="inline-block translate-x-0 py-2 align-middle font-sora text-sm font-medium text-black duration-150 hover:translate-x-2 hover:text-green-600"
@@ -200,15 +120,20 @@ export default function Home({ data }) {
         <p className="block px-5 py-10 font-sora text-2xl font-semibold text-black md:py-5 md:text-3xl lg:pl-10">
           Featured Products
         </p>
-        <div className="flex flex-row flex-wrap items-center justify-center gap-2 p-3 md:justify-start md:gap-3 md:p-6">
+        <div className="flex flex-row flex-wrap items-center justify-center gap-0 p-3 md:justify-start md:gap-3 md:p-3">
           {laptopBagsData &&
             laptopBagsData.items.map((item, index) => {
               return (
-                <div className="flex flex-col items-start justify-start gap-4 p-3 lg:gap-4 lg:p-6">
-                  <img
+                <div
+                  key={index}
+                  className="flex flex-col items-start justify-start gap-4 p-3 lg:gap-4 lg:p-3"
+                >
+                  <Image
                     className="h-full w-full object-cover md:h-[200px] md:w-[200px] lg:h-[250px] lg:w-[250px]"
                     src={item.fields.productBannerImage.fields.file.url}
                     alt={item.fields.productName}
+                    width={250}
+                    height={250}
                   />
                   <h1 className="w-full font-poppins text-sm font-light text-black md:max-w-[220px] md:font-medium lg:max-w-[280px] lg:text-sm">
                     {excerpt(item.fields.productName, 100)}
@@ -228,40 +153,26 @@ export default function Home({ data }) {
             })}
           {laptopBagsData && (
             <div className="md:flex-1 lg:p-5">
-              <Link
-                href="/products/category/laptop bag"
-                className="inline-block rounded-xl px-3 py-2 text-sm font-semibold leading-6 text-black duration-100 hover:bg-gray-100 active:scale-95 active:bg-gray-200"
-              >
-                View all
-                <span className="inline-block" aria-hidden="true">
-                  &rarr;
-                </span>
-              </Link>
+              <ChevronRightButton label="view all products" href="/products/category/laptop bag" />
             </div>
           )}
         </div>
       </div>
 
       <div className="bg-white">
-        <div className="max-w-8xl mx-auto py-24 sm:px-6 sm:py-32 lg:px-8">
+        <div className="max-w-8xl mx-auto py-24 sm:px-6 sm:py-20 lg:px-8">
           <div className="relative isolate overflow-hidden px-6 pt-16 sm:rounded-3xl sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px-16 lg:pt-0">
             <div className="mx-auto max-w-md text-center lg:mx-0 lg:flex-auto lg:py-32 lg:text-left">
               <h2 className="font-sora text-3xl font-bold leading-loose text-black sm:text-7xl">
                 Behide new in's of the year <span className="text-green-600">2023</span>
               </h2>
               <div className="mt-5 flex items-center justify-center gap-x-6 sm:mt-10 lg:justify-start">
-                <Link
-                  href="/products"
-                  className="inline-block rounded-xl px-3 py-2 text-sm font-semibold leading-6 text-black duration-100 hover:bg-gray-100 active:scale-95 active:bg-gray-200"
-                >
-                  Shop now
-                  <span aria-hidden="true">→</span>
-                </Link>
+                <ChevronRightButton label="shop now" href="/products" />
               </div>
             </div>
-            <div className="relative mt-16 h-80 lg:mt-8">
-              <img
-                className="absolute bottom-0 left-12 w-[14rem] max-w-none rounded-3xl bg-white/5 ring-1 ring-white/10 sm:-top-32 sm:left-20 sm:w-[27rem]"
+            <div className="relative mt-0 h-80 lg:mt-8">
+              <Image
+                className="absolute bottom-0 left-12 w-[14rem] max-w-none bg-white/5 object-cover ring-1 ring-white/10 sm:-top-16 sm:left-20 sm:w-[22rem]"
                 src="/s-l1600.jpg"
                 alt="App screenshot"
                 width={1824}
@@ -275,15 +186,20 @@ export default function Home({ data }) {
         <p className="block px-5 py-10 font-sora text-2xl font-semibold text-black md:py-5 md:text-3xl lg:pl-10">
           shop backpacks bags
         </p>
-        <div className="flex flex-row flex-wrap items-center justify-center gap-2 p-3 md:justify-start md:gap-3 md:p-6">
+        <div className="flex flex-row flex-wrap items-center justify-center gap-0 p-3 md:justify-start md:gap-3 md:p-6">
           {backpacksData &&
             backpacksData.items.map((item, index) => {
               return (
-                <div className="flex flex-col items-start justify-start gap-4 p-3 lg:gap-4 lg:p-6">
-                  <img
+                <div
+                  key={index}
+                  className="flex flex-col items-start justify-start gap-4 p-3 lg:gap-4 lg:p-3"
+                >
+                  <Image
                     className="h-full w-full object-cover md:h-[200px] md:w-[200px] lg:h-[250px] lg:w-[250px]"
                     src={item.fields.productBannerImage.fields.file.url}
                     alt={item.fields.productName}
+                    width={250}
+                    height={250}
                   />
                   <h1 className="w-full font-poppins text-sm font-light text-black md:max-w-[220px] lg:max-w-[280px] lg:text-sm">
                     {excerpt(item.fields.productName, 100)}
@@ -303,17 +219,9 @@ export default function Home({ data }) {
                 </div>
               );
             })}
-          {backpacks && (
+          {backpacksData && (
             <div className="p-5 md:flex-1">
-              <Link
-                href="/products/category/backpack"
-                className="inline-block rounded-xl px-3 py-2 text-sm font-semibold leading-6 text-black duration-100 hover:bg-gray-100 active:scale-95 active:bg-gray-200"
-              >
-                View all{' '}
-                <span className="inline-block" aria-hidden="true">
-                  &rarr;
-                </span>
-              </Link>
+              <ChevronRightButton label="view all products" href="/products/category/backpack" />
             </div>
           )}
         </div>

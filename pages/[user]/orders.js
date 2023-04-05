@@ -136,6 +136,14 @@ const orders = () => {
                         {order?.customer_details?.name}
                       </p>
                     </div>
+                    <div>
+                      <h3 className="rounded-t-xl border bg-gray-100 px-3 py-1.5 text-xs font-semibold lowercase leading-6 text-black">
+                        ORDERED DATE
+                      </h3>
+                      <p className="mt-0.3 rounded-b-xl bg-gray-50 px-3 pt-3 pb-3.5 text-sm font-medium text-black">
+                        {new Date(order.created * 1000).toLocaleString()}
+                      </p>
+                    </div>
                   </div>
                   <div>
                     <h3 className="rounded-t-xl border bg-gray-100 px-3 py-1.5 text-xs font-semibold lowercase leading-6 text-black">

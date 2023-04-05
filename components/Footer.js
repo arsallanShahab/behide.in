@@ -111,7 +111,7 @@ const Footer = () => {
             href="https://www.facebook.com/behide.india/"
             className="inline-block rounded-xl px-3 py-2 text-sm font-semibold leading-6 text-black duration-100 hover:bg-gray-100 active:scale-95 active:bg-gray-200"
           >
-            <FacebookIcon className="-mt-[2px] inline-block scale-[.7] text-center" />
+            <FacebookIcon className="-mt-[2px] inline-block h-6 w-6 scale-[.7] text-center" />
             facebook
           </a>
           <a
@@ -119,7 +119,11 @@ const Footer = () => {
             href="https://www.instagram.com/behide_india/"
             className="inline-block rounded-xl px-3 py-2 text-sm font-semibold leading-6 text-black duration-100 hover:bg-gray-100 active:scale-95 active:bg-gray-200"
           >
-            <InstagramIcon className="-mt-[2px] inline-block scale-[.7]" />
+            <InstagramIcon
+              className="w-6npm run dev -mt-[2px] inline-block h-6
+            
+            scale-[.7]"
+            />
             instagram
           </a>
           <a
@@ -127,7 +131,11 @@ const Footer = () => {
             href="https://wa.me/+919073448018"
             className="inline-block rounded-xl px-3 py-2 text-sm font-semibold leading-6 text-black duration-100 hover:bg-gray-100 active:scale-95 active:bg-gray-200"
           >
-            <WhatsappIcon className="-mt-[2px] inline-block scale-[.7]" />
+            <WhatsappIcon
+              className="w-6npm run dev -mt-[2px] inline-block h-6
+            
+            scale-[.7]"
+            />
             whatsapp
           </a>
         </div>

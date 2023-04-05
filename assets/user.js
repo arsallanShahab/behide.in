@@ -1,4 +1,6 @@
-export default (props) => {
+import React from 'react';
+
+const User = (props) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -15,3 +17,5 @@ export default (props) => {
     </svg>
   );
 };
+
+export default User;

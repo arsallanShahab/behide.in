@@ -1,3 +1,4 @@
+import { ChevronRight } from '@/assets';
 import LogOut from '@/assets/log-out';
 import ShoppingBag from '@/assets/shopping-bag';
 import { default as Cart, default as ShoppingCart } from '@/assets/shopping-cart.js';
@@ -53,35 +54,16 @@ const Navbar = () => {
   const dropdownClick = () => {
     setDropdown((prev) => !prev);
   };
-  const logout = () => {
-    setUser(null);
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    router.push('/user/login');
-  };
-
   useEffect(() => {
     setDropdown(false);
     setOpen(false);
   }, [router.asPath]);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 0) {
-        navbar.current.classList.add('navbar-active');
-      } else {
-        navbar.current.classList.remove('navbar-active');
-      }
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   return (
     <>
       <div
         ref={navbar}
-        className="group/header header sticky top-0 z-[100] flex w-full flex-row flex-wrap items-center justify-between py-3 px-3 text-black duration-150 lg:px-8"
+        className="group/header navbar header sticky top-0 z-[500] flex w-full flex-row flex-wrap items-center justify-between py-3 px-3 text-black duration-150 lg:px-8"
       >
         <div className="max-w-[80px] rounded-lg p-4 pr-0">
           <Link href="/">
@@ -95,7 +77,7 @@ const Navbar = () => {
           <ul className="box-shadow-hover z-500 m-0 flex w-full flex-col items-center gap-1 border bg-white py-8 font-sora text-sm font-medium lg:right-auto lg:z-auto lg:w-auto lg:flex-row lg:border-none lg:bg-transparent  lg:p-0 lg:shadow-none">
             <li className="w-full px-6 py-1 lg:w-auto lg:py-0 lg:px-0">
               <Link
-                className="inline-block w-full rounded-lg px-3 py-3 duration-200 ease-in-out hover:text-slate-500 md:w-auto"
+                className="inline-block w-full rounded-xl px-3 py-3 duration-200 ease-in-out hover:bg-green-50 hover:text-green-700 md:w-auto"
                 href="/"
               >
                 home
@@ -104,25 +86,17 @@ const Navbar = () => {
             <li className="w-full px-6 py-1 lg:w-auto lg:py-0 lg:px-0">
               <div
                 onClick={dropdownClick}
-                className="relative inline-block w-full origin-top-left cursor-pointer items-center rounded-lg px-3 py-3 duration-200 hover:text-slate-500 md:w-auto"
+                className="relative inline-block w-full origin-top-left cursor-pointer items-center rounded-xl px-3 py-3 duration-200 hover:bg-green-50 hover:text-green-700 focus:stroke-green-700 focus:text-green-700 md:w-auto"
               >
                 <div className="flex justify-start sm:justify-center">
                   <div className="relative inline-block">
-                    <span className="mx-1 mt-1 inline-block">category</span>
-                    <svg
+                    <span>category</span>
+                    <ChevronRight
                       style={{
-                        transform: dropdown ? 'rotate(0deg)' : 'rotate(-90deg)',
+                        transform: dropdown ? 'rotate(90deg)' : 'rotate(0deg)',
                       }}
-                      className="mx-1 inline-block h-5 w-5 rotate-90 transition-transform duration-200"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M12 15.713L18.01 9.70299L16.597 8.28799L12 12.888L7.40399 8.28799L5.98999 9.70199L12 15.713Z"
-                        fill="currentColor"
-                      ></path>
-                    </svg>
+                      className="ml-1 inline-block h-4 w-4 rotate-90 stroke-[3px] transition-transform duration-100 hover:stroke-green-700"
+                    />
                     <div
                       style={{
                         opacity: dropdown ? 1 : 0,
@@ -138,7 +112,7 @@ const Navbar = () => {
                           <Link
                             key={index}
                             href={`/products/category/${item.toLowerCase()}`}
-                            className="hover:text-brandBlack block transform rounded-md px-4 py-3 text-[0.8rem] font-normal capitalize text-black  duration-200 hover:bg-gray-100"
+                            className="hover:text-brandBlack block transform rounded-lg px-4 py-2 text-[0.8rem] font-normal capitalize text-black  duration-200 hover:bg-gray-100"
                           >
                             {item}
                           </Link>
@@ -149,50 +123,35 @@ const Navbar = () => {
                 </div>
               </div>
             </li>
-            <li className="w-full px-6 py-1 lg:w-auto lg:py-0 lg:px-0">
-              <Link
-                className="inline-block w-full rounded-lg px-3 py-3 duration-200 hover:text-slate-500 md:w-auto"
-                href="/products"
-              >
-                products
-              </Link>
-            </li>
-            <li className="w-full px-6 py-1 lg:w-auto lg:py-0 lg:px-0">
-              <Link
-                className="inline-block w-full rounded-lg px-3 py-3 duration-200 hover:text-slate-500 md:w-auto"
-                href="/bulk-corporate"
-              >
-                bulk & corporate
-              </Link>
-            </li>
-            <li className="w-full px-6 py-1 lg:w-auto lg:py-0 lg:px-0">
-              <Link
-                className="inline-block w-full rounded-lg px-3 py-3 duration-200 hover:text-slate-500 md:w-auto"
-                href="/hot-products"
-              >
-                hot products
-              </Link>
-            </li>
-            <li className="w-full px-6 py-1 lg:w-auto lg:py-0 lg:px-0">
-              <Link
-                className="inline-block w-full rounded-lg px-3 py-3 duration-200 hover:text-slate-500 md:w-auto"
-                href="/about-us"
-              >
-                about us
-              </Link>
-            </li>
+            {[
+              ['products', '/products'],
+              ['bulk & corporate', '/bulk-corporate'],
+              ['hot products', '/hot-products'],
+              ['about us', '/about-us'],
+            ].map((item, index) => {
+              return (
+                <li key={index} className="w-full px-6 py-1 lg:w-auto lg:py-0 lg:px-0">
+                  <Link
+                    className="inline-block w-full rounded-xl px-3 py-3 duration-200 hover:bg-green-50 hover:text-green-700 md:w-auto"
+                    href={item[1]}
+                  >
+                    {item[0]}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </div>
-        <div className="flex flex-row flex-wrap gap-3">
+        <div className="flex flex-row flex-wrap">
           {user ? (
             //create a dropdown
             <>
               <div className="group relative">
                 <p
                   onClick={() => setDropdown2(!dropdown2)}
-                  className="relative z-[99] inline-block cursor-pointer select-none rounded-xl bg-green-100 px-6 py-3 font-medium lowercase text-green-700 duration-150 active:scale-95 active:bg-green-200"
+                  className="relative z-[99] inline-block cursor-pointer select-none rounded-xl px-4 py-3 font-medium lowercase duration-150 hover:bg-green-50 hover:text-green-700 active:scale-95 active:bg-green-200"
                 >
-                  <User className="inline-block w-6" />
+                  <User className="-mt-1 inline-block w-5" />
                 </p>
 
                 <div
@@ -234,12 +193,12 @@ const Navbar = () => {
               href="/user/login"
               className="inline-block cursor-pointer rounded-xl bg-white px-4 py-3 font-medium text-black duration-150  hover:bg-gray-100 active:scale-90 active:bg-green-200"
             >
-              <User className="inline-block w-6 stroke-black" />
+              <User className="inline-block w-5 stroke-black" />
             </Link>
           )}
           <a
             onClick={() => setShowCart(true)}
-            className="relative inline-block cursor-pointer select-none rounded-xl bg-gray-50 px-4 py-3  text-black duration-150 hover:bg-gray-100 active:scale-90 active:bg-gray-200"
+            className="relative inline-block cursor-pointer select-none rounded-xl px-4 py-3  text-black duration-150 hover:bg-gray-100 active:scale-90 active:bg-gray-200"
           >
             <Cart className="inline-block w-5 stroke-black" />
             <div className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-gray-700 text-xs text-white">

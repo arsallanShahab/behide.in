@@ -9,12 +9,13 @@ const success = () => {
   const { query } = useRouter();
   const { session_id } = query;
   const [session, setSession] = useState(null);
+  const [loading, setLoading] = useState(false);
   const { setCartItems, setTotalQuantity, setTotalPrice } = useGlobalContextProvider();
 
   useEffect(() => {
     if (session_id) {
+      setLoading(true);
       const s = stripe.checkout.sessions.retrieve(session_id);
-      console.log(s?.line_items);
       fetch(`/api/checkout/session?session_id=${session_id}`)
         .then((response) => response.json())
         .then((data) => {
@@ -26,66 +27,37 @@ const success = () => {
           }
           setSession(() => data);
         })
-        .catch((error) => console.log(error));
+        .catch((error) => console.log(error))
+        .finally(() => setLoading(false));
     }
   }, [session_id]);
 
   return (
     <div className="h-full py-44 px-7 text-center sm:px-10">
-      {session && (
-        <>
-          <h1 className="mb-5 font-sora text-4xl font-bold">
-            {session.payment_status === 'paid' ? 'Order successful' : 'Order not found'}
-          </h1>
-          {session.payment_status === 'paid' ? (
-            ''
-          ) : (
-            <p className="mx-auto max-w-md font-poppins font-semibold leading-[3]">
-              we could not find your order. please contact us at{' '}
-              <span className="inline-block rounded-xl bg-red-50 py-1 px-3 text-sm text-red-600">
-                +91 23442 23424
-              </span>{' '}
-              or email us at{' '}
-              <a href="enquiries.behideindia@gmail.com">
-                <span className="ml-2 inline-block rounded-xl bg-red-50 py-1 px-3 text-sm text-red-600">
-                  enquiries.behideindia@gmail.com
-                </span>
-              </a>
-            </p>
-          )}
-          {session?.payment_status === 'paid' ? (
-            <p className="mx-auto mb-3 px-0 font-poppins font-medium leading-[3] sm:px-8">
-              Your order ID is
-              <span className="ml-2 inline-block break-all rounded-xl bg-red-50 py-1 px-3 text-sm text-red-600">
-                {session_id}
-              </span>
-            </p>
-          ) : null}
-          <p className="mb-10 ml-1 font-poppins font-medium">
-            {session?.payment_status === 'paid'
-              ? 'We will send you a confirmation email with your order details.'
-              : ''}
-          </p>
-          <div>
-            {session?.payment_status === 'paid' ? (
-              <p className="mb-8 font-poppins font-semibold">Thank you for shopping with us.</p>
-            ) : (
-              ''
-            )}
-            <div className="flex flex-wrap justify-center gap-3">
-              {session?.payment_status === 'paid' ? (
-                <Link href="/products" className="inline-block">
-                  <p className="rounded-xl bg-green-50 px-8 py-2 text-sm font-semibold text-green-600">
-                    Continue Shopping
-                  </p>
-                </Link>
-              ) : (
-                ''
-              )}
-            </div>
+      {
+        // If the page is still loading, display a loading message
+        loading ? (
+          <div className="flex items-center justify-center py-10 px-5">
+            <span className="loader"></span>
           </div>
-        </>
-      )}
+        ) : (
+          // If the payment was successful, display a success message
+          session?.payment_status === 'paid' && (
+            <div className="flex flex-col items-center justify-center">
+              <h1 className="text-2xl font-semibold">Payment Successful</h1>
+              <p className="mt-2 text-sm font-semibold text-gray-500">
+                Thank you for your purchase. Your order will be shipped shortly.
+              </p>
+              <Link
+                href="/"
+                className="mt-5 rounded-md bg-green-500 px-5 py-2 text-sm font-semibold text-white hover:bg-green-600"
+              >
+                Back to Home
+              </Link>
+            </div>
+          )
+        )
+      }
     </div>
   );
 };

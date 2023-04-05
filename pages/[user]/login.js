@@ -1,10 +1,10 @@
+import { useGlobalContextProvider } from '@context/GlobalContext';
 import logo from '@public/behide-logo-new.png';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { useGlobalContextProvider } from '../../context/GlobalContext';
 
 export default function Example() {
   const { setUser, user } = useGlobalContextProvider();
@@ -25,7 +25,6 @@ export default function Example() {
       body: JSON.stringify(form),
     });
     const { success, error, user, message, token } = await res.json();
-    console.log(success, error, token);
     if (error) {
       toast.dismiss();
       toast.error(message);

@@ -1,35 +1,20 @@
-import ArrowRight from '@/assets/arrow-right';
-import ChevronRight from '@/assets/chevron-right';
-import ShoppingCart from '@/assets/shopping-cart';
+import { ShoppingCart, Trash } from '@/assets';
 import { useGlobalContextProvider } from '@/context/GlobalContext';
+import { excerpt } from '@/lib/utils';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { toast } from 'react-hot-toast';
+import ChevronRightButton from './arrow-right-btn';
 
 const CartModal = () => {
   const { setShowCart, cartItems } = useGlobalContextProvider();
-
-  const excerpt = (string) => {
-    if (string.length > 60) {
-      return string.slice(0, 60) + ' . . . ';
-    } else {
-      return string;
-    }
-  };
 
   return (
     <div className="fill-both fixed right-0 top-0 z-[999] h-full w-full animate-slide-in overflow-y-auto border-l bg-white px-6 pb-16 sm:w-[27rem]">
       <div className="sticky top-0 flex items-center justify-between gap-3 bg-white pb-6 pt-10">
         <h1 className="font-sora text-base font-semibold"> YOUR CART </h1>
-        <button
-          onClick={() => setShowCart(false)}
-          className="inline-block rounded-xl px-3 py-2 text-sm font-semibold leading-6 text-black duration-100 hover:bg-rose-100 hover:text-rose-700 active:scale-95 active:bg-rose-200"
-        >
-          close
-          <ChevronRight className="inline-block h-4 w-4 stroke-[3px]" />
-        </button>
+        <ChevronRightButton custom label="Close" handler={() => setShowCart(false)} />
       </div>
 
       {cartItems.length !== 0 ? (
@@ -37,13 +22,12 @@ const CartModal = () => {
       ) : (
         <div className="flex h-3/4 flex-col items-center justify-center">
           <ShoppingCart className="w-20 stroke-black" />
-          <h1 className="mt-4 font-sora text-lg font-semibold">Your cart is empty</h1>
-
-          <Link onClick={() => setShowCart(false)} href="/products">
-            <p className="mt-4 inline-block rounded-xl px-3 py-2 text-sm font-semibold leading-6 text-black duration-100 hover:bg-green-100 hover:text-green-700 active:scale-95 active:bg-green-200">
-              Shop Now <ArrowRight className="-mt-[2.75px] inline-block h-3.5 w-3.5 stroke-[3px]" />
-            </p>
-          </Link>
+          <h1 className="mt-4 mb-2 font-sora text-lg font-semibold">Your cart is empty</h1>
+          <ChevronRightButton
+            label="shop now"
+            handler={() => setShowCart(false)}
+            href="/products"
+          />
         </div>
       )}
     </div>
@@ -61,13 +45,6 @@ const CartItems = () => {
     user,
   } = useGlobalContextProvider();
 
-  const excerpt = (string) => {
-    if (string.length > 60) {
-      return string.slice(0, 60) + ' . . . ';
-    } else {
-      return string;
-    }
-  };
   const router = useRouter();
   const handleCheckout = async () => {
     toast.loading('Redirecting to checkout page');
@@ -123,9 +100,26 @@ const CartItems = () => {
                 />
               </div>
               <div className="flex flex-grow flex-col items-stretch justify-between py-5 pl-3 pr-5">
-                <h1 className="max-w-[185px] font-sora text-xs font-medium">
-                  {excerpt(item.name)}
-                </h1>
+                <div className="flex justify-between">
+                  <h1 className="max-w-[185px] font-sora text-xs font-medium">
+                    {excerpt(item.name, 60)}
+                  </h1>
+                  <Trash
+                    onClick={() => {
+                      const storageCart = JSON.parse(localStorage.getItem('cart'));
+                      storageCart.forEach((cartItem) => {
+                        if (cartItem.id === item.id) {
+                          storageCart.splice(storageCart.indexOf(cartItem), 1);
+                        }
+                      });
+                      localStorage.setItem('cart', JSON.stringify(storageCart));
+                      setTotalPrice(totalPrice - item.price * item.quantity);
+                      setTotalQuantity(totalQuantity - item.quantity);
+                      setCartItems(cartItems.filter((cartItem) => cartItem.id !== item.id));
+                    }}
+                    className="inline-block h-9 w-9 rounded-xl bg-red-50 stroke-red-500 p-2.5 text-red-500 hover:bg-red-100"
+                  />
+                </div>
                 <div className="mt-4 flex flex-row items-center justify-between">
                   <h1 className="font-sora text-sm font-semibold">₹{item.price}</h1>
                   <div className="font-sora text-sm font-semibold">

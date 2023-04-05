@@ -1,4 +1,6 @@
+import Slash from '@/assets/slash';
 import { useGlobalContextProvider } from '@/context/GlobalContext';
+import { excerpt } from '@/lib/utils';
 import PageHead from '@components/PageHead';
 import { client } from '@lib/contentful';
 import Link from 'next/link';
@@ -7,7 +9,6 @@ import { toast } from 'react-hot-toast';
 import safeJsonStringify from 'safe-json-stringify';
 
 const index = ({ data }) => {
-  console.log(data);
   const [index, setIndex] = useState(0);
   const {
     quantity,
@@ -19,15 +20,9 @@ const index = ({ data }) => {
     totalPrice,
     setTotalPrice,
   } = useGlobalContextProvider();
+
   const { id, product } = data;
 
-  const excerpt = (string, length = 70) => {
-    if (string.length > length) {
-      return string.slice(0, length) + ' . . . ';
-    } else {
-      return string;
-    }
-  };
   const addToCart = () => {
     const checkProductInCart = cartItems.find((item) => item.id === id);
     const stoargeCart = JSON.parse(localStorage.getItem('cart') || '[]');
@@ -91,52 +86,32 @@ const index = ({ data }) => {
         <nav aria-label="Breadcrumb">
           <ol
             role="list"
-            className="mx-auto flex max-w-2xl flex-wrap items-start gap-x-2 gap-y-4 px-4 sm:px-6 lg:max-w-7xl lg:px-8"
+            className="mx-auto flex max-w-2xl flex-wrap items-start gap-x-0 gap-y-4 px-4 sm:px-6 lg:max-w-7xl lg:px-8"
           >
             <li>
               <div className="flex items-center">
-                <Link href={`/`} className="mr-2 text-sm font-light text-black">
-                  Homepage
+                <Link href={`/`} className="text-sm font-light lowercase text-black">
+                  homepage
                 </Link>
-                <svg
-                  width={16}
-                  height={20}
-                  viewBox="0 0 16 20"
-                  fill="currentColor"
-                  xmlns="http://www.w3.org/2000/svg"
-                  aria-hidden="true"
-                  className="h-5 w-4 text-gray-300"
-                >
-                  <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
-                </svg>
+                <Slash className="inline-block h-5 w-5" />
               </div>
             </li>
             <li>
               <div className="flex items-center">
                 <Link
                   href={`/products/category/${product.fields.productType}`}
-                  className="mr-2 text-sm font-light text-black"
+                  className="text-sm font-light lowercase text-black"
                 >
                   {product.fields.productType}
                 </Link>
-                <svg
-                  width={16}
-                  height={20}
-                  viewBox="0 0 16 20"
-                  fill="currentColor"
-                  xmlns="http://www.w3.org/2000/svg"
-                  aria-hidden="true"
-                  className="h-5 w-4 text-gray-300"
-                >
-                  <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
-                </svg>
+                <Slash className="inline-block h-5 w-5" />
               </div>
             </li>
             <li className="text-sm">
               <Link
                 href={`/products/${product.sys.id}`}
                 aria-current="page"
-                className="font-light text-gray-500 hover:text-gray-600"
+                className="font-light lowercase text-gray-500 hover:text-gray-600"
               >
                 {excerpt(product.fields.productName, 45)}
               </Link>
@@ -184,13 +159,13 @@ const index = ({ data }) => {
               />
             </div>
 
-            <div className="flex w-full flex-row gap-3 rounded-3xl bg-white">
+            <div className="flex w-full flex-row items-stretch gap-3 rounded-3xl bg-white">
               {product.fields.productAssets.map((item, i) => {
                 return (
                   <div
                     key={i}
                     onClick={() => setIndex(i)}
-                    className="basis-1/4 cursor-pointer overflow-hidden rounded-xl border px-3 py-3 duration-200 active:scale-90 active:opacity-75"
+                    className="flex basis-1/4 cursor-pointer items-center overflow-hidden rounded-xl border px-3 py-3 duration-200 active:scale-90 active:opacity-75"
                   >
                     <img
                       className="w-full object-contain object-center"
@@ -224,7 +199,7 @@ const index = ({ data }) => {
               <div className="flex-1">
                 <button
                   onClick={addToCart}
-                  className="inline-block h-full w-full rounded-xl bg-green-600 px-3.5 text-base font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
+                  className="hover:bg-gray-900-500 inline-block h-full w-full rounded-xl bg-black px-3.5 text-base font-semibold text-white shadow-sm ring-offset-2 duration-150 hover:bg-black/80 focus:ring-2 active:scale-95 active:ring-2"
                 >
                   Add to cart
                 </button>
@@ -236,7 +211,7 @@ const index = ({ data }) => {
                       setQuantity(quantity - 1);
                     }
                   }}
-                  className="flex h-10 w-10 items-center justify-center rounded-xl font-sora font-semibold text-black duration-150 hover:bg-gray-100 active:scale-90 active:bg-gray-200"
+                  className="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-50 font-sora font-semibold text-black duration-150 hover:bg-gray-100 active:scale-90 active:bg-gray-200"
                 >
                   -
                 </button>
@@ -245,7 +220,7 @@ const index = ({ data }) => {
                   onClick={() => {
                     setQuantity(quantity + 1);
                   }}
-                  className="flex h-10 w-10 items-center justify-center rounded-xl font-sora font-semibold text-black duration-150 hover:bg-gray-100 active:scale-90 active:bg-gray-200"
+                  className="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-50 font-sora font-semibold text-black duration-150 hover:bg-gray-100 active:scale-90 active:bg-gray-200"
                 >
                   +
                 </button>

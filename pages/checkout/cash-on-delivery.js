@@ -40,7 +40,6 @@ const cashOnDelivery = () => {
     setLoading(() => true);
 
     const { contact_information, address_information } = form;
-    console.log(contact_information, address_information);
     const data = {
       contact_information,
       address_information,
@@ -60,11 +59,9 @@ const cashOnDelivery = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setLoading(() => false);
         const { success, message } = data;
         if (success) {
-          console.log(message);
           toast.success(message);
           router.push({
             pathname: '/checkout/success',
@@ -84,7 +81,6 @@ const cashOnDelivery = () => {
             },
           });
         } else {
-          console.log(message);
           toast.error(message);
         }
       });

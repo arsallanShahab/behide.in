@@ -1,6 +1,6 @@
 import React from 'react';
 
-const creditCard = (props) => {
+const MapPin = (props) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -12,10 +12,10 @@ const creditCard = (props) => {
       strokeLinejoin="round"
       {...props}
     >
-      <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
-      <line x1="1" y1="10" x2="23" y2="10"></line>
+      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+      <circle cx="12" cy="10" r="3"></circle>
     </svg>
   );
 };
 
-export default creditCard;
+export default MapPin;

@@ -5,6 +5,7 @@ import { ObjectId } from 'mongodb';
 export default async function handler(req, res) {
   const { db } = await connectToDatabase();
   const { authorization } = req.headers;
+  console.log({ authorization });
   if (!authorization) {
     return res.status(401).json({ error: true, message: 'Not authenticated' });
   }
@@ -28,6 +29,7 @@ export default async function handler(req, res) {
       return res.status(422).json({ message: 'account does not exist' });
     }
     res.status(200).json({ user, success: true });
+    //set headers cookie
   } catch (error) {
     res.status(500).json({ message: 'Something went wrong' });
   }

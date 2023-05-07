@@ -24,8 +24,12 @@ export default async function handler(req, res) {
       },
       process.env.NEXT_PUBLIC_JWT_SECRET,
       {
-        expiresIn: '1h',
+        expiresIn: '7d',
       },
+    );
+    res.setHeader(
+      'Set-Cookie',
+      `token=${token};Secure; SameSite=Strict; Path=/ ; Max-Age=${7 * 24 * 60 * 60}`,
     );
     res.status(200).json({
       success: 'true',

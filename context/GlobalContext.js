@@ -1,5 +1,6 @@
+import Cookies from 'js-cookie';
 import { decode } from 'jsonwebtoken';
-import react, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
 
 const GlobalContext = createContext();
@@ -11,14 +12,7 @@ export const GlobalContextProvider = ({ children }) => {
   const [totalQuantity, setTotalQuantity] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [user, setUser] = useState(null);
-
-  const excerpt = (str, length = 30) => {
-    if (str.length > length) {
-      return str.substring(0, length) + '...';
-    } else {
-      return str;
-    }
-  };
+  const [fetchedUser, setFetchedUser] = useState(null);
   useEffect(() => {
     let items = localStorage.getItem('cart');
     let order = localStorage.getItem('order');
@@ -40,13 +34,16 @@ export const GlobalContextProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    const decodedToken = decode(token);
-    if (decodedToken && decodedToken.exp * 1000 < new Date().getTime()) {
-      localStorage.removeItem('token');
-      setUser(null);
-      return;
-    }
+    const cookies = Cookies.get();
+    // const token = localStorage.getItem('token');
+    const getTokenCookie = cookies?.token;
+    // console.log(getTokenCookie);
+    // const decodedToken = decode(getTokenCookie);
+    // if (decodedToken && decodedToken.exp * 1000 < new Date().getTime()) {
+    //   localStorage.removeItem('token');
+    //   setUser(null);
+    //   return;
+    // }
 
     const fetchUser = async () => {
       setLoading(true);
@@ -55,7 +52,7 @@ export const GlobalContextProvider = ({ children }) => {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${getTokenCookie}`,
           },
         });
         const { user, success } = await res.json();
@@ -69,29 +66,15 @@ export const GlobalContextProvider = ({ children }) => {
           });
         }
       } catch (error) {
-        toast.error('Something went wrong!');
+        toast.error(res.message);
       } finally {
         setLoading(false);
+        setFetchedUser(true);
       }
     };
-    if (token && token.length > 0 && !user) {
+    if (getTokenCookie && !user) {
       fetchUser();
     }
-  }, []);
-
-  useEffect(() => {
-    const navbar = document.querySelector('.navbar');
-    const handleScroll = () => {
-      if (navbar) {
-        if (window.scrollY > 0) {
-          navbar.classList.add('navbar-active');
-        } else {
-          navbar.classList.remove('navbar-active');
-        }
-      }
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
   return (
     <GlobalContext.Provider
@@ -108,11 +91,15 @@ export const GlobalContextProvider = ({ children }) => {
         setTotalQuantity,
         quantity,
         setQuantity,
-        excerpt,
+        fetchedUser,
+        setFetchedUser,
       }}
     >
       {loading ? (
-        <div className="fixed inset-0 z-[999] flex h-screen w-full items-center justify-center bg-white">
+        <div
+          style={{ background: '#fff' }}
+          className="fixed inset-0 z-[999] flex h-full w-full items-center justify-center bg-white"
+        >
           <div className="loader"></div>
         </div>
       ) : null}
@@ -120,5 +107,16 @@ export const GlobalContextProvider = ({ children }) => {
     </GlobalContext.Provider>
   );
 };
+
+function getCookie(name) {
+  const cookies = document.cookie.split(';');
+  for (let i = 0; i < cookies.length; i++) {
+    const cookie = cookies[i].trim();
+    if (cookie.startsWith(`${name}=`)) {
+      return cookie.substring(name.length + 1);
+    }
+  }
+  return null;
+}
 
 export const useGlobalContextProvider = () => useContext(GlobalContext);

@@ -1,12 +1,23 @@
 import { useGlobalContextProvider } from '@/context/GlobalContext';
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 const Account = (props) => {
-  const { user } = useGlobalContextProvider();
+  const { user, fetchedUser } = useGlobalContextProvider();
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if ((fetchedUser && !user) || Cookies.get('token') === undefined) {
+      router.push('/');
+    }
+  }, []);
   return (
-    <div className="px-20 py-20 ">
+    <div className="px-10 py-20 md:px-20 ">
       <h1 className="mb-5 text-5xl">Account</h1>
       {user ? (
-        <div className="flex basis-1/2 gap-5">
+        <div className="flex basis-1/2 flex-col  gap-5 md:flex-row">
           {/* <h1 className="mb-5 block text-3xl font-semibold">Personal Information</h1>
                   <div className="mb-2 flex items-center justify-start gap-3">
                     <h1 className="inline-block text-lg font-light">Name: {'  '}</h1>

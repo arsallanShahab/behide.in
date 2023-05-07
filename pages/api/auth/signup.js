@@ -13,7 +13,12 @@ export default async function handler(req, res) {
       const hashedPassword = await hashPassword(password);
       const newUser = await db
         .collection('users')
-        .insertOne({ name, email, password: hashedPassword });
+        .insertOne({
+          name,
+          email,
+          password: hashedPassword,
+          username: name.replace(' ', '-').toLowerCase(),
+        });
       res.status(201).json({
         success: true,
         message: 'account created successfully',

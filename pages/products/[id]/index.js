@@ -1,4 +1,5 @@
 import Slash from '@/assets/slash';
+import Accordination from '@/components/Accordination';
 import { useGlobalContextProvider } from '@/context/GlobalContext';
 import { excerpt } from '@/lib/utils';
 import PageHead from '@components/PageHead';
@@ -10,6 +11,7 @@ import safeJsonStringify from 'safe-json-stringify';
 
 const index = ({ data }) => {
   const [index, setIndex] = useState(0);
+  const [show, setShow] = useState(false);
   const {
     quantity,
     setQuantity,
@@ -80,138 +82,80 @@ const index = ({ data }) => {
   };
 
   return (
-    <div className="bg-brandGrey">
-      <PageHead pageTitle={product.fields.productName} />
-      <div className="pt-6">
-        <nav aria-label="Breadcrumb">
-          <ol
-            role="list"
-            className="mx-auto flex max-w-2xl flex-wrap items-start gap-x-0 gap-y-4 px-4 sm:px-6 lg:max-w-7xl lg:px-8"
-          >
-            <li>
-              <div className="flex items-center">
-                <Link href={`/`} className="text-sm font-light lowercase text-black">
-                  homepage
-                </Link>
-                <Slash className="inline-block h-5 w-5" />
-              </div>
-            </li>
-            <li>
-              <div className="flex items-center">
-                <Link
-                  href={`/products/category/${product.fields.productType}`}
-                  className="text-sm font-light lowercase text-black"
-                >
-                  {product.fields.productType}
-                </Link>
-                <Slash className="inline-block h-5 w-5" />
-              </div>
-            </li>
-            <li className="text-sm">
-              <Link
-                href={`/products/${product.sys.id}`}
-                aria-current="page"
-                className="font-light lowercase text-gray-500 hover:text-gray-600"
-              >
-                {excerpt(product.fields.productName, 45)}
-              </Link>
-            </li>
-          </ol>
-        </nav>
-
-        {/* Image gallery */}
-        <div className="mx-auto mt-6 max-w-2xl items-stretch justify-center self-center sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
-          <div className="aspect-w-4 aspect-h-5 lg:aspect-w-3 lg:aspect-h-4 hidden sm:flex sm:items-center sm:overflow-hidden ">
-            <img
-              src={product.fields.productAssets[0].fields.file.url}
-              alt={product.fields.productAssets[0].fields.title}
-              className="h-full w-full object-center sm:h-auto sm:rounded-lg"
-            />
-          </div>
-          <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
-            <div className="aspect-w-3 aspect-h-2 overflow-hidden rounded-lg">
-              <img
-                src={product.fields.productAssets[1].fields.file.url}
-                alt={product.fields.productAssets[1].fields.title}
-                className="h-full w-full object-cover object-center"
-              />
-            </div>
-            <div className="aspect-w-3 aspect-h-2 overflow-hidden rounded-lg">
-              <img
-                src={product.fields.productAssets[2].fields.file.url}
-                alt={product.fields.productAssets[2].fields.title}
-                className="h-full w-full object-cover object-center"
-              />
-            </div>
-          </div>
-          <div className="aspect-w-3 aspect-h-4 hidden overflow-hidden rounded-lg lg:flex lg:items-center lg:justify-center">
-            <img
-              src={product.fields.productAssets[3].fields.file.url}
-              alt={product.fields.productAssets[3].fields.title}
-              className="h-full w-full object-center sm:h-auto sm:rounded-lg"
-            />
-          </div>
-          <div className="flex flex-col gap-3 p-3 sm:hidden">
-            <div className="w-full overflow-hidden rounded-md">
-              <img
-                className="h-[60vh] w-full object-contain object-center"
-                src={product.fields.productAssets[index].fields.file.url}
-              />
-            </div>
-
-            <div className="flex w-full flex-row items-stretch gap-3 rounded-3xl bg-white">
-              {product.fields.productAssets.map((item, i) => {
-                return (
-                  <div
+    <div className="relative top-0 mx-auto max-w-7xl">
+      <div className="relative flex flex-row flex-wrap items-start justify-center">
+        <div className="basis-1/2 p-4">
+          <div className="flex flex-col items-center justify-center gap-5 rounded-xl py-10 px-10">
+            {product.fields.productAssets.map((el, i) => {
+              return (
+                <div className="h-[500px] min-w-[350px] max-w-[500px]">
+                  <img
                     key={i}
-                    onClick={() => setIndex(i)}
-                    className="flex basis-1/4 cursor-pointer items-center overflow-hidden rounded-xl border px-3 py-3 duration-200 active:scale-90 active:opacity-75"
-                  >
-                    <img
-                      className="w-full object-contain object-center"
-                      src={product.fields.productAssets[i].fields.file.url}
-                    />
-                  </div>
-                );
-              })}
-            </div>
+                    src={el.fields.file.url.replace('//', 'https://')}
+                    alt=""
+                    className="h-full w-full rounded-xl object-cover object-center"
+                  />
+                </div>
+              );
+            })}
+          </div>
+          <div>
+            <Accordination
+              title="highlights"
+              content={product.fields.productHighlight.split('--')}
+              open={true}
+            />
           </div>
         </div>
-
-        {/* Product info */}
-        <div className="mx-auto max-w-2xl px-4 pt-10 pb-16 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pt-24 lg:pb-24">
-          <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
-            <h1 className="break-words text-4xl text-gray-900">{product.fields.productName}</h1>
-          </div>
-
-          {/* Options */}
-          <div className="mt-12 lg:row-span-3 lg:mt-0">
-            <h2 className="sr-only">Product information</h2>
-            <div className="mb-10 flex flex-row flex-wrap items-center justify-between gap-3">
-              <p className="font-sora text-3xl font-semibold text-gray-900">
-                Rs. {product.fields.productPrice}
-              </p>
+        <div className="sticky top-0 basis-1/2 p-4 duration-300">
+          <div className="flex flex-col items-start justify-start gap-7 rounded-xl py-6 pr-10">
+            <div>
+              <h1
+                alt={product.fields.productName}
+                className="mb-7 break-words font-sora text-4xl font-semibold text-gray-900"
+              >
+                {product.fields.productName.length > 100
+                  ? product.fields.productName.substring(0, 100) + '...'
+                  : product.fields.productName}
+              </h1>
+              <p className="font-sora text-3xl text-green-600">Rs. {product.fields.productPrice}</p>
+            </div>
+            <div className="flex basis-full flex-row flex-wrap items-center justify-start gap-3 rounded-xl bg-gray-50 p-2">
+              <div className="grow rounded-xl bg-gray-100 p-3">
+                <h1 className="mb-1 text-sm font-semibold">Availability: </h1>
+                <h3 className="rounded-xl bg-white px-5 py-2.5 font-sora capitalize text-green-600">
+                  {product.fields.productInStock ? 'In Stock' : 'Out of Stock'}
+                </h3>
+              </div>
+              <div className="grow rounded-xl bg-gray-100 p-3">
+                <h1 className="mb-1 text-sm font-semibold">Sku ID: </h1>
+                <h3 className="rounded-xl bg-white px-5 py-2.5 font-sora capitalize text-green-600">
+                  {product.fields.skuId}
+                </h3>
+              </div>
+              <div className="grow rounded-xl bg-gray-100 p-3">
+                <h1 className="mb-1 text-sm font-semibold">Colour: </h1>
+                <h3 className="rounded-xl bg-white px-5 py-2.5 font-sora capitalize text-green-600">
+                  {product.fields.productColor}
+                </h3>
+              </div>
             </div>
 
-            {/* //generate code for incraesing and decreasing quantity */}
-
-            <div className="flex flex-row flex-wrap items-stretch gap-3">
-              <div className="flex-1">
-                <button
-                  onClick={addToCart}
-                  className="hover:bg-gray-900-500 inline-block h-full w-full rounded-xl bg-black px-3.5 text-base font-semibold text-white shadow-sm ring-offset-2 duration-150 hover:bg-black/80 focus:ring-2 active:scale-95 active:ring-2"
-                >
-                  Add to cart
-                </button>
-              </div>
-              <div className="flex flex-row items-center justify-between gap-3 rounded-xl border bg-white px-2 py-2">
+            <div className="flex w-full flex-row flex-wrap items-center justify-start gap-3">
+              <button
+                onClick={addToCart}
+                className="hover:bg-gray-900-500 inline-block w-full basis-7/12 rounded-xl bg-black px-3.5 py-4 text-base font-semibold text-white shadow-sm ring-offset-2 duration-150 hover:bg-black/80 focus:ring-2 active:scale-95 active:ring-2"
+              >
+                Add to cart
+              </button>
+              <div className="flex basis-3/12 flex-row items-center justify-between gap-3 rounded-xl  p-2">
                 <button
                   onClick={() => {
                     if (quantity > 1) {
                       setQuantity(quantity - 1);
                     }
                   }}
-                  className="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-50 font-sora font-semibold text-black duration-150 hover:bg-gray-100 active:scale-90 active:bg-gray-200"
+                  className="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-100 font-sora font-semibold text-black duration-150 hover:bg-gray-200 active:scale-90 active:bg-gray-300"
                 >
                   -
                 </button>
@@ -220,91 +164,25 @@ const index = ({ data }) => {
                   onClick={() => {
                     setQuantity(quantity + 1);
                   }}
-                  className="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-50 font-sora font-semibold text-black duration-150 hover:bg-gray-100 active:scale-90 active:bg-gray-200"
+                  className="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-100 font-sora font-semibold text-black duration-150 hover:bg-gray-200 active:scale-90 active:bg-gray-300"
                 >
                   +
                 </button>
               </div>
             </div>
-
-            <form className="mt-10">
-              {/* Colors */}
-              <div>
-                <h3 className="font-sora text-xs font-semibold uppercase text-gray-900">SKU ID</h3>
-                <p className="mt-3 cursor-pointer select-none rounded-xl border bg-gray-50 px-3 py-4 text-center font-poppins font-semibold uppercase text-gray-900 duration-200 active:bg-slate-100">
-                  {product.fields.skuId}
-                </p>
-              </div>
-              <div className="mt-10">
-                <h3 className="font-sora text-xs font-semibold uppercase text-gray-900">Color</h3>
-                <p className="mt-3 cursor-pointer select-none rounded-xl border bg-gray-50 px-3 py-4 text-center font-poppins font-semibold uppercase text-gray-900 duration-200 active:bg-slate-100">
-                  {product.fields.productColor}
-                </p>
-              </div>
-
-              {/* Sizes */}
-              <div className="mt-10">
-                <h3 className="font-sora text-xs font-semibold uppercase text-gray-900">Size</h3>
-                <div className="mt-3 flex flex-row flex-wrap justify-center gap-y-0 gap-x-3 rounded-xl border  bg-gray-50 p-3 font-poppins">
-                  <div className="flex-1 cursor-pointer select-none rounded-xl border bg-white px-3 py-4 text-center font-poppins uppercase text-gray-900 duration-200 active:bg-slate-100">
-                    <span className="text-xs">Length:</span>
-                    <span className="block font-semibold text-black">
-                      {`  ${product.fields.productLength}cm`}
-                    </span>
-                  </div>
-                  <div className="flex-1 cursor-pointer select-none rounded-xl border bg-white px-3 py-4 text-center font-poppins uppercase text-gray-900 duration-200 active:bg-slate-100">
-                    <span className="text-xs">Breadth:</span>
-                    <span className="block font-semibold text-black">
-                      {`  ${product.fields.productBreadth}cm`}
-                    </span>
-                  </div>
-                  <div className="flex-1 cursor-pointer select-none rounded-xl border bg-white px-3 py-4 text-center font-poppins uppercase text-gray-900 duration-200 active:bg-slate-100">
-                    <span className="text-xs">Height:</span>
-                    <span className="block font-semibold text-black">
-                      {`  ${product.fields.productHeight}cm`}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="mt-10">
-                  <h3 className="font-sora text-xs font-semibold uppercase text-gray-900">Stock</h3>
-                  {product.fields.productInStock ? (
-                    <p className="mt-3 cursor-pointer select-none rounded-xl border bg-gray-50 px-3 py-4 text-center font-poppins font-semibold uppercase text-gray-900 duration-200 active:bg-slate-100">
-                      {' '}
-                      <span className="text-green-500">In Stock</span> and ready to ship
-                    </p>
-                  ) : (
-                    <p className="mt-3 cursor-pointer select-none rounded-lg border bg-white p-3 text-center font-semibold capitalize text-rose-500 duration-200 active:bg-slate-200">
-                      Out of Stock
-                    </p>
-                  )}
-                </div>
-              </div>
-            </form>
-          </div>
-
-          {/* Description and details */}
-          <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pt-6 lg:pb-16 lg:pr-8">
-            <div className="mt-5">
-              <h3 className="font-sora text-sm font-semibold uppercase text-gray-900">
-                Highlights
+            <div className="mt-1.5">
+              <h1 className="mb-3 text-sm font-semibold">Shipping And returns: </h1>
+              <h3 className="font-sora text-sm leading-loose text-gray-900">
+                4-5 standard delivery on all orders. For any queries, please contact Customer
+                Service at{' '}
+                <Link
+                  href="mailto:enquiries.behideindia@gmail.com"
+                  className="rounded-3xl bg-black px-2 py-1.5 text-white"
+                >
+                  enquiries.behideindia@gmail.com
+                </Link>
+                . .
               </h3>
-
-              <div className="mt-4">
-                <ul role="list" className="list-disc space-y-2 pl-4 ">
-                  {product.fields.productHighlight
-                    ? product.fields.productHighlight.split('--').map((highlight, index) =>
-                        highlight.length < 5 ? null : (
-                          <li key={index}>
-                            <span className="text-base leading-loose text-gray-700">
-                              {highlight}
-                            </span>
-                          </li>
-                        ),
-                      )
-                    : null}
-                </ul>
-              </div>
             </div>
           </div>
         </div>

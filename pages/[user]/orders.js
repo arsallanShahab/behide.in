@@ -1,18 +1,28 @@
 import ArrowRight from '@/assets/arrow-right';
 import { useGlobalContextProvider } from '@/context/GlobalContext';
+import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 
 const orders = () => {
   const [orders, setOrders] = useState([]);
+  const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(false);
-  const { user } = useGlobalContextProvider();
+  const { user, fetchedUser } = useGlobalContextProvider();
   const router = useRouter();
+
+  useEffect(() => {
+    const cookies = Cookies.get();
+    setToken(cookies?.token || '');
+    if (token && user?._id) {
+      fetchOrders();
+    }
+  }, [user, token]);
 
   const fetchOrders = async () => {
     toast.loading('Loading orders...');
-    const token = localStorage.getItem('token');
+    // const token = localStorage.getItem('token');
     const response = await fetch(`/api/stripe/orders/?id=${user?._id}`, {
       method: 'GET',
       headers: {
@@ -37,7 +47,7 @@ const orders = () => {
 
   const cancelOrder = async (id) => {
     toast.loading('Cancelling order...');
-    const token = localStorage.getItem('token');
+    // const token = localStorage.getItem('token');
     const response = await fetch(`/api/stripe/orders/cancel/?id=${id}`, {
       method: 'GET',
       headers: {
@@ -58,29 +68,13 @@ const orders = () => {
   };
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token && user?._id) {
-      fetchOrders();
-    }
-  }, [user]);
-
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      localStorage.removeItem('user');
-      router.push('/user/login');
-    }
-    if (!user && !token) {
-      router.push('/user/login');
+    if ((fetchedUser && !user) || Cookies.get('token') === undefined) {
+      router.push('/');
     }
   }, []);
 
-  const excerpt = (str, start = 0, end = 70) => {
-    return str?.length > end ? str.substring(start, end) + '...' : str;
-  };
-
   return (
-    <div className="flex flex-col gap-7 p-20">
+    <div className="flex flex-col gap-7 py-20 px-10 md:px-20">
       <h1 className="mb-10 text-5xl">Orders</h1>
       {orders && orders?.length > 0
         ? orders.map((order) => (
@@ -94,7 +88,7 @@ const orders = () => {
                 className="flex flex-col rounded-none"
               >
                 <div className="flex flex-wrap justify-between gap-6 rounded-t-2xl rounded-b-none border-[1px] p-3">
-                  <div className="flex gap-2">
+                  <div className="flex flex-1 flex-col gap-2 md:flex-auto md:flex-row">
                     {/* <div>
                       <h3 className="text-xs  leading-6 text-gray-600">
                         ORDER PLACED
@@ -145,7 +139,7 @@ const orders = () => {
                       </p>
                     </div>
                   </div>
-                  <div>
+                  <div className="flex-grow sm:flex-grow-0">
                     <h3 className="rounded-t-xl border bg-gray-100 px-3 py-1.5 text-xs font-semibold lowercase leading-6 text-black">
                       ORDER ID
                     </h3>
@@ -155,9 +149,9 @@ const orders = () => {
                   </div>
                 </div>
                 {order?.order_summary?.items?.map((item) => (
-                  <div className="flex flex-wrap justify-start gap-9 rounded-t-none rounded-b-2xl border border-t-0 p-3 px-8 py-6">
+                  <div className="flex flex-wrap justify-start gap-9 rounded-t-none rounded-b-2xl border border-t-0 p-3 px-8 py-6 ">
                     <img className="w-20 rounded-lg" src={`${item.thumbnail}`} />
-                    <div className="flex gap-9">
+                    <div className="flex flex-col gap-9 md:flex-row">
                       <div>
                         <h3 className="text-xs leading-6 text-gray-600">PRODUCT</h3>
                         <p className="mt-0.5 max-w-md text-xs font-medium leading-[2] text-gray-900">

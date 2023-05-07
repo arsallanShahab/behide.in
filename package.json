@@ -15,6 +15,8 @@
     "contentful": "^9.2.14",
     "eslint": "8.29.0",
     "framer-motion": "^10.3.2",
+    "imagesloaded": "^5.0.0",
+    "js-cookie": "^3.0.5",
     "jsonwebtoken": "^9.0.0",
     "mongodb": "^5.0.1",
     "next": "^13.2.4",

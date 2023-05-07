@@ -33,7 +33,6 @@ export default function Example() {
       const username = user?.name?.replace(' ', '-').toLowerCase();
       toast.dismiss();
       toast.success(message);
-      localStorage.setItem('token', token);
       setUser(() => {
         return {
           name: user.name,

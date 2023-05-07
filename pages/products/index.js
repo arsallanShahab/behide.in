@@ -1,17 +1,37 @@
 import ChevronRight from '@/assets/chevron-right';
+import Card from '@/components/Card';
 import ChevronRightButton from '@/components/arrow-right-btn';
 import { excerpt } from '@/lib/utils';
 import PageHead from '@components/PageHead';
 import { client } from '@lib/contentful';
+import { motion, useInView } from 'framer-motion';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import safeJsonStringify from 'safe-json-stringify';
 
+const container = {
+  animate: {
+    transition: {
+      staggerChildren: 0.1,
+      ease: [0.6, 0.01, 0.05, 0.9],
+    },
+  },
+};
+
 function index({ data }) {
+  const [show, setShow] = useState(false);
   const router = useRouter();
   const { query } = router.query;
   const path = router.pathname.replace('/', '');
+  const Data = [...data, ...data, ...data];
+  useEffect(() => {
+    if (Data) {
+      setShow(true);
+      console.log(show);
+    }
+  }, [show]);
   return (
     <>
       <PageHead pageTitle={path} />
@@ -20,42 +40,31 @@ function index({ data }) {
       </div> */}
 
       <div>
-        <div className="mx-auto max-w-2xl py-16 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-          <div className="grid grid-cols-1 items-start gap-y-10 gap-x-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-            {data
-              ? data.map((product, index) => (
-                  <Link
-                    key={index}
-                    href={`/products/${product.sys.id}`}
-                    className="box-shadow active:box-shadow-hover hover:box-shadow-hover group inline-block rounded-xl bg-gray-50 duration-300 hover:-translate-y-4 hover:bg-white active:-translate-y-4 active:bg-white"
-                  >
-                    <div className="w-full overflow-hidden p-3">
-                      <img
-                        src={product.fields.productBannerImage.fields.file.url}
-                        alt={product.fields.productBannerImage.fields.title}
-                        className="h-auto w-full rounded-xl object-center group-hover:opacity-75"
-                      />
-                    </div>
-                    <div className="overflow-hidden">
-                      <h3 className="mt-2 px-6 text-left text-xs font-semibold leading-5 text-black">
-                        {excerpt(product.fields.productName, 100)}
-                      </h3>
-                      <div className="flex items-center justify-between px-6 py-4">
-                        <p className="text-sm font-semibold text-green-600">
-                          ₹{product.fields.productPrice}
-                        </p>
-                        <ChevronRightButton label="view product" small={true} />
-                      </div>
-                    </div>
-                  </Link>
-                ))
-              : null}
-          </div>
-          <div>
-            {data.length == 0 ? (
-              <p className="mt-6 text-3xl text-gray-400">currently we don't have any products</p>
-            ) : null}
-          </div>
+        <div className="mx-auto max-w-2xl py-16 px-10 sm:px-6 lg:max-w-7xl lg:px-8">
+          <motion.div
+            initial={
+              {
+                // y: 100,
+              }
+            }
+            whileInView={{
+              transition: {
+                staggerChildren: 0.1,
+                ease: [0.6, 0.01, 0.05, 0.9],
+              },
+            }}
+            // variants={container}
+            className="relative flex flex-row flex-wrap justify-center gap-y-10 gap-x-10 xl:gap-x-8"
+          >
+            {/* <div className="relative grid grid-cols-1 items-start gap-y-10 gap-x-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8"> */}
+            {Data.map((product, index) => (
+              <Card product={product} index={index} key={index} />
+            ))}
+          </motion.div>
+
+          {data.length == 0 ? (
+            <p className="mt-6 text-3xl text-gray-400">currently we don't have any products</p>
+          ) : null}
         </div>
       </div>
     </>

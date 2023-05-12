@@ -14,15 +14,15 @@ const index = ({ data }) => {
     <>
       <PageHead pageTitle={category} />
 
-      <div className="mx-auto max-w-2xl pt-12 lg:max-w-7xl">
+      <div className="mx-auto max-w-2xl overflow-hidden pt-12 xl:max-w-7xl">
         <div className="relative px-8 pb-7 pt-14 sm:px-12">
           <h1 className="font-sora text-5xl capitalize text-black">Shop {category}</h1>
-          <div className="absolute inset-0 -left-[0.25em] -top-[0.425em] -z-[1] inline-block w-full whitespace-nowrap font-poppins text-[9em] capitalize text-gray-100 md:-left-[0.2em] md:-top-[0.5em]">
+          <div className="absolute inset-0 -left-[0em] -top-[0.425em] -z-[1] inline-block w-full whitespace-nowrap font-poppins text-[9em] capitalize text-gray-100 md:-left-[0em] md:-top-[0.5em]">
             {category}
           </div>
         </div>
         <div className="bg-brandGrey">
-          <div className="px-10 pb-16 sm:px-6 lg:px-8">
+          <div className="px-10 pb-16 pt-5 sm:px-6 lg:px-8">
             <div className="relative flex flex-row flex-wrap justify-start gap-y-10 gap-x-10 xl:gap-x-8">
               {data && data?.products?.items?.length > 0 ? (
                 data.products.items.map((product, index) => (

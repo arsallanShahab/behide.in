@@ -18,7 +18,7 @@ const index = () => {
   return (
     <>
       <PageHead pageTitle={path} />
-      <div className="relative mx-auto w-full overflow-hidden py-16 px-5 sm:px-10 md:max-w-2xl lg:max-w-7xl lg:px-8">
+      <div className="relative mx-auto w-full overflow-hidden py-16 px-7 sm:px-10 md:max-w-2xl lg:max-w-7xl lg:px-8">
         <ScrollTitle
           className="relative pt-10 font-sora text-5xl capitalize text-black duration-100 sm:pt-20 sm:text-8xl  md:text-[10em]"
           AnimateXEnd={-300}
@@ -31,7 +31,7 @@ const index = () => {
         >
           build trust
         </ScrollTitle>
-        <p className="text-brandBlack relative max-w-4xl py-5 text-justify align-middle font-sora text-xs leading-[2.5] sm:py-24 sm:text-left md:pl-28">
+        <p className="text-brandBlack relative max-w-4xl py-5 pt-10 text-justify align-middle font-sora text-xs leading-[2.5] sm:py-24 sm:text-left md:pl-28">
           Behide is the renowned name in the industry for manufacturing, supplying and distributing
           of Leather Folders, Leather Card Holders, Leather Executive Bags, Leather Wallets and many
           other products. Behide is the Sole Proprietor Ship based company that was emerged in the

@@ -72,7 +72,7 @@ const index = () => {
         ref={ref}
         className="mx-auto overflow-hidden px-5 pb-16 pt-28 sm:px-6 md:max-w-2xl lg:max-w-7xl lg:px-8"
       >
-        <div className="max-w-fit pb-5 sm:pb-0">
+        <div className="max-w-fit px-2 pb-5 sm:px-0 sm:pb-0">
           <div className="flex items-center justify-start">
             <div className="relative w-full max-w-fit flex-1">
               <ScrollTitle
@@ -101,7 +101,7 @@ const index = () => {
           </ScrollTitle>
         </div>
 
-        <p className="text-brandBlack relative z-10 max-w-4xl py-5 text-justify align-middle font-sora text-xs leading-[2.5] sm:py-24 sm:text-left md:pl-28">
+        <p className="text-brandBlack relative z-10 max-w-4xl px-2 py-5 text-justify align-middle font-sora text-xs leading-[2.5] sm:py-24 sm:text-left md:pl-28">
           We are accepting corporate orders and bulk orders. since you know this is an ideal gift
           you can give to your dignified customers / clients / companies, this is one of the most
           sought after gifts which the big MNCs are giving as a gift. Enjoy heavy discounts on bulk
@@ -114,7 +114,7 @@ const index = () => {
           touch with us today!
         </p>
         <div className="relative">
-          <div className="isolate py-24 px-6 sm:py-32 lg:px-8">
+          <div className="isolate py-24 px-0 sm:py-32 lg:px-8">
             <div className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]">
               <svg
                 className="relative left-1/2 -z-10 h-[21.1875rem] max-w-none -translate-x-1/2 rotate-[30deg] sm:left-[calc(50%-40rem)] sm:h-[42.375rem]"
@@ -140,7 +140,7 @@ const index = () => {
                 </defs>
               </svg>
             </div>
-            <div className="mx-auto max-w-2xl text-center">
+            <div className="mx-auto max-w-full px-8 text-center sm:max-w-2xl">
               <h2 className="font-sora text-3xl font-bold text-gray-900 sm:text-4xl">
                 Contact sales
               </h2>
@@ -148,7 +148,10 @@ const index = () => {
                 We are accepting corporate orders and bulk orders.
               </p>
             </div>
-            <form onSubmit={handleSubmit} className="mx-auto mt-16 max-w-xl sm:mt-20">
+            <form
+              onSubmit={handleSubmit}
+              className="mx-auto mt-16 max-w-full px-2 sm:mt-20 sm:max-w-xl"
+            >
               <div className="grid grid-cols-1 gap-y-6 gap-x-8 sm:grid-cols-2">
                 <div>
                   <label

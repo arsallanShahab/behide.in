@@ -49,10 +49,10 @@ function index({ data, category }) {
         <h1 className="font-sora text-5xl font-bold text-black">Products</h1>
       </div> */}
 
-      <div className="mx-auto max-w-2xl pt-12 lg:max-w-7xl">
+      <div className="mx-auto max-w-2xl overflow-hidden pt-12 xl:max-w-7xl">
         <div className="relative px-8 pb-5 pt-14 sm:px-12">
           <h1 className="font-sora text-5xl text-black">Shop Products</h1>
-          <div className="absolute inset-0 -left-[0.25em] -top-[0.425em] -z-[1] inline-block w-full whitespace-nowrap font-poppins text-[9em] text-gray-100 md:-left-[0.2em] md:-top-[0.5em]">
+          <div className="absolute inset-0 -left-[0.2em] -top-[0.425em] -z-[1] inline-block w-full whitespace-nowrap font-poppins text-[9em] capitalize text-gray-100 md:-left-[0em] md:-top-[0.5em]">
             Products
           </div>
         </div>
@@ -72,7 +72,7 @@ function index({ data, category }) {
           </div>
         </div>
 
-        <div className="py-5 px-10 sm:px-6 lg:px-8">
+        <div className="py-5 px-7 sm:px-6 lg:px-8">
           {data.length > 0 ? (
             <FilteredProducts
               data={data}

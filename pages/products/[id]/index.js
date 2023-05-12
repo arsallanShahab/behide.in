@@ -85,11 +85,11 @@ const index = ({ data }) => {
   return (
     <div className="relative top-0 mx-auto max-w-fit duration-500">
       <div className="relative flex flex-row flex-wrap items-start justify-center">
-        <div className="basis-1/2 p-4">
+        <div className="basis-full p-0 sm:basis-1/2 sm:p-4">
           <div className="flex flex-col items-center justify-center gap-5 rounded-xl py-10 px-10">
             {product.fields.productAssets.map((el, i) => {
               return (
-                <div className="h-[500px] w-full min-w-[350px] max-w-[500px]">
+                <div className="h-auto w-full min-w-full max-w-[500px] sm:h-[500px] sm:min-w-[350px]">
                   <img
                     key={i}
                     src={el.fields.file.url.replace('//', 'https://')}
@@ -100,7 +100,7 @@ const index = ({ data }) => {
               );
             })}
           </div>
-          <div className="pl-10">
+          <div className="pl-4 pr-4 sm:pr-0 sm:pl-10">
             <Accordination
               title="highlights"
               content={product.fields.productHighlight.split('--')}
@@ -108,35 +108,37 @@ const index = ({ data }) => {
             />
           </div>
         </div>
-        <div className="sticky top-0 basis-1/2 p-4 duration-300">
-          <div className="flex flex-col items-start justify-start gap-7 rounded-xl py-6 pr-10">
+        <div className="relative top-0 basis-full p-0 duration-300 sm:sticky sm:basis-1/2 sm:p-4">
+          <div className="flex flex-col items-start justify-start gap-7 rounded-xl py-6 px-4 sm:pr-10">
             <div>
               <h1
                 alt={product.fields.productName}
-                className="mb-7 break-words font-sora text-4xl font-semibold text-gray-900"
+                className="mb-7 break-words font-sora text-2xl font-semibold text-gray-900 sm:text-4xl"
               >
                 {product.fields.productName.length > 100
                   ? product.fields.productName.substring(0, 100) + '...'
                   : product.fields.productName}
               </h1>
-              <p className="font-sora text-3xl text-green-600">Rs. {product.fields.productPrice}</p>
+              <p className="font-sora text-xl text-green-600 sm:text-3xl">
+                Rs. {product.fields.productPrice}
+              </p>
             </div>
             <div className="flex basis-full flex-row flex-wrap items-center justify-start gap-3 rounded-xl bg-gray-50 p-2">
               <div className="grow rounded-xl bg-gray-100 p-3">
                 <h1 className="mb-1 text-sm font-semibold">Availability: </h1>
-                <h3 className="rounded-xl bg-white px-5 py-2.5 font-sora capitalize text-green-600">
+                <h3 className="rounded-xl bg-white px-3 py-1.5 font-sora text-sm capitalize text-green-600 sm:px-5 sm:py-2.5 sm:text-base">
                   {product.fields.productInStock ? 'In Stock' : 'Out of Stock'}
                 </h3>
               </div>
               <div className="grow rounded-xl bg-gray-100 p-3">
                 <h1 className="mb-1 text-sm font-semibold">Sku ID: </h1>
-                <h3 className="rounded-xl bg-white px-5 py-2.5 font-sora capitalize text-green-600">
+                <h3 className="rounded-xl bg-white px-3 py-1.5 font-sora text-sm capitalize text-green-600 sm:px-5 sm:py-2.5 sm:text-base">
                   {product.fields.skuId}
                 </h3>
               </div>
               <div className="grow rounded-xl bg-gray-100 p-3">
                 <h1 className="mb-1 text-sm font-semibold">Colour: </h1>
-                <h3 className="rounded-xl bg-white px-5 py-2.5 font-sora capitalize text-green-600">
+                <h3 className="rounded-xl bg-white px-3 py-1.5 font-sora text-sm capitalize text-green-600 sm:px-5 sm:py-2.5 sm:text-base">
                   {product.fields.productColor}
                 </h3>
               </div>
@@ -145,11 +147,11 @@ const index = ({ data }) => {
             <div className="flex w-full flex-row flex-wrap items-center justify-start gap-3">
               <button
                 onClick={addToCart}
-                className="hover:bg-gray-900-500 inline-block w-full basis-7/12 rounded-xl bg-black px-3.5 py-4 font-poppins text-base font-medium text-white shadow-sm ring-offset-2 duration-150 hover:bg-black/80 focus:ring-2 active:scale-95 active:ring-2"
+                className="hover:bg-gray-900-500 inline-block w-full basis-full rounded-xl bg-black px-3.5 py-4 font-poppins text-base font-medium text-white shadow-sm ring-offset-2 duration-150 hover:bg-black/80 focus:ring-2 active:scale-95 active:ring-2 sm:basis-7/12"
               >
                 Add to cart
               </button>
-              <div className="flex basis-3/12 flex-row items-center justify-between gap-3 rounded-xl  p-2">
+              <div className="flex basis-full flex-row items-center justify-between gap-3 rounded-xl p-2 sm:basis-3/12">
                 <button
                   onClick={() => {
                     if (quantity > 1) {

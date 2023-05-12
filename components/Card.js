@@ -1,36 +1,25 @@
 import { excerpt } from '@/lib/utils';
 import { motion, useInView } from 'framer-motion';
+import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useRef } from 'react';
 import ChevronRightButton from './arrow-right-btn';
 
-const item = {
-  initial: {
-    opacity: 0,
-  },
-  animate: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.5,
-      ease: [0.6, 0.01, 0.05, 0.9],
-    },
-  },
-};
-
 const Card = ({ product, index }) => {
   return (
-    <motion.div key={index} variants={item} className="basis-full sm:basis-[275px]">
-      <Link
+    <motion.div layout={'position'} key={index} className="basis-full sm:basis-[275px]">
+      <a
         key={index}
         href={`/products/${product.sys.id}`}
         className="box-shadow active:box-shadow-hover hover:box-shadow-hover group inline-block rounded-xl bg-gray-50 duration-300 hover:-translate-y-4 hover:bg-white active:-translate-y-4 active:bg-white"
       >
         <div className="w-full overflow-hidden p-3">
-          <img
+          <Image
+            width={275}
+            height={275}
             src={product.fields.productBannerImage.fields.file.url}
             alt={product.fields.productBannerImage.fields.title}
-            className="h-auto w-full rounded-xl object-center group-hover:opacity-75"
+            className="h-auto w-full rounded-xl object-cover object-center duration-100 group-hover:opacity-75"
           />
         </div>
         <div className="overflow-hidden">
@@ -42,7 +31,7 @@ const Card = ({ product, index }) => {
             <ChevronRightButton label="view product" small={true} />
           </div>
         </div>
-      </Link>
+      </a>
     </motion.div>
   );
 };

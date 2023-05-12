@@ -1,36 +1,48 @@
 import { ShoppingCart, Trash } from '@/assets';
 import { useGlobalContextProvider } from '@/context/GlobalContext';
 import { excerpt } from '@/lib/utils';
+import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { toast } from 'react-hot-toast';
 import ChevronRightButton from './arrow-right-btn';
 
-const CartModal = () => {
+const transition = { duration: 0.4, ease: [0.43, 0.13, 0.23, 0.96] };
+
+const CartModal = ({ showCart = false }) => {
   const { setShowCart, cartItems } = useGlobalContextProvider();
 
   return (
-    <div className="fill-both fixed right-0 top-0 z-[999] h-full w-full animate-slide-in overflow-y-auto border-l bg-white px-6 pb-16 sm:w-[27rem]">
-      <div className="sticky top-0 flex items-center justify-between gap-3 bg-white pb-6 pt-10">
-        <h1 className="font-sora text-base font-semibold"> YOUR CART </h1>
-        <ChevronRightButton custom label="Close" handler={() => setShowCart(false)} />
-      </div>
+    <AnimatePresence>
+      {showCart && (
+        <motion.div
+          initial={{ x: '100%', transition }}
+          animate={{ x: 0, transition }}
+          exit={{ x: '100%', transition }}
+          className="fixed right-0 top-0 z-[999] h-full w-full overflow-y-auto border-l bg-white px-6 pb-16 sm:w-[27rem]"
+        >
+          <div className="sticky top-0 flex items-center justify-between gap-3 bg-white pb-6 pt-10">
+            <h1 className="font-sora text-base font-semibold"> YOUR CART </h1>
+            <ChevronRightButton custom label="Close" handler={() => setShowCart(false)} />
+          </div>
 
-      {cartItems.length !== 0 ? (
-        <CartItems />
-      ) : (
-        <div className="flex h-3/4 flex-col items-center justify-center">
-          <ShoppingCart className="w-20 stroke-black" />
-          <h1 className="mt-4 mb-2 font-sora text-lg font-semibold">Your cart is empty</h1>
-          <ChevronRightButton
-            label="shop now"
-            handler={() => setShowCart(false)}
-            href="/products"
-          />
-        </div>
+          {cartItems.length !== 0 ? (
+            <CartItems />
+          ) : (
+            <div className="flex h-3/4 flex-col items-center justify-center">
+              <ShoppingCart className="w-20 stroke-black" />
+              <h1 className="mt-4 mb-2 font-sora text-lg font-semibold">Your cart is empty</h1>
+              <ChevronRightButton
+                label="shop now"
+                handler={() => setShowCart(false)}
+                href="/products"
+              />
+            </div>
+          )}
+        </motion.div>
       )}
-    </div>
+    </AnimatePresence>
   );
 };
 

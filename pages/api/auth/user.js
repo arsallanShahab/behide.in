@@ -5,7 +5,6 @@ import { ObjectId } from 'mongodb';
 export default async function handler(req, res) {
   const { db } = await connectToDatabase();
   const { authorization } = req.headers;
-  console.log({ authorization });
   if (!authorization) {
     return res.status(401).json({ error: true, message: 'Not authenticated' });
   }

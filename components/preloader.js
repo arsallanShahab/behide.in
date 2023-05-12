@@ -53,27 +53,20 @@ const Preloader = () => {
           initial="initial"
           exit="exit"
           variants={preloader}
-          className="fixed inset-0 z-[1000] flex h-full w-full flex-1  items-center justify-center bg-green-50"
+          className="fixed inset-0 z-[1000] flex h-screen w-screen flex-1 items-center justify-center bg-green-50"
         >
           {['#f0f3bd', '#80ed99', '#57cc99', '#02c39a'].map((el, i) => {
             return (
               <motion.div
                 key={i}
                 variants={slide}
-                className="relative h-full w-full flex-1 basis-full flex-wrap bg-green-600 p-6"
+                className="relative h-full flex-1 bg-green-600 p-6"
                 style={{
                   backgroundColor: el,
                 }}
-              >
-                <span className="font-sora text-[2em] font-bold text-white"></span>
-              </motion.div>
+              ></motion.div>
             );
           })}
-          {/* <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-28">
-                <Image src={logo} alt="behide logo" className="w-full" />
-              </div>
-            </div> */}
         </motion.div>
       )}
     </AnimatePresence>

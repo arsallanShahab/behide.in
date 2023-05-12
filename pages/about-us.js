@@ -18,20 +18,20 @@ const index = () => {
   return (
     <>
       <PageHead pageTitle={path} />
-      <div className="mx-auto w-full max-w-2xl overflow-hidden py-16 px-4 sm:px-10 lg:max-w-7xl lg:px-8">
+      <div className="relative mx-auto w-full overflow-hidden py-16 px-5 sm:px-10 md:max-w-2xl lg:max-w-7xl lg:px-8">
         <ScrollTitle
-          className="pt-20 font-sora text-5xl capitalize text-black duration-100 sm:text-[10em]"
+          className="relative pt-10 font-sora text-5xl capitalize text-black duration-100 sm:pt-20 sm:text-8xl  md:text-[10em]"
           AnimateXEnd={-300}
         >
           we at behide
         </ScrollTitle>
         <ScrollTitle
-          className="font-sora text-5xl capitalize text-black duration-100 sm:text-[10em]"
+          className="relative font-sora text-5xl capitalize text-black duration-100 sm:text-8xl md:text-[10em]"
           AnimateXEnd={300}
         >
           build trust
         </ScrollTitle>
-        <p className="text-brandBlack relative max-w-4xl py-24 pl-28 pb-10 align-middle font-sora text-sm leading-loose">
+        <p className="text-brandBlack relative max-w-4xl py-5 text-justify align-middle font-sora text-xs leading-[2.5] sm:py-24 sm:text-left md:pl-28">
           Behide is the renowned name in the industry for manufacturing, supplying and distributing
           of Leather Folders, Leather Card Holders, Leather Executive Bags, Leather Wallets and many
           other products. Behide is the Sole Proprietor Ship based company that was emerged in the
@@ -46,9 +46,9 @@ const index = () => {
         </p>
       </div>
 
-      <div className="mx-auto flex max-w-2xl flex-col justify-center gap-3 p-10 lg:max-w-6xl">
+      <div className="mx-auto flex max-w-2xl flex-col justify-center gap-3 p-5 sm:p-10 lg:max-w-6xl">
         <div className="w-full">
-          <h2 className="text-brandBlack pb-10 font-sora text-3xl sm:text-8xl">
+          <h2 className="text-brandBlack pb-5 font-sora text-5xl sm:text-8xl">
             our{' '}
             <div className="mt-1 block lowercase text-green-500">
               <StaggeringText text={'Mission'} />
@@ -62,7 +62,7 @@ const index = () => {
         </div>
 
         <div className="flex w-full flex-1 flex-col items-end text-right ">
-          <h2 className="text-brandBlack pb-10 font-sora text-3xl sm:text-8xl">
+          <h2 className="text-brandBlack pb-5 font-sora text-5xl sm:text-8xl">
             our{' '}
             <div className="mt-1 block lowercase text-green-500">
               <StaggeringText text={'Vision'} />
@@ -76,7 +76,7 @@ const index = () => {
         </div>
 
         <div className="w-full">
-          <h2 className="text-brandBlack pb-10 font-sora text-3xl sm:text-8xl">
+          <h2 className="text-brandBlack pb-5 font-sora text-5xl sm:text-8xl">
             our{' '}
             <div className="mt-1 block lowercase text-green-500">
               <StaggeringText text={'Values'} />

@@ -5,13 +5,14 @@ import { excerpt } from '@/lib/utils';
 import PageHead from '@components/PageHead';
 import { client } from '@lib/contentful';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import safeJsonStringify from 'safe-json-stringify';
 
 const index = ({ data }) => {
   const [index, setIndex] = useState(0);
   const [show, setShow] = useState(false);
+
   const {
     quantity,
     setQuantity,
@@ -82,13 +83,13 @@ const index = ({ data }) => {
   };
 
   return (
-    <div className="relative top-0 mx-auto max-w-7xl">
+    <div className="relative top-0 mx-auto max-w-fit duration-500">
       <div className="relative flex flex-row flex-wrap items-start justify-center">
         <div className="basis-1/2 p-4">
           <div className="flex flex-col items-center justify-center gap-5 rounded-xl py-10 px-10">
             {product.fields.productAssets.map((el, i) => {
               return (
-                <div className="h-[500px] min-w-[350px] max-w-[500px]">
+                <div className="h-[500px] w-full min-w-[350px] max-w-[500px]">
                   <img
                     key={i}
                     src={el.fields.file.url.replace('//', 'https://')}
@@ -99,7 +100,7 @@ const index = ({ data }) => {
               );
             })}
           </div>
-          <div>
+          <div className="pl-10">
             <Accordination
               title="highlights"
               content={product.fields.productHighlight.split('--')}
@@ -144,7 +145,7 @@ const index = ({ data }) => {
             <div className="flex w-full flex-row flex-wrap items-center justify-start gap-3">
               <button
                 onClick={addToCart}
-                className="hover:bg-gray-900-500 inline-block w-full basis-7/12 rounded-xl bg-black px-3.5 py-4 text-base font-semibold text-white shadow-sm ring-offset-2 duration-150 hover:bg-black/80 focus:ring-2 active:scale-95 active:ring-2"
+                className="hover:bg-gray-900-500 inline-block w-full basis-7/12 rounded-xl bg-black px-3.5 py-4 font-poppins text-base font-medium text-white shadow-sm ring-offset-2 duration-150 hover:bg-black/80 focus:ring-2 active:scale-95 active:ring-2"
               >
                 Add to cart
               </button>

@@ -14,27 +14,34 @@ const index = ({ data }) => {
     <>
       <PageHead pageTitle={category} />
 
-      <div className="px-12 pb-0 pt-14">
-        <h1 className="font-sora text-5xl capitalize">Shop {category}</h1>
-        {/* <div className="flex items-center gap-2">
-          <Link href={'/'} className="text-sm font-semibold text-slate-600">
-            HOME
-          </Link>
-          <ChevronRight className="h-4 w-4 stroke-[3px]" />
-          <span className="text-sm font-semibold">/</span>
-          <Link href={category} className="text-sm font-semibold uppercase text-slate-600">
+      <div className="mx-auto max-w-2xl pt-12 lg:max-w-7xl">
+        <div className="relative px-8 pb-7 pt-14 sm:px-12">
+          <h1 className="font-sora text-5xl capitalize text-black">Shop {category}</h1>
+          <div className="absolute inset-0 -left-[0.25em] -top-[0.425em] -z-[1] inline-block w-full whitespace-nowrap font-poppins text-[9em] capitalize text-gray-100 md:-left-[0.2em] md:-top-[0.5em]">
             {category}
-          </Link>
-        </div> */}
-      </div>
-      <div className="bg-brandGrey">
-        <div className="mx-auto max-w-2xl py-16 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-          <div className="grid grid-cols-1 items-start gap-y-10 gap-x-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-            {data
-              ? data.products.items.map((product, index) => (
+          </div>
+        </div>
+        <div className="bg-brandGrey">
+          <div className="px-10 pb-16 sm:px-6 lg:px-8">
+            <div className="relative flex flex-row flex-wrap justify-start gap-y-10 gap-x-10 xl:gap-x-8">
+              {data && data?.products?.items?.length > 0 ? (
+                data.products.items.map((product, index) => (
                   <Card product={product} index={index} key={index} />
                 ))
-              : null}
+              ) : (
+                //genearte code for back to home button
+                <div className="flex flex-col items-start gap-5 px-0 sm:px-5">
+                  <p className="relative mt-6 block max-w-xl pr-10 font-sora text-3xl capitalize text-black duration-100 sm:text-4xl sm:leading-relaxed md:text-[2rem]">
+                    we can't find what you are looking for
+                  </p>
+                  <ChevronRightButton
+                    href={'/products'}
+                    label="back to products"
+                    customClass="mr-2 bg-gray-50"
+                  />
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -48,7 +55,9 @@ export const getStaticProps = async (ctx) => {
     content_type: 'blog',
     'fields.productType': category,
   });
-  if (response === undefined || response === null || response === '') {
+
+  if (!response || !response.items || !response.items.length) {
+    // return empty array if no products found for category
     return {
       props: {
         data: { products: [] },
@@ -74,7 +83,7 @@ export const getStaticPaths = async () => {
   }));
   return {
     paths,
-    fallback: false,
+    fallback: true,
   };
 };
 

@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie';
 import { decode } from 'jsonwebtoken';
-import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 
 const GlobalContext = createContext();
@@ -13,10 +13,9 @@ export const GlobalContextProvider = ({ children }) => {
   const [quantity, setQuantity] = useState(1);
   const [user, setUser] = useState(null);
   const [fetchedUser, setFetchedUser] = useState(null);
+  const [cookie, setCookie] = useState(null);
   useEffect(() => {
     let items = localStorage.getItem('cart');
-    let order = localStorage.getItem('order');
-    order = JSON.parse(order);
     items = JSON.parse(items);
     if (items) {
       setCartItems(items);
@@ -34,9 +33,8 @@ export const GlobalContextProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const cookies = Cookies.get();
     // const token = localStorage.getItem('token');
-    const getTokenCookie = cookies?.token;
+    // const getTokenCookie = cookies?.token;
     // console.log(getTokenCookie);
     // const decodedToken = decode(getTokenCookie);
     // if (decodedToken && decodedToken.exp * 1000 < new Date().getTime()) {
@@ -44,15 +42,30 @@ export const GlobalContextProvider = ({ children }) => {
     //   setUser(null);
     //   return;
     // }
+    // const tokenCookie = Cookies.get('token');
+
+    // const token = Cookies.get('token');
+    const token = getCookie('token');
+    const tokenValue = token?.split('=')[1];
+
+    if (tokenValue) {
+      const decodedToken = decode(tokenValue);
+      setUser(() => {
+        return {
+          name: decodedToken.name,
+          email: decodedToken.email,
+          _id: decodedToken._id,
+        };
+      });
+    }
 
     const fetchUser = async () => {
-      setLoading(true);
       try {
         const res = await fetch('/api/auth/user', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${getTokenCookie}`,
+            Authorization: `Bearer ${tokenValue}`,
           },
         });
         const { user, success } = await res.json();
@@ -66,13 +79,14 @@ export const GlobalContextProvider = ({ children }) => {
           });
         }
       } catch (error) {
-        toast.error(res.message);
+        toast.error(JSON.stringify(error));
       } finally {
         setLoading(false);
         setFetchedUser(true);
       }
     };
-    if (getTokenCookie && !user) {
+    if (token && !user) {
+      setLoading(true);
       fetchUser();
     }
   }, []);
@@ -108,15 +122,18 @@ export const GlobalContextProvider = ({ children }) => {
   );
 };
 
-function getCookie(name) {
-  const cookies = document.cookie.split(';');
-  for (let i = 0; i < cookies.length; i++) {
-    const cookie = cookies[i].trim();
-    if (cookie.startsWith(`${name}=`)) {
-      return cookie.substring(name.length + 1);
-    }
-  }
-  return null;
-}
+const ScrollToTopButton = () => {
+  return (
+    <div className="fixed bottom-0 right-0 z-[999] flex h-32 w-32 items-center justify-center bg-white">
+      <div></div>
+    </div>
+  );
+};
+
+const getCookie = (name) => {
+  const cookies = document.cookie;
+  const cookie = cookies?.split(';').find((cookie) => cookie.includes(name));
+  return cookie;
+};
 
 export const useGlobalContextProvider = () => useContext(GlobalContext);

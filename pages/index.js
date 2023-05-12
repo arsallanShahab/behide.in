@@ -1,4 +1,3 @@
-import Thunder from '@/assets/thunder';
 import ChevronRightButton from '@/components/arrow-right-btn';
 import AnimateHeading from '@/components/heading-animate';
 import StaggeringText from '@/components/staggering-text';
@@ -17,15 +16,15 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-const transition = { duration: 0.8, ease: [0.6, 0.01, -0.05, 0.9] };
+const transition = { duration: 0.8, ease: [0.6, 0.01, 0.05, 0.9] };
 const transitionTwo = { duration: 0.4, ease: [0.43, 0.13, 0.23, 0.96] };
 
 const flexContainerVariants = {
   animate: {
     transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.7,
-      easing: [0.43, 0.13, 0.23, 0.96],
+      staggerChildren: 0.125,
+      delayChildren: 0.2,
+      ease: [0.43, 0.13, 0.23, 0.96],
     },
   },
 };
@@ -33,14 +32,14 @@ const flexContainerVariants = {
 const flexItemVariants = {
   initial: {
     opacity: 0,
-    y: 100,
+    y: -100,
   },
   animate: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.5,
-      ease: [0.43, 0.13, 0.23, 0.96],
+      duration: 0.6,
+      ease: transition.ease,
     },
   },
 };
@@ -73,14 +72,14 @@ export default function Home({ data }) {
           navigation
         >
           {homeBannerItems.map((item, index) => {
-            const words = item.homeBannerText.split('');
+            const words = item.homeBannerText.split(' ');
             return (
               <SwiperSlide
                 key={index}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
               >
-                <motion.div className="relative flex flex-col items-center justify-center px-6 pt-20 pb-16 sm:mt-0 sm:px-3 md:pt-12 lg:flex-row">
+                <motion.div className="relative flex flex-col items-center justify-center bg-opacity-50 px-6 pt-16 pb-36 sm:mt-0 sm:px-3 md:pt-12 lg:flex-row">
                   <div className="flex basis-full flex-col items-center justify-center px-0 text-center sm:px-8 lg:basis-3/5 lg:items-end lg:justify-end">
                     <motion.h3
                       initial={{
@@ -118,7 +117,7 @@ export default function Home({ data }) {
                       {words.map((word, index) => {
                         return (
                           <motion.div key={index} className="inline-block">
-                            {word === ' ' ? '\u00A0' : word}
+                            {word + '\u00A0'}
                           </motion.div>
                         );
                       })}
@@ -188,13 +187,13 @@ export default function Home({ data }) {
         </Swiper>
       </div>
 
-      <div className="overflow-hidden px-5 pb-20 pt-32 lg:px-10">
-        <div className="relative w-full">
-          <div className=" relative block w-full px-5 py-10 font-sora text-2xl font-semibold text-black md:py-5 md:text-3xl lg:pl-10">
-            <AnimateHeading text={'Featured Products'} staggerAnimate={0.025} />
+      <div className="overflow-hidden px-8 pb-20 pt-20 sm:pt-32 lg:px-10">
+        <div className="relative w-full pb-5 sm:pb-0">
+          <div className="relative font-sora text-5xl text-black">
+            <AnimateHeading text={'Featured Products'} staggerAnimate={0.05} />
           </div>
-          <div className="absolute inset-0 -left-[0.25em] -top-[0.425em] -z-[1] inline-block w-full whitespace-nowrap font-poppins text-[9em] text-gray-100 md:-left-[0.375em] md:-top-[0.55em]">
-            <AnimateHeading text={'Featured'} staggerAnimate={0.06} />
+          <div className="absolute inset-0 -left-[0.25em] -top-[0.425em] -z-[1] hidden w-full whitespace-nowrap font-poppins text-[9em] text-gray-100 sm:inline-block md:-left-[0.375em] md:-top-[0.875em]">
+            <AnimateHeading text={'Featured'} staggerAnimate={0.1} />
           </div>
         </div>
 
@@ -204,7 +203,7 @@ export default function Home({ data }) {
           // only plays once
           viewport={{ once: true }}
           variants={flexContainerVariants}
-          className="flex flex-row flex-wrap items-center justify-center gap-0 p-3 px-10 md:justify-start md:gap-3 md:p-3"
+          className="flex flex-row flex-wrap items-center justify-center gap-0 p-3 px-0 sm:px-10 md:justify-start md:gap-3 md:p-3"
         >
           {laptopBagsData &&
             laptopBagsData.items.map((item, index) => {
@@ -212,7 +211,7 @@ export default function Home({ data }) {
                 <motion.div
                   variants={flexItemVariants}
                   key={index}
-                  style={{ originX: 0.5, originY: 0.5 }}
+                  style={{ originX: 0.5, originY: 1 }}
                   className="flex origin-center flex-col items-start justify-start gap-4 p-3 lg:gap-4 lg:p-3"
                 >
                   <Image
@@ -222,11 +221,13 @@ export default function Home({ data }) {
                     width={250}
                     height={250}
                   />
-                  <h1 className="w-full font-poppins text-sm font-light text-black md:max-w-[220px] md:font-medium lg:max-w-[280px] lg:text-sm">
+                  <h1 className="w-full text-xs font-medium text-black md:max-w-[220px] lg:max-w-[280px] lg:text-sm">
                     {excerpt(item.fields.productName, 100)}
                   </h1>
                   <div className="flex w-full flex-wrap items-center justify-between ">
-                    <p className="text-xs text-black lg:text-sm">₹{item.fields.productPrice}/-</p>
+                    <p className="font-sora text-xs font-semibold text-black lg:text-sm">
+                      ₹{item.fields.productPrice}/-
+                    </p>
 
                     <Link
                       href={`/products/${item.sys.id}`}
@@ -239,21 +240,21 @@ export default function Home({ data }) {
               );
             })}
           {laptopBagsData && (
-            <div className="md:flex-1 lg:p-5">
-              <ChevronRightButton label="view all products" href="/products/category/laptop bag" />
-            </div>
+            <motion.div variants={flexItemVariants} className="md:flex-1 lg:p-5">
+              <ChevronRightButton label="view all" href="/products/category/laptop bag" />
+            </motion.div>
           )}
         </motion.div>
       </div>
 
       <div className="">
-        <div className="relative mx-auto max-w-7xl py-24 px-5 sm:px-10 sm:py-20 lg:px-16">
+        <div className="relative mx-auto max-w-7xl py-24 px-8 sm:px-10 sm:py-20 lg:px-16">
           <div className="relative text-left">
-            <div className="absolute inset-0 -left-[0.25em] -top-[0.67em] -z-[1] inline-block w-full whitespace-nowrap font-poppins text-[9em] text-gray-100 md:-left-[0.6em]">
+            <div className="absolute inset-0 -left-[0.25em] -top-[0.67em] -z-[1] inline-block w-full whitespace-nowrap font-poppins text-[4em] text-gray-100 sm:text-[9em] md:-left-[0.6em]">
               <AnimateHeading text={'Collection'} />
             </div>
 
-            <h2 className="mb-5 font-sora text-4xl text-black sm:text-9xl">
+            <h2 className="mb-5 font-sora text-6xl text-black sm:text-9xl">
               <StaggeringText text={'Behide'} staggerHover={0.015} staggerInitial={0.01} /> new in's
               of the year{' '}
               <span className="text-green-600">
@@ -269,13 +270,13 @@ export default function Home({ data }) {
           </div>
         </div>
       </div>
-      <div className="overflow-hidden px-5 pb-20 pt-32 lg:px-10">
-        <div className="relative">
-          <div className="block px-5 py-10 font-sora text-2xl font-semibold text-black md:py-5 md:text-3xl lg:pl-10">
-            <AnimateHeading text={'shop backpacks bags'} staggerAnimate={0.025} />
+      <div className="relative overflow-hidden px-8 pb-20 pt-32 lg:px-10">
+        <div className="relative pb-5 sm:pb-0">
+          <div className="relative block font-sora text-5xl text-black">
+            <AnimateHeading text={'shop backpacks'} staggerAnimate={0.05} />
           </div>
-          <div className="absolute inset-0 -left-[0.25em] -top-[0.425em] -z-[1] inline-block w-full whitespace-nowrap font-poppins text-[9em] text-gray-100 md:-left-[0.375em] md:-top-[0.55em]">
-            <AnimateHeading text={'Backpacks'} staggerAnimate={0.05} />
+          <div className="absolute inset-0 -left-[0.25em] -top-[0.425em] -z-[1] hidden w-full whitespace-nowrap font-poppins text-[9em] text-gray-100 sm:inline-block md:-left-[0.375em] md:-top-[0.875em]">
+            <AnimateHeading text={'Backpacks'} staggerAnimate={0.1} />
           </div>
         </div>
         <motion.div
@@ -283,7 +284,7 @@ export default function Home({ data }) {
           whileInView="animate"
           viewport={{ once: true }}
           variants={flexContainerVariants}
-          className="flex flex-row flex-wrap items-center justify-center gap-0 p-3 md:justify-start md:gap-3 md:p-6"
+          className="flex flex-row flex-wrap items-center justify-center gap-0 px-0 sm:p-3 md:justify-start md:gap-3 md:p-6"
         >
           {backpacksData &&
             backpacksData.items.map((item, index) => {
@@ -319,9 +320,9 @@ export default function Home({ data }) {
               );
             })}
           {backpacksData && (
-            <div className="p-5 md:flex-1">
-              <ChevronRightButton label="view all products" href="/products/category/backpack" />
-            </div>
+            <motion.div variants={flexItemVariants} className="p-5 md:flex-1">
+              <ChevronRightButton label="view all" href="/products/category/backpack" />
+            </motion.div>
           )}
         </motion.div>
       </div>
@@ -333,13 +334,13 @@ export default function Home({ data }) {
 export const getStaticProps = async (ctx) => {
   const backpacksData = await client.getEntries({
     content_type: 'blog',
-    'fields.productType': 'backpack',
+    'fields.productType': 'office bag',
     order: '-sys.createdAt',
     limit: 3,
   });
   const laptopBagsData = await client.getEntries({
     content_type: 'blog',
-    'fields.productType': 'laptop bag',
+    'fields.productType': 'office bag',
     order: '-sys.createdAt',
     limit: 3,
   });

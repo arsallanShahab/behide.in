@@ -41,7 +41,6 @@ const ScrollTitle = ({
           y,
           opacity: opacity,
           scale,
-          transitionDuration: duration,
         }}
       >
         {children}

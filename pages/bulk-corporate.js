@@ -1,35 +1,120 @@
-import PageHead from "@components/PageHead";
-import { useRouter } from "next/router";
-import { useState } from "react";
+import PageHead from '@components/PageHead';
+import ScrollTitle from '@components/ScrollTitle';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { useRef, useState } from 'react';
+import { toast } from 'react-hot-toast';
 
 const index = () => {
   const router = useRouter();
-  const [agreed, setAgreed] = useState(false);
-  const path = router.pathname.replace("/", "");
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll(ref);
+  // // how do transform a path like a shape
+  // const x = useTransform(scrollYProgress, [0, 0.5, 0.75, 1], ['-20%', '25%', '0%', '40%']);
+  // const height = useTransform(scrollYProgress, [0, 0.35, 1], ['50%', '75%', '100%']);
+  // const width = useTransform(scrollYProgress, [0, 0.25, 0.5, 1], ['25%', '100%', '100%', '100%']);
+  // const scale = useTransform(scrollYProgress, [0, 0.25, 0.5, 0.75, 1], [0.75, 1.25, 1.4, 1.5, 1]);
+
+  const [loading, setLoading] = useState(false);
+  const [form, setForm] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    company: '',
+    phone: '',
+    message: '',
+  });
+  const handleFormChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const { firstName, lastName, email, company, phone, message } = form;
+    if (!firstName || !email || !company || !phone || !message) {
+      toast.error('Please fill all the fields');
+      return;
+    }
+    setLoading(true);
+    const res = await fetch('/api/send-email', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(form),
+    });
+    const { success, msg } = await res.json();
+    if (success) {
+      toast.success(msg);
+      setLoading(false);
+      setForm({
+        firstName: '',
+        lastName: '',
+        email: '',
+        company: '',
+        phone: '',
+        message: '',
+      });
+    } else {
+      setLoading(false);
+      toast.error(msg);
+    }
+  };
+  const path = router.pathname.replace('/', '');
   return (
     <>
       <PageHead pageTitle={path} />
-      <div className="mx-auto max-w-2xl py-16 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-        <h2 className="pb-10 font-sora text-3xl font-bold capitalize text-brandBlack sm:text-5xl">
-          bulk - corporate
-        </h2>
+      <div
+        ref={ref}
+        className="mx-auto overflow-hidden px-5 pb-16 pt-28 sm:px-6 md:max-w-2xl lg:max-w-7xl lg:px-8"
+      >
+        <div className="max-w-fit pb-5 sm:pb-0">
+          <div className="flex items-center justify-start">
+            <div className="relative w-full max-w-fit flex-1">
+              <ScrollTitle
+                className="relative whitespace-nowrap font-sora text-5xl capitalize text-black duration-100 sm:text-8xl md:text-[10em]"
+                AnimateXEnd={-300}
+              >
+                Bulk {'&'}&nbsp;
+                <div className="group relative isolate inline-block h-[2rem] w-[48%] overflow-hidden rounded-[50em] border-none bg-black text-center font-sora text-5xl text-white outline-none sm:h-[7.5rem]">
+                  <Image
+                    src="/s-l500.jpg"
+                    width={250}
+                    height={250}
+                    className="relative h-full w-full rounded-[50em] object-cover duration-200 group-hover:rotate-6 group-hover:scale-[1.3]"
+                    alt="thumbnail"
+                  />
+                </div>
+              </ScrollTitle>
+            </div>
+          </div>
 
-        <p className="pb-10 font-sora text-xl font-medium leading-loose text-brandBlack">
-          We are accepting corporate orders and bulk orders. since you know this
-          is an ideal gift you can give to your dignified customers / clients /
-          companies, this is one of the most sought after gifts which the big
-          MNCs are giving as a gift. Enjoy heavy discounts on bulk orders and
-          benefit with our year-round offers. Place orders of any scale and
-          enjoy the best of the Behide shopping experience. Please mail us your
-          requirements to sales@behide.com with subject line 'Corporate Order' .
-          we will get back you with the details or just fill in the form and
-          tell us how much quantity you need or any product categories you have
-          in mind for more of a selection that is not on our website. Our
-          corporate orders team will help you get the right product at a Super
-          price. So, get in touch with us today!
+          <ScrollTitle
+            className="font-sora text-5xl capitalize text-black duration-100 sm:text-8xl md:text-[10em]"
+            AnimateXEnd={300}
+          >
+            Corporate
+          </ScrollTitle>
+        </div>
+
+        <p className="text-brandBlack relative z-10 max-w-4xl py-5 text-justify align-middle font-sora text-xs leading-[2.5] sm:py-24 sm:text-left md:pl-28">
+          We are accepting corporate orders and bulk orders. since you know this is an ideal gift
+          you can give to your dignified customers / clients / companies, this is one of the most
+          sought after gifts which the big MNCs are giving as a gift. Enjoy heavy discounts on bulk
+          orders and benefit with our year-round offers. Place orders of any scale and enjoy the
+          best of the Behide shopping experience. Please mail us your requirements to
+          sales@behide.com with subject line 'Corporate Order' . we will get back you with the
+          details or just fill in the form and tell us how much quantity you need or any product
+          categories you have in mind for more of a selection that is not on our website. Our
+          corporate orders team will help you get the right product at a Super price. So, get in
+          touch with us today!
         </p>
         <div className="relative">
-          <div className="isolate bg-white py-24 px-6 sm:py-32 lg:px-8">
+          <div className="isolate py-24 px-6 sm:py-32 lg:px-8">
             <div className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]">
               <svg
                 className="relative left-1/2 -z-10 h-[21.1875rem] max-w-none -translate-x-1/2 rotate-[30deg] sm:left-[calc(50%-40rem)] sm:h-[42.375rem]"
@@ -63,11 +148,7 @@ const index = () => {
                 We are accepting corporate orders and bulk orders.
               </p>
             </div>
-            <form
-              action="#"
-              method="POST"
-              className="mx-auto mt-16 max-w-xl sm:mt-20"
-            >
+            <form onSubmit={handleSubmit} className="mx-auto mt-16 max-w-xl sm:mt-20">
               <div className="grid grid-cols-1 gap-y-6 gap-x-8 sm:grid-cols-2">
                 <div>
                   <label
@@ -79,8 +160,10 @@ const index = () => {
                   <div className="mt-2.5">
                     <input
                       type="text"
-                      name="first-name"
+                      name="firstName"
                       id="first-name"
+                      value={form.firstName}
+                      onChange={handleFormChange}
                       autoComplete="given-name"
                       className="block w-full rounded-md border-0 py-2 px-3.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
@@ -96,8 +179,10 @@ const index = () => {
                   <div className="mt-2.5">
                     <input
                       type="text"
-                      name="last-name"
+                      name="lastName"
                       id="last-name"
+                      value={form.lastName}
+                      onChange={handleFormChange}
                       autoComplete="family-name"
                       className="block w-full rounded-md border-0 py-2 px-3.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
@@ -115,6 +200,8 @@ const index = () => {
                       type="text"
                       name="company"
                       id="company"
+                      value={form.company}
+                      onChange={handleFormChange}
                       autoComplete="organization"
                       className="block w-full rounded-md border-0 py-2 px-3.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
@@ -132,6 +219,8 @@ const index = () => {
                       type="email"
                       name="email"
                       id="email"
+                      value={form.email}
+                      onChange={handleFormChange}
                       autoComplete="email"
                       className="block w-full rounded-md border-0 py-2 px-3.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
@@ -159,8 +248,10 @@ const index = () => {
                     </div>
                     <input
                       type="tel"
-                      name="phone-number"
+                      name="phone"
                       id="phone-number"
+                      value={form.phone}
+                      onChange={handleFormChange}
                       autoComplete="tel"
                       className="block w-full rounded-md border-0 py-2 px-3.5 pl-20 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
@@ -178,8 +269,9 @@ const index = () => {
                       name="message"
                       id="message"
                       rows={4}
+                      value={form.message}
+                      onChange={handleFormChange}
                       className="block w-full rounded-md border-0 py-2 px-3.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      defaultValue={""}
                     />
                   </div>
                 </div>
@@ -189,7 +281,7 @@ const index = () => {
                   type="submit"
                   className="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
-                  Let's talk
+                  {loading ? 'Sending...' : 'Send'}
                 </button>
               </div>
             </form>

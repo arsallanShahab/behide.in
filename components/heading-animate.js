@@ -1,14 +1,14 @@
 import { motion } from 'framer-motion';
 import React from 'react';
 
-const AnimateHeading = ({ text, staggerAnimate = 0.06, once = true }) => {
+const AnimateHeading = ({ text, staggerAnimate = 0.06, once = true, delay = false }) => {
   const textArray = text.split('');
   const container = {
     initial: {},
     animate: {
       transition: {
-        duration: 0.5,
-        delayChildren: staggerAnimate * textArray.length,
+        duration: 0.7,
+        delayChildren: delay ? staggerAnimate * textArray.length : 0,
         staggerChildren: staggerAnimate,
         staggerDirection: 1,
       },
@@ -17,11 +17,17 @@ const AnimateHeading = ({ text, staggerAnimate = 0.06, once = true }) => {
   const letter = {
     initial: {
       opacity: 0,
-      x: '-50%',
+      // x: '-50%',
+      // scale: 1.5,
+      y: '-100%',
+      // skewY: 10,
     },
     animate: {
       opacity: 1,
       x: 0,
+      y: 0,
+      skewY: 0,
+      scale: 1,
       transition: {
         ease: [0.6, 0.01, 0.05, 0.9],
       },
@@ -34,7 +40,7 @@ const AnimateHeading = ({ text, staggerAnimate = 0.06, once = true }) => {
       whileInView="animate"
       variants={container}
       viewport={{ once: once }}
-      className="align-top"
+      className="overflow-hidden align-top"
     >
       {textArray.map((char, index) => {
         return (

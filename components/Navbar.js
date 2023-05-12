@@ -1,5 +1,5 @@
 import { ChevronRight } from '@/assets';
-import { default as Cart, default as ShoppingCart } from '@/assets/shopping-cart.js';
+import { default as Cart } from '@/assets/shopping-cart.js';
 import User from '@/assets/user.js';
 import { useGlobalContextProvider } from '@/context/GlobalContext.js';
 import CartModal from '@components/CartModal.js';
@@ -14,7 +14,6 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [dropdown, setDropdown] = useState(false);
   const [dropdown2, setDropdown2] = useState(false);
-  const [isOrdered, setIsOrdered] = useState(false);
   const router = useRouter();
   const navbar = useRef(null);
   const { totalQuantity, showCart, setShowCart, user } = useGlobalContextProvider();
@@ -22,18 +21,13 @@ const Navbar = () => {
   const username = user?.name?.replace(' ', '-').toLowerCase();
 
   useEffect(() => {
-    const stoargeOrderedItems = JSON.parse(localStorage.getItem('order') || '[]');
-    if (stoargeOrderedItems.length > 0) {
-      setIsOrdered(true);
-    } else {
-      setIsOrdered(false);
-    }
     setDropdown(false);
     setOpen(false);
     setDropdown2(false);
   }, [router.asPath]);
 
   const productCategory = [
+    'Office Bag',
     'Backpack',
     'Briefcase',
     'Laptop Bag',
@@ -61,11 +55,10 @@ const Navbar = () => {
     <>
       <div
         ref={navbar}
-        style={{ '--background': '#fff' }}
         className="group/header header relative top-0 z-[500] flex w-full flex-row flex-wrap items-center justify-between py-3 px-3 text-black duration-150 lg:px-8"
       >
         <div className="flex flex-wrap gap-8">
-          <div className="max-w-[80px] rounded-lg p-4 pr-0">
+          <div className="z-10 max-w-[80px] rounded-lg p-4 pr-0">
             <a href="/">
               <Image src={logo} alt="behide logo" className="w-full" />
             </a>
@@ -214,19 +207,15 @@ const Navbar = () => {
           <Image alt="menu-button" src="/menu.svg" width={30} height={30} />
         </div>
       </div>
-      {showCart && <CartModal />}
+
+      <CartModal showCart={showCart} />
+
       {showCart && (
         <div
           onClick={() => setShowCart(false)}
           className="fixed inset-0 z-[200] bg-black opacity-50"
         ></div>
       )}
-      {/* <div
-        style={{
-          marginTop: navbar.current.offsetHeight + "px",
-        }}
-        className="block h-[1px] w-full"
-      ></div> */}
     </>
   );
 };

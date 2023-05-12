@@ -119,10 +119,6 @@ a {
   box-sizing: border-box;
 }
 
-.bg-asset {
-  background: url('../public/bg-asset.png');
-}
-
 .word-spacing {
   word-spacing: 0.1em;
   line-height: 2;
@@ -254,7 +250,7 @@ a {
 
 .slideshow .swiper-button-prev,
 .slideshow .swiper-button-next {
-  top: 91%;
+  top: 80%;
   left: 50%;
 }
 

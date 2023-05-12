@@ -17,7 +17,7 @@ const index = ({ data }) => {
       <div className="mx-auto max-w-2xl overflow-hidden pt-12 xl:max-w-7xl">
         <div className="relative px-8 pb-7 pt-14 sm:px-12">
           <h1 className="font-sora text-5xl capitalize text-black">Shop {category}</h1>
-          <div className="absolute inset-0 -left-[0em] -top-[0.425em] -z-[1] inline-block w-full whitespace-nowrap font-poppins text-[9em] capitalize text-gray-100 md:-left-[0em] md:-top-[0.5em]">
+          <div className="absolute inset-0 -left-[0em] -top-[0.425em] -z-[1] hidden w-full whitespace-nowrap font-poppins text-[9em] capitalize text-gray-100 sm:inline-block md:-left-[0em] md:-top-[0.5em]">
             {category}
           </div>
         </div>

@@ -35,7 +35,18 @@ export const GlobalContextProvider = ({ children }) => {
     const token = Cookies.get();
     const tokenCookie = token?.token;
 
-    const { name, email, _id } = decode(tokenCookie);
+    let name = null;
+    let email = null;
+    let _id = null;
+
+    if (tokenCookie) {
+      const { name: userName, email: userEmail, _id: userId } = decode(tokenCookie);
+      if (userName && userEmail && userId) {
+        name = userName;
+        email = userEmail;
+        _id = userId;
+      }
+    }
 
     const fetchUser = async () => {
       setLoading(true);
@@ -69,10 +80,12 @@ export const GlobalContextProvider = ({ children }) => {
 
     if (tokenCookie) {
       if (name && email && _id) {
-        setUser({
-          _id,
-          name,
-          email,
+        setUser(() => {
+          return {
+            name,
+            email,
+            _id,
+          };
         });
       } else {
         fetchUser();

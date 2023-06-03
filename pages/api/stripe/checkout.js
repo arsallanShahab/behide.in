@@ -5,11 +5,6 @@ const stripeInstance = stripe(stripeSecretKey);
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
-    const customer = await stripeInstance.customers.create({
-      metadata: {
-        user_id: req.body.user_id,
-      },
-    });
     const line_items = req.body.cartItems.map((item) => {
       return {
         price_data: {
@@ -82,7 +77,6 @@ export default async function handler(req, res) {
           },
         ],
         line_items,
-        customer: customer.id,
         success_url: `${req.headers.origin}/payment/success?success=true&session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${req.headers.origin}/payment/cancel`,
       };

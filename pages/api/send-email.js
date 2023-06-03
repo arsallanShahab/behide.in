@@ -1,4 +1,3 @@
-import sgMail from '@sendgrid/mail';
 import nodemailer from 'nodemailer';
 
 let transpoter = nodemailer.createTransport({

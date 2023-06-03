@@ -1,13 +1,10 @@
 import { connectToDatabase } from '@/lib/db';
 import Stripe from 'stripe';
 
-const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY);
+const stripe = Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY);
 const endpointSecret = process.env.NEXT_PUBLIC_STRIPE_WEBHOOK_SECRET;
 
 export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(400).json({ message: 'Method not allowed' });
-  }
   let event = req.body;
   if (endpointSecret) {
     const signature = req.headers['stripe-signature'];
@@ -16,7 +13,7 @@ export default async function handler(req, res) {
       console.log(`event.type: ${event.type}`);
     } catch (error) {
       console.error(error);
-      return res.status(400).send(`Webhook Error: ${error.message}`);
+      return res.status(400).json({ message: 'Webhook error' });
     }
   }
 

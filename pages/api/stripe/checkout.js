@@ -44,7 +44,7 @@ export default async function handler(req, res) {
             shipping_rate_data: {
               type: 'fixed_amount',
               fixed_amount: {
-                amount: 12500,
+                amount: 0,
                 currency: 'inr',
               },
               display_name: 'Standard shipping',

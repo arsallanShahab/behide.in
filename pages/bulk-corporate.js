@@ -76,32 +76,32 @@ const index = () => {
           <div className="flex items-center justify-start">
             <div className="relative w-full max-w-fit flex-1">
               <ScrollTitle
-                className="relative whitespace-nowrap font-sora text-5xl capitalize text-black duration-100 sm:text-8xl md:text-[10em]"
+                className="relative whitespace-nowrap font-sora text-6xl capitalize text-black duration-100 sm:text-8xl md:text-[10em]"
                 AnimateXEnd={-300}
               >
                 Bulk {'&'}&nbsp;
-                <div className="group relative isolate inline-block h-[2rem] w-[48%] overflow-hidden rounded-[50em] border-none bg-black text-center font-sora text-5xl text-white outline-none sm:h-[7.5rem]">
-                  <Image
+                <div className="group relative isolate hidden h-[2rem] w-[48%] overflow-hidden rounded-[50em] border-none bg-black text-center font-sora text-7xl text-white outline-none sm:inline-block sm:h-[7.5rem]">
+                  {/* <Image
                     src="/s-l500.jpg"
                     width={250}
                     height={250}
                     className="relative h-full w-full rounded-[50em] object-cover duration-200 group-hover:rotate-6 group-hover:scale-[1.3]"
                     alt="thumbnail"
-                  />
+                  /> */}
                 </div>
               </ScrollTitle>
             </div>
           </div>
 
           <ScrollTitle
-            className="font-sora text-5xl capitalize text-black duration-100 sm:text-8xl md:text-[10em]"
+            className="font-sora text-6xl capitalize text-black duration-100 sm:text-8xl md:text-[10em]"
             AnimateXEnd={300}
           >
             Corporate
           </ScrollTitle>
         </div>
 
-        <p className="text-brandBlack relative z-10 max-w-4xl px-2 py-5 text-justify align-middle font-sora text-xs leading-[2.5] sm:py-24 sm:text-left md:pl-28">
+        <p className="text-brandBlack relative z-10 px-2 py-5 text-justify align-middle font-sora text-sm leading-[2] sm:py-24 sm:text-left sm:text-base md:pr-12 md:text-lg md:leading-[2.5]">
           We are accepting corporate orders and bulk orders. since you know this is an ideal gift
           you can give to your dignified customers / clients / companies, this is one of the most
           sought after gifts which the big MNCs are giving as a gift. Enjoy heavy discounts on bulk

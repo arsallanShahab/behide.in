@@ -1,13 +1,18 @@
 import { excerpt } from '@/lib/utils';
-import { motion, useInView } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
-import Link from 'next/link';
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
+import { twMerge } from 'tailwind-merge';
 import ChevronRightButton from './arrow-right-btn';
 
-const Card = ({ product, index }) => {
+const Card = ({ product, index, lg }, props) => {
   return (
-    <motion.div layout={'position'} key={index} className="basis-full sm:basis-[275px]">
+    <motion.div
+      layout={'position'}
+      key={index}
+      className={twMerge('basis-full sm:basis-[275px]', lg && 'lg:basis-[300px]')}
+      {...props}
+    >
       <a
         key={index}
         href={`/products/${product.sys.id}`}
@@ -26,7 +31,7 @@ const Card = ({ product, index }) => {
           <h3 className="mt-2 px-6 text-left text-xs font-semibold leading-5 text-black">
             {excerpt(product.fields.productName, 100)}
           </h3>
-          <div className="flex items-center justify-between px-6 py-4">
+          <div className="flex items-center justify-between px-6 pb-4 pt-2">
             <p className="text-sm font-semibold text-green-600">₹{product.fields.productPrice}</p>
             <ChevronRightButton label="view product" small={true} />
           </div>

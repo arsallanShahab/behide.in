@@ -13,7 +13,6 @@ export const GlobalContextProvider = ({ children }) => {
   const [quantity, setQuantity] = useState(1);
   const [user, setUser] = useState(null);
   const [fetchedUser, setFetchedUser] = useState(null);
-  const [cookie, setCookie] = useState(null);
   useEffect(() => {
     let items = localStorage.getItem('cart');
     items = JSON.parse(items);
@@ -33,43 +32,23 @@ export const GlobalContextProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // const token = localStorage.getItem('token');
-    // const getTokenCookie = cookies?.token;
-    // console.log(getTokenCookie);
-    // const decodedToken = decode(getTokenCookie);
-    // if (decodedToken && decodedToken.exp * 1000 < new Date().getTime()) {
-    //   localStorage.removeItem('token');
-    //   setUser(null);
-    //   return;
-    // }
-    // const tokenCookie = Cookies.get('token');
+    const token = Cookies.get();
+    const tokenCookie = token?.token;
 
-    // const token = Cookies.get('token');
-    const token = getCookie('token');
-    const tokenValue = token?.split('=')[1];
-
-    if (tokenValue) {
-      const decodedToken = decode(tokenValue);
-      setUser(() => {
-        return {
-          name: decodedToken.name,
-          email: decodedToken.email,
-          _id: decodedToken._id,
-        };
-      });
-    }
+    const { name, email, _id } = decode(tokenCookie);
 
     const fetchUser = async () => {
+      setLoading(true);
       try {
         const res = await fetch('/api/auth/user', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${tokenValue}`,
+            Authorization: `Bearer ${tokenCookie}`,
           },
         });
-        const { user, success } = await res.json();
-        if (success) {
+        const { user, ok } = await res.json();
+        if (ok) {
           setUser(() => {
             return {
               name: user.name,
@@ -77,6 +56,8 @@ export const GlobalContextProvider = ({ children }) => {
               _id: user._id,
             };
           });
+        } else {
+          toast.error(message);
         }
       } catch (error) {
         toast.error(JSON.stringify(error));
@@ -85,9 +66,17 @@ export const GlobalContextProvider = ({ children }) => {
         setFetchedUser(true);
       }
     };
-    if (token && !user) {
-      setLoading(true);
-      fetchUser();
+
+    if (tokenCookie) {
+      if (name && email && _id) {
+        setUser({
+          _id,
+          name,
+          email,
+        });
+      } else {
+        fetchUser();
+      }
     }
   }, []);
   return (
@@ -129,11 +118,15 @@ const ScrollToTopButton = () => {
     </div>
   );
 };
+// change to async await
+// const getCookie = (name) => {
+//   const cookies = document.cookie;
+//   const cookie = cookies?.split(';').find((cookie) => cookie.includes(name));
+//   return cookie;
+// };
 
 const getCookie = (name) => {
-  const cookies = document.cookie;
-  const cookie = cookies?.split(';').find((cookie) => cookie.includes(name));
-  return cookie;
+  return Cookies.get(name);
 };
 
 export const useGlobalContextProvider = () => useContext(GlobalContext);

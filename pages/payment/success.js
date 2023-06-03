@@ -20,6 +20,7 @@ const success = () => {
         .then((response) => response.json())
         .then((data) => {
           if (data.payment_status === 'paid') {
+            console.log(data);
             localStorage.setItem('cart', JSON.stringify([]));
             setCartItems([]);
             setTotalPrice(0);

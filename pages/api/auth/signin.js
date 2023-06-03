@@ -19,8 +19,9 @@ export default async function handler(req, res) {
     }
     const token = jwt.sign(
       {
+        _id: user._id.toString(),
+        name: user.name,
         email: user.email,
-        userId: user._id.toString(),
       },
       process.env.NEXT_PUBLIC_JWT_SECRET,
       {

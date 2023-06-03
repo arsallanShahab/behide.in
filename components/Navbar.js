@@ -2,6 +2,7 @@ import { ChevronRight } from '@/assets';
 import { default as Cart } from '@/assets/shopping-cart.js';
 import User from '@/assets/user.js';
 import { useGlobalContextProvider } from '@/context/GlobalContext.js';
+import { cn } from '@/lib/utils';
 import CartModal from '@components/CartModal.js';
 import logo from '@public/behide-logo-new.png';
 import Image from 'next/image';
@@ -24,6 +25,16 @@ const Navbar = () => {
     setDropdown(false);
     setOpen(false);
     setDropdown2(false);
+  }, [router.asPath]);
+
+  useEffect(() => {
+    if (router.pathname === '/') {
+      navbar.current.classList.add('navbar-sticky');
+      navbar.current.classList.add('slide-bg');
+    } else {
+      navbar.current.classList.remove('navbar-sticky');
+      navbar.current.classList.remove('slide-bg');
+    }
   }, [router.asPath]);
 
   const productCategory = [
@@ -55,7 +66,9 @@ const Navbar = () => {
     <>
       <div
         ref={navbar}
-        className="group/header header relative top-0 z-[500] flex w-full flex-row flex-wrap items-center justify-between py-3 px-3 text-black duration-150 lg:px-8"
+        className={cn(
+          'group/header header relative top-0 z-[500] flex w-full flex-row flex-wrap items-center justify-between py-3 px-3 text-black duration-150 lg:px-8',
+        )}
       >
         <div className="flex flex-wrap gap-8">
           <div className="z-10 max-w-[80px] rounded-lg p-4 pr-0">
@@ -119,7 +132,6 @@ const Navbar = () => {
               {[
                 ['products', '/products'],
                 ['bulk & corporate', '/bulk-corporate'],
-                ['hot products', '/hot-products'],
                 ['about us', '/about-us'],
               ].map((item, index) => {
                 return (

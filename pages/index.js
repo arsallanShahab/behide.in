@@ -1,3 +1,6 @@
+import Card from '@/components/Card';
+import Heading from '@/components/Heading';
+import LogoCloud from '@/components/LogoCloud';
 import ChevronRightButton from '@/components/arrow-right-btn';
 import AnimateHeading from '@/components/heading-animate';
 import StaggeringText from '@/components/staggering-text';
@@ -5,6 +8,7 @@ import { excerpt } from '@/lib/utils';
 // import { transition } from '@/lib/utils/CONSTANTS';
 import CompanyMoto from '@components/CompanyMoto';
 import Header from '@components/PageHead';
+import { ArrowRightIcon, ChevronRightIcon } from '@heroicons/react/20/solid';
 import { client } from '@lib/contentful';
 import { motion, useInView } from 'framer-motion';
 import Image from 'next/image';
@@ -58,7 +62,7 @@ export default function Home({ data }) {
     <>
       <Header />
 
-      <div className="slideshow relative ">
+      <div className="slideshow slide-bg">
         <Swiper
           ref={swiperRef}
           modules={[Navigation, Autoplay]}
@@ -79,11 +83,11 @@ export default function Home({ data }) {
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
               >
-                <motion.div className="relative flex flex-col items-center justify-center bg-opacity-50 px-6 pt-16 pb-36 sm:mt-0 sm:px-3 md:pt-12 lg:flex-row">
+                <motion.div className="relative flex flex-col items-center justify-center bg-opacity-50 px-6  pt-8 pb-36 sm:px-3 lg:flex-row">
                   <div className="flex basis-full flex-col items-center justify-center px-0 text-center sm:px-8 lg:basis-3/5 lg:items-end lg:justify-end">
                     <motion.h3
                       initial={{
-                        x: '25%',
+                        x: '10%',
                         opacity: 0,
                       }}
                       whileInView={{
@@ -95,7 +99,7 @@ export default function Home({ data }) {
                         },
                       }}
                       // viewport={{ once: true }}
-                      className="word-spacing-trending py-0 text-right align-middle font-sora text-sm font-semibold uppercase text-black"
+                      className="word-spacing-trending py-0 pr-4 text-right align-middle font-sora text-sm font-semibold uppercase text-black"
                     >
                       Trending Collection
                     </motion.h3>
@@ -112,7 +116,7 @@ export default function Home({ data }) {
                           ease: [0.6, 0.01, 0.05, 0.9],
                         },
                       }}
-                      className="relative z-10 mb-5 max-w-sm text-center font-sora text-[40px] lowercase leading-tight text-gray-900 sm:text-8xl md:max-w-full md:leading-[.9] lg:text-right"
+                      className="relative z-10 mb-5 max-w-sm break-words text-center font-sora text-[40px] font-medium lowercase leading-tight text-gray-900 sm:text-[4.9rem] md:max-w-full md:leading-[.9] lg:pl-7 lg:text-right"
                     >
                       {words.map((word, index) => {
                         return (
@@ -136,7 +140,7 @@ export default function Home({ data }) {
                         },
                       }}
                       href={`products/${item.homeBannerLink.sys.id}`}
-                      className="inline-block translate-x-0 py-2 align-middle font-sora text-sm font-medium text-black duration-150 hover:translate-x-2 hover:text-green-600"
+                      className=" group inline-block rounded-3xl py-2 px-3 align-middle text-sm font-semibold text-black duration-150 hover:bg-gray-50"
                     >
                       View Product <span aria-hidden="true">&rarr;</span>
                     </motion.a>
@@ -187,60 +191,38 @@ export default function Home({ data }) {
         </Swiper>
       </div>
 
+      <LogoCloud />
+
       <div className="overflow-hidden px-8 pb-20 pt-20 sm:pt-32 lg:px-10">
-        <div className="relative w-full pb-5 sm:pb-0">
-          <div className="relative font-sora text-5xl text-black">
-            <AnimateHeading text={'Featured Products'} staggerAnimate={0.05} />
-          </div>
-          <div className="absolute inset-0 -left-[0.25em] -top-[0.425em] -z-[1] hidden w-full whitespace-nowrap font-poppins text-[9em] text-gray-100 sm:inline-block md:-left-[0.375em] md:-top-[0.875em]">
-            <AnimateHeading text={'Featured'} staggerAnimate={0.1} />
-          </div>
+        <div className="relative mb-12 w-full px-0 sm:px-10">
+          <h1 className="mb-10 text-5xl capitalize">Featured Products</h1>
         </div>
 
         <motion.div
           initial="initial"
           whileInView="animate"
-          // only plays once
           viewport={{ once: true }}
           variants={flexContainerVariants}
-          className="flex flex-row flex-wrap items-center justify-center gap-0 p-3 px-0 sm:px-10 md:justify-start md:gap-3 md:p-3"
+          className="flex flex-row flex-wrap items-center justify-center gap-0 rounded-xl p-3 px-0 sm:px-10 md:justify-start md:gap-3"
         >
           {laptopBagsData &&
             laptopBagsData.items.map((item, index) => {
               return (
-                <motion.div
+                <Card
                   variants={flexItemVariants}
                   key={index}
                   style={{ originX: 0.5, originY: 1 }}
-                  className="flex origin-center flex-col items-start justify-start gap-4 p-3 lg:gap-4 lg:p-3"
-                >
-                  <Image
-                    className="h-full w-full object-cover md:h-[200px] md:w-[200px] lg:h-[250px] lg:w-[250px]"
-                    src={item.fields.productBannerImage.fields.file.url}
-                    alt={item.fields.productName}
-                    width={250}
-                    height={250}
-                  />
-                  <h1 className="w-full text-xs font-medium text-black md:max-w-[220px] lg:max-w-[280px] lg:text-sm">
-                    {excerpt(item.fields.productName, 100)}
-                  </h1>
-                  <div className="flex w-full flex-wrap items-center justify-between ">
-                    <p className="font-sora text-xs font-semibold text-black lg:text-sm">
-                      ₹{item.fields.productPrice}/-
-                    </p>
-
-                    <Link
-                      href={`/products/${item.sys.id}`}
-                      className="inline-block translate-x-0 py-2 align-middle font-sora text-xs text-black duration-150 hover:translate-x-2 hover:text-green-600"
-                    >
-                      View Product <span aria-hidden="true">&rarr;</span>
-                    </Link>
-                  </div>
-                </motion.div>
+                  product={item}
+                  index={index}
+                  lg
+                />
               );
             })}
           {laptopBagsData && (
-            <motion.div variants={flexItemVariants} className="md:flex-1 lg:p-5">
+            <motion.div
+              //  variants={flexItemVariants}
+              className="md:flex-1 lg:p-5"
+            >
               <ChevronRightButton label="view all" href="/products/category/laptop bag" />
             </motion.div>
           )}
@@ -270,58 +252,39 @@ export default function Home({ data }) {
           </div>
         </div>
       </div>
-      <div className="relative overflow-hidden px-8 pb-20 pt-32 lg:px-10">
-        <div className="relative pb-5 sm:pb-0">
-          <div className="relative block font-sora text-5xl text-black">
-            <AnimateHeading text={'shop backpacks'} staggerAnimate={0.05} />
-          </div>
-          <div className="absolute inset-0 -left-[0.25em] -top-[0.425em] -z-[1] hidden w-full whitespace-nowrap font-poppins text-[9em] text-gray-100 sm:inline-block md:-left-[0.375em] md:-top-[0.875em]">
-            <AnimateHeading text={'Backpacks'} staggerAnimate={0.1} />
-          </div>
+      <div className="relative overflow-hidden px-8 pb-32 pt-32 lg:px-10">
+        <div className="relative mb-12 w-full px-0 sm:px-10">
+          <h1 className="mb-10 text-5xl capitalize">Best Selling Backpacks</h1>
         </div>
         <motion.div
           initial="initial"
           whileInView="animate"
           viewport={{ once: true }}
           variants={flexContainerVariants}
-          className="flex flex-row flex-wrap items-center justify-center gap-0 px-0 sm:p-3 md:justify-start md:gap-3 md:p-6"
+          className="flex flex-row flex-wrap items-center justify-center gap-0 rounded-xl p-3 px-0 sm:px-10 md:justify-start md:gap-3"
         >
           {backpacksData &&
             backpacksData.items.map((item, index) => {
               return (
-                <motion.div
-                  key={index}
+                <Card
                   variants={flexItemVariants}
-                  className="flex flex-col items-start justify-start gap-4 p-3 lg:gap-4 lg:p-3"
-                >
-                  <Image
-                    className="h-full w-full object-cover md:h-[200px] md:w-[200px] lg:h-[250px] lg:w-[250px]"
-                    src={item.fields.productBannerImage.fields.file.url}
-                    alt={item.fields.productName}
-                    width={250}
-                    height={250}
-                  />
-                  <h1 className="w-full font-poppins text-sm font-light text-black md:max-w-[220px] lg:max-w-[280px] lg:text-sm">
-                    {excerpt(item.fields.productName, 100)}
-                  </h1>
-                  <div className="flex w-full flex-wrap items-center justify-between ">
-                    <p className="text-sm font-semibold text-gray-900">
-                      Rs. {item.fields.productPrice}/-
-                    </p>
-
-                    <Link
-                      href={`/products/${item.sys.id}`}
-                      className="inline-block translate-x-0 py-2 align-middle font-sora text-xs text-black duration-150 hover:translate-x-2 hover:text-green-600"
-                    >
-                      View Product <span aria-hidden="true">&rarr;</span>
-                    </Link>
-                  </div>
-                </motion.div>
+                  key={index}
+                  style={{ originX: 0.5, originY: 1 }}
+                  product={item}
+                  index={index}
+                  lg
+                />
               );
             })}
           {backpacksData && (
-            <motion.div variants={flexItemVariants} className="p-5 md:flex-1">
-              <ChevronRightButton label="view all" href="/products/category/backpack" />
+            <motion.div
+              //  variants={flexItemVariants}
+              className="p-5 md:flex-1"
+            >
+              <ChevronRightButton
+                label="view all"
+                href={`products/category/${backpacksData?.items[0]?.fields.productType}`}
+              />
             </motion.div>
           )}
         </motion.div>

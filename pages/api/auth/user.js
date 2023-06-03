@@ -27,9 +27,9 @@ export default async function handler(req, res) {
     if (!user) {
       return res.status(422).json({ message: 'account does not exist' });
     }
-    res.status(200).json({ user, success: true });
+    res.status(200).json({ user, ok: true });
     //set headers cookie
   } catch (error) {
-    res.status(500).json({ message: 'Something went wrong' });
+    res.status(500).json({ ok: false, message: `An error occurred: ${error.message}` });
   }
 }

@@ -31,7 +31,7 @@ const index = () => {
         >
           build trust
         </ScrollTitle>
-        <p className="text-brandBlack relative max-w-4xl py-5 pt-10 text-justify align-middle font-sora text-xs leading-[2.5] sm:py-24 sm:text-left md:pl-28">
+        <p className="text-brandBlack relative z-10 px-2 py-5 text-justify align-middle font-sora text-sm leading-[2] sm:py-24 sm:text-left sm:text-base md:pr-12 md:text-lg md:leading-[2.5]">
           Behide is the renowned name in the industry for manufacturing, supplying and distributing
           of Leather Folders, Leather Card Holders, Leather Executive Bags, Leather Wallets and many
           other products. Behide is the Sole Proprietor Ship based company that was emerged in the
@@ -46,46 +46,53 @@ const index = () => {
         </p>
       </div>
 
-      <div className="mx-auto flex max-w-2xl flex-col justify-center gap-3 p-5 sm:p-10 lg:max-w-6xl">
-        <div className="w-full">
+      <div className="mx-auto flex w-full flex-col justify-center gap-20 p-5 sm:p-10">
+        <div className="w-full text-center sm:text-left">
           <h2 className="text-brandBlack pb-5 font-sora text-5xl sm:text-8xl">
-            our{' '}
-            <div className="mt-1 block lowercase text-green-500">
-              <StaggeringText text={'Mission'} />
-            </div>
+            Our <StaggeringText text={'Mission'} />
           </h2>
-          <p className="text-brandBlack max-w-lg pb-10 font-sora text-sm leading-loose">
-            Our mission is to provide our customers with the best quality products at the most
-            competitive prices. We are committed to providing our customers with the best quality
-            products at the most competitive prices.
+          <p className="mt-5 align-middle font-sora text-xs leading-[2] sm:text-sm md:text-lg md:leading-[2.5]">
+            Our mission is to empower our customers by offering them superior quality products at
+            highly competitive prices. We are dedicated to delivering the utmost value and
+            satisfaction to our customers through a relentless pursuit of excellence and unwavering
+            commitment to their needs. With an unwavering focus on quality and affordability, we
+            strive to be the preferred choice for customers seeking top-notch products without
+            compromising on cost-effectiveness. Our goal is to consistently exceed customer
+            expectations, foster long-term partnerships, and establish ourselves as a trusted
+            provider of high-quality products in the market.
           </p>
         </div>
 
-        <div className="flex w-full flex-1 flex-col items-end text-right ">
+        <div className="flex w-full flex-1 flex-col items-end text-center sm:text-right">
           <h2 className="text-brandBlack pb-5 font-sora text-5xl sm:text-8xl">
-            our{' '}
-            <div className="mt-1 block lowercase text-green-500">
-              <StaggeringText text={'Vision'} />
-            </div>
+            Our <StaggeringText text={'Vision'} />
           </h2>
-          <p className="text-brandBlack max-w-md pb-10 text-sm leading-loose ">
-            Our vision is to be the most respected and trusted name in the industry. We are
-            committed to being the most respected and trusted name in the industry. We are committed
-            to being the most respected and trusted name in the industry.
+          <p className="mt-5 align-middle font-sora text-xs leading-[2] sm:text-sm md:text-lg md:leading-[2.5]">
+            Our vision is to become the epitome of respect and trust in the industry, setting the
+            standard for excellence and reliability. We aspire to be recognized as the most
+            respected and trusted name in our field, known for our unwavering commitment to quality,
+            integrity, and customer satisfaction. Through continuous innovation, exceptional
+            service, and a steadfast dedication to our core values, we strive to earn the trust and
+            respect of our customers, partners, and stakeholders. Our unwavering pursuit of
+            excellence and our relentless focus on building lasting relationships will propel us to
+            be the industry leader, shaping the future of our field with our unwavering commitment
+            to excellence.
           </p>
         </div>
 
-        <div className="w-full">
+        <div className="w-full text-center sm:text-left">
           <h2 className="text-brandBlack pb-5 font-sora text-5xl sm:text-8xl">
-            our{' '}
-            <div className="mt-1 block lowercase text-green-500">
-              <StaggeringText text={'Values'} />
-            </div>
+            Our <StaggeringText text={'Values'} />
           </h2>
-          <p className="text-brandBlack max-w-lg pb-10 text-sm leading-loose">
-            Our values are the foundation of our company. We are committed to providing our
-            customers with the best quality products at the most competitive prices and to deliver
-            them on time.
+          <p className="mt-5 align-middle font-sora text-xs leading-[2] sm:text-sm md:text-lg md:leading-[2.5]">
+            At our core, we value delivering superior quality products at competitive prices and
+            ensuring timely delivery to our customers. These values drive our commitment to
+            excellence, guiding every aspect of our operations and interactions. We take pride in
+            upholding these principles, as they form the foundation of our company and enable us to
+            exceed customer expectations.We believe in building lasting relationships with our
+            customers, based on trust, transparency, and exceptional service. Our values inspire us
+            to continuously innovate, improve, and adapt to meet the evolving needs of our
+            customers, ensuring their satisfaction and loyalty.
           </p>
         </div>
       </div>

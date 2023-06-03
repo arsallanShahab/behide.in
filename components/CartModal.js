@@ -61,7 +61,7 @@ const CartItems = () => {
   const handleCheckout = async () => {
     toast.loading('Redirecting to checkout page');
     const token = localStorage.getItem('token');
-    if (!user && !token) {
+    if (!user) {
       toast.dismiss();
       toast.error('Please login to continue');
       return;
@@ -74,15 +74,18 @@ const CartItems = () => {
       },
       body: JSON.stringify({
         cartItems,
-        client_reference_id: user._id,
+        user_id: user._id,
         total_quantity: totalQuantity,
         total_price: totalPrice,
       }),
     });
     if (response.statusCode === 500) return;
-
-    const session = await response.json();
-    window.location.href = session.url;
+    const { url, ok } = await response.json();
+    if (ok) {
+      router.push(url);
+    } else {
+      toast.error('Something went wrong');
+    }
   };
 
   const handleCheckoutCOD = async (e) => {

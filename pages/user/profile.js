@@ -4,13 +4,13 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
 const Account = (props) => {
-  const { user, fetchedUser } = useGlobalContextProvider();
+  const { user } = useGlobalContextProvider();
 
   const router = useRouter();
 
   useEffect(() => {
-    if ((fetchedUser && !user) || Cookies.get('token') === undefined) {
-      router.push('/');
+    if (!user) {
+      router.push('/user/login');
     }
   }, []);
   return (

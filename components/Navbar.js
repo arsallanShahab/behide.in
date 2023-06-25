@@ -171,14 +171,16 @@ const Navbar = () => {
                   className="absolute top-[125%] -left-24 z-[101] flex origin-top scale-75 flex-col rounded-xl border bg-white shadow-xl duration-200 md:left-auto md:right-0"
                 >
                   <div className="border-b border-b-gray-200 px-4 py-4 pr-12 text-sm">
-                    <p>Signed in as</p>
+                    <p>
+                      Signed in as: <span className="font-semibold">{user?.name}</span>
+                    </p>
                     <p className="font-semibold">{user?.email}</p>
                   </div>
                   <div className="flex flex-col border-b px-2 py-4 text-sm">
                     {[
-                      ['Account', `/${username}/profile`],
-                      ['Orders', `/${username}/orders/`],
-                      ['Logout', `/${username}/logout/`],
+                      ['Account', `/user/profile`],
+                      ['Orders', `/user/orders/`],
+                      ['Logout', `/user/logout/`],
                     ].map((item, index) => {
                       return (
                         <Link

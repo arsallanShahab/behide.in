@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   const { session_id } = req.query;
   try {
     const session = await stripe.checkout.sessions.retrieve(session_id, {
-      expand: ['line_items'],
+      expand: ['line_items.data.price.product'],
     });
     res.status(200).json(session);
   } catch (error) {

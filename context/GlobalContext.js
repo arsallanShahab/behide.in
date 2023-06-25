@@ -65,6 +65,7 @@ export const GlobalContextProvider = ({ children }) => {
               name: user.name,
               email: user.email,
               _id: user._id,
+              token: tokenCookie,
             };
           });
         } else {
@@ -85,6 +86,7 @@ export const GlobalContextProvider = ({ children }) => {
             name,
             email,
             _id,
+            token: tokenCookie,
           };
         });
       } else {

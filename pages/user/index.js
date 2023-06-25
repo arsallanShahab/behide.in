@@ -8,9 +8,6 @@ import React, { useEffect, useState } from 'react';
 
 const Dashboard = (props) => {
   const { user, setUser } = useGlobalContextProvider();
-  const [accountActive, setAccountActive] = useState(true);
-  const [ordersActive, setOrdersActive] = useState(false);
-  const [isActive, setIsActive] = useState(false);
   const router = useRouter();
 
   const logout = () => {

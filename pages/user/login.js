@@ -40,7 +40,7 @@ export default function Example() {
           _id: user._id,
         };
       });
-      router.push(`/${username}/profile`);
+      router.push(`/user/profile`);
     }
   };
 

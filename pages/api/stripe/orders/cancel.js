@@ -13,10 +13,10 @@ export default async function handler(req, res) {
     //update order status
     const up = await db
       .collection('orders')
-      .updateOne({ _id: obj_id }, { $set: { 'status.order_status': 'cancelled by user' } });
+      .updateOne({ _id: obj_id }, { $set: { delivery_status: 'cancelled by user' } });
 
-    return res.status(200).json({ success: true, message: 'Order cancelled' });
+    return res.status(200).json({ ok: true, message: 'Order cancelled' });
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    res.status(500).json({ ok: false, message: error.message });
   }
 }

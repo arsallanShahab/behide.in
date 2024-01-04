@@ -18,7 +18,7 @@ const index = () => {
   return (
     <>
       <PageHead pageTitle={path} />
-      <div className="relative mx-auto w-full overflow-hidden py-16 px-7 sm:px-10 md:max-w-2xl lg:max-w-7xl lg:px-8">
+      <div className="relative mx-auto w-full overflow-hidden py-16 px-7 sm:px-10 md:max-w-screen-2xl lg:px-8">
         <ScrollTitle
           className="relative pt-10 font-sora text-5xl capitalize text-black duration-100 sm:pt-20 sm:text-8xl  md:text-[10em]"
           AnimateXEnd={-300}
@@ -51,7 +51,7 @@ const index = () => {
           <h2 className="text-brandBlack pb-5 font-sora text-5xl sm:text-8xl">
             Our <StaggeringText text={'Mission'} />
           </h2>
-          <p className="mt-5 align-middle font-sora text-xs leading-[2] sm:text-sm md:text-lg md:leading-[2.5]">
+          <p className="mt-5 max-w-4xl align-middle font-sora text-xs leading-[2] sm:text-sm md:text-lg md:leading-[2.5]">
             Our mission is to empower our customers by offering them superior quality products at
             highly competitive prices. We are dedicated to delivering the utmost value and
             satisfaction to our customers through a relentless pursuit of excellence and unwavering
@@ -67,7 +67,7 @@ const index = () => {
           <h2 className="text-brandBlack pb-5 font-sora text-5xl sm:text-8xl">
             Our <StaggeringText text={'Vision'} />
           </h2>
-          <p className="mt-5 align-middle font-sora text-xs leading-[2] sm:text-sm md:text-lg md:leading-[2.5]">
+          <p className="mt-5 max-w-4xl align-middle font-sora text-xs leading-[2] sm:text-sm md:text-lg md:leading-[2.5]">
             Our vision is to become the epitome of respect and trust in the industry, setting the
             standard for excellence and reliability. We aspire to be recognized as the most
             respected and trusted name in our field, known for our unwavering commitment to quality,
@@ -84,7 +84,7 @@ const index = () => {
           <h2 className="text-brandBlack pb-5 font-sora text-5xl sm:text-8xl">
             Our <StaggeringText text={'Values'} />
           </h2>
-          <p className="mt-5 align-middle font-sora text-xs leading-[2] sm:text-sm md:text-lg md:leading-[2.5]">
+          <p className="mt-5 max-w-4xl align-middle font-sora text-xs leading-[2] sm:text-sm md:text-lg md:leading-[2.5]">
             At our core, we value delivering superior quality products at competitive prices and
             ensuring timely delivery to our customers. These values drive our commitment to
             excellence, guiding every aspect of our operations and interactions. We take pride in

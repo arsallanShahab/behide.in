@@ -6,7 +6,7 @@ import Link from 'next/link';
 const Footer = () => {
   return (
     <div className="overflow-hidden">
-      <div className="container relative mx-auto flex w-full flex-row flex-wrap items-start justify-between gap-3 py-28 px-5 sm:px-20">
+      <div className="relative mx-auto flex w-full flex-row flex-wrap items-start justify-between gap-3 py-28 px-5 sm:px-10">
         <div className="absolute inset-x-0 bottom-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:bottom-[-20rem]">
           <svg
             className="relative left-1/2 -z-10 h-[21.1875rem] max-w-none -translate-x-1/2 rotate-[30deg] sm:left-[calc(50%-40rem)] sm:h-[55.375rem]"

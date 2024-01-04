@@ -70,7 +70,7 @@ const index = () => {
       <PageHead pageTitle={path} />
       <div
         ref={ref}
-        className="mx-auto overflow-hidden px-5 pb-16 pt-28 sm:px-6 md:max-w-2xl lg:max-w-7xl lg:px-8"
+        className="mx-auto overflow-hidden px-5 pb-16 pt-28 sm:px-6 md:max-w-screen-2xl lg:px-8"
       >
         <div className="max-w-fit px-2 pb-5 sm:px-0 sm:pb-0">
           <div className="flex items-center justify-start">

@@ -32,10 +32,10 @@ const logos = [
 const LogoCloud = () => {
   const swiperRef = useRef(null);
   return (
-    <div className="bg-white px-10 pt-32 pb-16">
-      <div className="mx-auto max-w-7xl px-0 sm:px-10">
+    <div className="max-w-screen-2xl bg-white px-10 pt-32 pb-16">
+      <div className="px-0 sm:px-10">
         <div className="relative mb-10 w-full">
-          <h1 className="mb-10 text-5xl capitalize">Our Clients</h1>
+          <h1 className="mb-10 font-sora text-5xl font-semibold capitalize">Our Clients</h1>
         </div>
 
         <Swiper

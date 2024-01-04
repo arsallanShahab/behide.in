@@ -83,7 +83,7 @@ export default function Home({ data }) {
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
               >
-                <motion.div className="relative flex flex-col items-center justify-center bg-opacity-50 px-6  pt-8 pb-36 sm:px-3 lg:flex-row">
+                <motion.div className="relative flex flex-col items-center justify-center bg-opacity-50 px-6  pt-8 pb-14 sm:px-3 lg:flex-row">
                   <div className="flex basis-full flex-col items-center justify-center px-0 text-center sm:px-8 lg:basis-3/5 lg:items-end lg:justify-end">
                     <motion.h3
                       initial={{
@@ -193,9 +193,9 @@ export default function Home({ data }) {
 
       <LogoCloud />
 
-      <div className="overflow-hidden px-8 pb-20 pt-20 sm:pt-32 lg:px-10">
+      <div className="overflow-hidden px-8 pb-20 pt-20 sm:pt-8 lg:px-10">
         <div className="relative mb-12 w-full px-0 sm:px-10">
-          <h1 className="mb-10 text-5xl capitalize">Featured Products</h1>
+          <h1 className="mb-10 font-sora text-5xl font-semibold capitalize">Featured Products</h1>
         </div>
 
         <motion.div
@@ -229,32 +229,32 @@ export default function Home({ data }) {
         </motion.div>
       </div>
 
-      <div className="">
-        <div className="relative mx-auto max-w-7xl py-24 px-8 sm:px-10 sm:py-20 lg:px-16">
-          <div className="relative text-left">
-            <div className="absolute inset-0 -left-[0.25em] -top-[0.67em] -z-[1] inline-block w-full whitespace-nowrap font-poppins text-[4em] text-gray-100 sm:text-[9em] md:-left-[0.6em]">
-              <AnimateHeading text={'Collection'} />
-            </div>
-
-            <h2 className="mb-5 font-sora text-6xl text-black sm:text-9xl">
-              <StaggeringText text={'Behide'} staggerHover={0.015} staggerInitial={0.01} /> new in's
-              of the year{' '}
-              <span className="text-green-600">
-                <StaggeringText text={'2023'} staggerHover={0.03} staggerInitial={0.01} />
-              </span>
-            </h2>
-            <a
-              href={`products/`}
-              className="ml-3 inline-block translate-x-0 py-2 align-middle font-sora font-medium text-black duration-150 hover:translate-x-3 hover:text-green-600"
-            >
-              View Collection <span aria-hidden="true">&rarr;</span>
-            </a>
+      <div className="relative mx-auto max-w-screen-2xl py-24 px-8 sm:px-10 sm:py-20 lg:px-16">
+        <div className="relative text-left">
+          <div className="absolute inset-0 -left-[0.25em] -top-[0.67em] -z-[1] inline-block w-full whitespace-nowrap font-poppins text-[4em] text-gray-100 sm:text-[9em] md:-left-[0.25em]">
+            <AnimateHeading text={'Collection'} />
           </div>
+
+          <h2 className="mb-5 font-sora text-6xl text-black sm:text-9xl">
+            <StaggeringText text={'Behide'} staggerHover={0.015} staggerInitial={0.01} /> new in's
+            of the year{' '}
+            <span className="text-green-600">
+              <StaggeringText text={'2023'} staggerHover={0.03} staggerInitial={0.01} />
+            </span>
+          </h2>
+          <a
+            href={`products/`}
+            className="ml-3 inline-block translate-x-0 py-2 align-middle font-sora font-medium text-black duration-150 hover:translate-x-3 hover:text-green-600"
+          >
+            View Collection <span aria-hidden="true">&rarr;</span>
+          </a>
         </div>
       </div>
       <div className="relative overflow-hidden px-8 pb-32 pt-32 lg:px-10">
         <div className="relative mb-12 w-full px-0 sm:px-10">
-          <h1 className="mb-10 text-5xl capitalize">Best Selling Backpacks</h1>
+          <h1 className="mb-10 font-sora text-5xl font-semibold capitalize">
+            Best Selling Backpacks
+          </h1>
         </div>
         <motion.div
           initial="initial"

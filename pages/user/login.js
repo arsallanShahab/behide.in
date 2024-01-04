@@ -17,30 +17,34 @@ export default function Example() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     toast.loading('Signing in...');
-    const res = await fetch('/api/auth/signin', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(form),
-    });
-    const { success, error, user, message, token } = await res.json();
-    if (error) {
-      toast.dismiss();
-      toast.error(message);
-    }
-    if (success && token && user) {
-      const username = user?.name?.replace(' ', '-').toLowerCase();
-      toast.dismiss();
-      toast.success(message);
-      setUser(() => {
-        return {
-          name: user.name,
-          email: user.email,
-          _id: user._id,
-        };
+    try {
+      const res = await fetch('/api/auth/signin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(form),
       });
-      router.push(`/user/profile`);
+      const { success, error, user, message, token } = await res.json();
+      if (error) {
+        toast.dismiss();
+        toast.error(message);
+      }
+      if (success && token && user) {
+        const username = user?.name?.replace(' ', '-').toLowerCase();
+        toast.dismiss();
+        toast.success(message);
+        setUser(() => {
+          return {
+            name: user.name,
+            email: user.email,
+            _id: user._id,
+          };
+        });
+        router.push(`/user/profile`);
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 

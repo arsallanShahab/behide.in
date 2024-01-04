@@ -346,10 +346,11 @@ a {
   font-size: 0.9rem;
   line-height: 1.25rem;
   text-align: center;
-  padding: 1em 2.5em;
+  padding: 1em 1.5em;
   font-weight: bolder;
   border-radius: 99px;
   transition: 200ms;
+  background-color: #ececec;
 }
 
 .logo-cloud .swiper-button-next,
@@ -368,12 +369,12 @@ a {
 
 .logo-cloud:hover .swiper-button-next,
 .logo-cloud:hover .swiper-rtl .swiper-button-prev {
-  right: 0;
+  right: 35px;
   opacity: 1;
 }
 
 .logo-cloud:hover .swiper-button-prev,
 .logo-cloud:hover .swiper-rtl .swiper-button-next {
-  left: 0;
+  left: 35px;
   opacity: 1;
 }

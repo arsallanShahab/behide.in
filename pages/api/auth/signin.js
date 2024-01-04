@@ -11,11 +11,13 @@ export default async function handler(req, res) {
   try {
     const user = await db.collection('users').findOne({ email });
     if (!user) {
-      return res.status(422).json({ error: true, message: 'account does not exist' });
+      res.status(422).json({ error: true, message: 'account does not exist' });
+      return;
     }
     const isValidPassword = await verifyPassword(password, user.password);
     if (!isValidPassword) {
-      return res.status(422).json({ error: true, message: 'Invalid password' });
+      res.status(422).json({ error: true, message: 'Invalid password' });
+      return;
     }
     const token = jwt.sign(
       {

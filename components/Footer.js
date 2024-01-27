@@ -49,19 +49,29 @@ const Footer = () => {
                 About us
               </Link>
             </div>
-            <div className="mt-6 sm:mt-2">
-              <Link className="footer-link group" href={'/about-us#contact'}>
+            {/* <div className="mt-6 sm:mt-2">
+              <Link className="footer-link group" href={'/contact-us'}>
                 Contact us
               </Link>
-            </div>
+            </div> */}
             <div className="mt-6 sm:mt-2">
-              <Link className="footer-link group" href={'/about-us#privacy-policy'}>
+              <Link className="footer-link group" href={'/privacy-policy'}>
                 Privacy Policy
               </Link>
             </div>
             <div className="mt-6 sm:mt-2">
-              <Link className="footer-link group" href={'/about-us#terms-and-conditions'}>
+              <Link className="footer-link group" href={'/terms-&-condition'}>
                 Terms & Conditions
+              </Link>
+            </div>
+            <div className="mt-6 sm:mt-2">
+              <Link className="footer-link group" href={'/shipping-&-delivery'}>
+                shipping & delivery
+              </Link>
+            </div>
+            <div className="mt-6 sm:mt-2">
+              <Link className="footer-link group" href={'/cancellation-&-refunds'}>
+                Cancellation & Refunds
               </Link>
             </div>
           </div>

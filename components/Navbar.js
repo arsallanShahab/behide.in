@@ -39,16 +39,16 @@ const Navbar = () => {
 
   const productCategory = [
     'Office Bag',
-    'Backpack',
-    'Briefcase',
+    // 'Backpack',
+    // 'Briefcase',
     'Laptop Bag',
-    'Messenger Bag',
-    'Luggage Bag',
-    'Ladies Bag',
-    'Belt',
-    'Wallet',
-    'Sling Bag',
-    'Jacket',
+    // 'Messenger Bag',
+    // 'Luggage Bag',
+    // 'Ladies Bag',
+    // 'Belt',
+    // 'Wallet',
+    // 'Sling Bag',
+    // 'Jacket',
   ];
 
   const toggleMenu = () => {
@@ -133,6 +133,7 @@ const Navbar = () => {
                 ['products', '/products'],
                 ['bulk & corporate', '/bulk-corporate'],
                 ['about us', '/about-us'],
+                ['contact us', '/contact-us'],
               ].map((item, index) => {
                 return (
                   <li key={index} className="w-full px-6 py-1 lg:w-auto lg:py-0 lg:px-0">

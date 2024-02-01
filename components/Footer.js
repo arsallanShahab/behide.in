@@ -49,11 +49,11 @@ const Footer = () => {
                 About us
               </Link>
             </div>
-            {/* <div className="mt-6 sm:mt-2">
+            <div className="mt-6 sm:mt-2">
               <Link className="footer-link group" href={'/contact-us'}>
                 Contact us
               </Link>
-            </div> */}
+            </div>
             <div className="mt-6 sm:mt-2">
               <Link className="footer-link group" href={'/privacy-policy'}>
                 Privacy Policy

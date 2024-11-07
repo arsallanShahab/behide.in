@@ -7,6 +7,7 @@ import { client } from '@lib/contentful';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
+import Markdown from 'react-markdown';
 import safeJsonStringify from 'safe-json-stringify';
 
 const index = ({ data }) => {
@@ -82,6 +83,16 @@ const index = ({ data }) => {
     toast.success(`${quantity} item added to cart`);
   };
 
+  // format price in Indian format -> 2,34,345.00
+  const formatPrice = (price) => {
+    return price.toLocaleString('en-IN', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+  };
+
+  console.log(product);
+
   return (
     <div className="relative top-0 mx-auto max-w-fit duration-500">
       <div className="relative flex flex-row flex-wrap items-start justify-center">
@@ -100,7 +111,55 @@ const index = ({ data }) => {
               );
             })}
           </div>
-          <div className="pl-4 pr-4 sm:pr-0 sm:pl-10">
+          <div className="w-full pl-4 pr-4 sm:pr-0 sm:pl-10">
+            {/* <div className="flex w-auto flex-col items-start justify-start gap-3">
+              <Markdown
+                components={{
+                  p: ({ node, ...props }) => {
+                    return (
+                      <p
+                        {...props}
+                        className="break-all font-sora text-base text-gray-900 sm:text-lg"
+                      ></p>
+                    );
+                  },
+                  h1: ({ node, ...props }) => {
+                    return (
+                      <h1
+                        {...props}
+                        className="text-lg font-semibold text-gray-900 sm:text-2xl"
+                      ></h1>
+                    );
+                  },
+                  h2: ({ node, ...props }) => {
+                    return (
+                      <h2
+                        {...props}
+                        className="text-lg font-semibold text-gray-900 sm:text-2xl"
+                      ></h2>
+                    );
+                  },
+                  ul: ({ node, ...props }) => {
+                    return (
+                      <ul
+                        {...props}
+                        className="list-inside list-disc font-sora text-base text-gray-900"
+                      ></ul>
+                    );
+                  },
+                  li: ({ node, ...props }) => {
+                    return (
+                      <li
+                        {...props}
+                        className="list-inside list-disc font-sora text-base text-gray-900 sm:text-sm"
+                      ></li>
+                    );
+                  },
+                }}
+              >
+                {product.fields.productHighlight}
+              </Markdown>
+            </div> */}
             <Accordination
               title="highlights"
               content={product.fields.productHighlight.split('--')}
@@ -120,7 +179,7 @@ const index = ({ data }) => {
                   : product.fields.productName}
               </h1>
               <p className="font-sora text-xl text-green-600 sm:text-3xl">
-                Rs. {product.fields.productPrice}
+                Rs. {formatPrice(product.fields.productPrice)}
               </p>
             </div>
             <div className="flex basis-full flex-row flex-wrap items-center justify-start gap-3 rounded-xl bg-gray-50 p-2">

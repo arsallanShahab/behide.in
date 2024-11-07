@@ -4,7 +4,7 @@ import User from '@/assets/user.js';
 import { useGlobalContextProvider } from '@/context/GlobalContext.js';
 import { cn } from '@/lib/utils';
 import CartModal from '@components/CartModal.js';
-import logo from '@public/behide-logo-new.png';
+import logo from '@public/logo.jpg';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -71,9 +71,9 @@ const Navbar = () => {
         )}
       >
         <div className="flex flex-wrap gap-8">
-          <div className="z-10 max-w-[80px] rounded-lg p-4 pr-0">
+          <div className="z-10 rounded-lg">
             <a href="/">
-              <Image src={logo} alt="behide logo" className="w-full" />
+              <Image src={logo} alt="behide logo" className="h-auto w-[80px] object-contain" />
             </a>
           </div>
           <div

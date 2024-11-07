@@ -115,6 +115,7 @@ const colors = [
   { name: 'Tan', color: '#D97706' },
   { name: 'Dark Brown', color: '#4A2000' },
   { name: 'Red', color: '#C80000' },
+  { name: 'Grey', color: '#808080' },
 ];
 // create a list of data of price less than 1000 and greater than 1000 and less than 2000 and greater than 2000
 // create a list of data of category

@@ -38,8 +38,8 @@ const Navbar = () => {
   }, [router.asPath]);
 
   const productCategory = [
-    'Office Bag',
-    // 'Backpack',
+    // 'Office Bag',
+    'Backpack',
     // 'Briefcase',
     'Laptop Bag',
     // 'Messenger Bag',
